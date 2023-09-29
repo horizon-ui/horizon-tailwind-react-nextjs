@@ -1,0 +1,90 @@
+{
+  "name": "horizon-tailwind-react-nextjs",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@chakra-ui/hooks": "^2.1.4",
+    "@chakra-ui/modal": "^2.2.9",
+    "@chakra-ui/popover": "^2.1.8",
+    "@chakra-ui/portal": "^2.0.15",
+    "@chakra-ui/system": "^2.3.5",
+    "@chakra-ui/tooltip": "^2.2.6",
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@tanstack/react-table": "^8.7.9",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.3.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^25.2.3",
+    "@types/node": "^12.20.55",
+    "@types/react": "^18.0.15",
+    "@types/react-dom": "^18.0.6",
+    "apexcharts": "^3.35.5",
+    "framer-motion": "^7.10.2",
+    "react": "^18.2.0",
+    "react-apexcharts": "^1.4.0",
+    "react-calendar": "^3.9.0",
+    "next": "^13.3.2",
+    "next-transpile-modules": "^9.0.0",
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.4.0",
+    "react-router-dom": "^6.4.0",
+    "react-scripts": "5.0.1",
+    "react-no-ssr": "^1.1.0",
+    "tailwindcss-rtl": "^0.9.0",
+    "typescript": "^4.7.4",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "export": "next export",
+    "lint": "next lint",
+    "predeploy": "yarn run build",
+    "deploy": "gh-pages -d build"
+  },
+  "resolutions": {
+    "react-error-overlay": "6.0.9"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not ie 11",
+      "not chrome < 51",
+      "not safari < 10",
+      "not android < 51",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/jest": "^25.2.3",
+    "@types/node": "^18.7.6",
+    "@types/react": "18.2.0",
+    "@types/react-calendar": "^3.5.2",
+    "@types/react-dom": "^18.2.1",
+    "@types/react-no-ssr": "^1.1.3",
+    "@types/react-router-dom": "^5.3.3",
+    "autoprefixer": "^10.4.16",
+    "css-loader": "^6.7.1",
+    "eslint": "^8.23.0",
+    "eslint-config-next": "^13.3.2",
+    "gh-pages": "^3.2.3",
+    "postcss": "^8.4.30",
+    "prettier": "^2.8.3",
+    "prettier-plugin-tailwindcss": "^0.2.1",
+    "tailwindcss": "^3.3.3"
+  }
+}
