@@ -8,7 +8,6 @@ import {
   renderThumb,
   renderTrack,
   renderView,
-  renderViewMini,
 } from 'components/scrollbar/Scrollbar';
 import { Scrollbars } from 'react-custom-scrollbars-2';
 import avatar4 from '/public/img/avatars/avatar4.png';
@@ -39,13 +38,7 @@ function SidebarHorizon(props: { variant?: string; [x: string]: any }) {
           autoHide
           renderTrackVertical={renderTrack}
           renderThumbVertical={renderThumb}
-          renderView={
-            mini === false
-              ? renderView
-              : mini === true && hovered === true
-              ? renderView
-              : renderViewMini
-          }
+          renderView={renderView}
         >
           <div className="flex h-full flex-col justify-between">
             <div>
@@ -82,13 +75,13 @@ function SidebarHorizon(props: { variant?: string; [x: string]: any }) {
               <div className="mb-7 mt-[58px] h-px bg-gray-200 dark:bg-white/10" />
               {/* Nav item */}
               <ul>
-                <Links mini={mini} hovered={hovered} routes={routes} />
+                <Links routes={routes} />
               </ul>
             </div>
             {/* Free Horizon Card    */}
             <div className="mb-[30px] mt-[28px]">
               <div className="flex justify-center">
-                <SidebarCard mini={mini} hovered={hovered} />
+                <SidebarCard />
               </div>
               {/* Sidebar profile info */}
               <div className="mt-5 flex items-center justify-center gap-3">

@@ -96,7 +96,7 @@ export const barChartOptionsDailyTraffic = {
   },
   plotOptions: {
     bar: {
-      borderRadius: 3,
+      borderRadius: 10,
       columnWidth: '40px',
     },
   },
@@ -250,7 +250,7 @@ export const barChartOptionsWeeklyRevenue = {
   },
   plotOptions: {
     bar: {
-      borderRadius: 3,
+      borderRadius: 10,
       columnWidth: '20px',
     },
   },

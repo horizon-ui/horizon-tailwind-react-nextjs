@@ -135,7 +135,7 @@ const Navbar = (props: {
           <div className="flex w-[350px] flex-col gap-2 rounded-[20px] bg-white p-4 shadow-xl shadow-shadow-500 dark:!bg-navy-700 dark:text-white dark:shadow-none">
             <div
               style={{
-                backgroundImage: `url(${navbarimage})`,
+                backgroundImage: `url(${navbarimage.src})`,
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 'cover',
               }}

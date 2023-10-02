@@ -16,19 +16,12 @@ import Footer from 'components/footer/Footer';
 
 export default function Admin({ children }: { children: React.ReactNode }) {
   // states and functions
-  const [fixed] = useState(false);
   const [open, setOpen] = useState(false);
-  const [hovered, setHovered] = useState(false);
   const pathname = usePathname();
   if (isWindowAvailable()) document.documentElement.dir = 'ltr';
   return (
     <div className="flex h-full w-full bg-background-100 dark:bg-background-900">
-      <Sidebar
-        routes={routes}
-        open={open}
-        setOpen={() => setOpen(!open)}
-        variant="admin"
-      />
+      <Sidebar routes={routes} open={open} setOpen={setOpen} variant="admin" />
       {/* Navbar & Main Content */}
       <div className="h-full w-full font-dm dark:bg-navy-900">
         {/* Main Content */}
