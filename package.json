@@ -44,9 +44,6 @@
     "predeploy": "yarn run build",
     "deploy": "gh-pages -d build"
   },
-  "resolutions": {
-    "react-error-overlay": "6.0.9"
-  },
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -88,6 +85,7 @@
     "tailwindcss": "^3.3.3"
   },
   "resolutions": {
+    "react-error-overlay": "6.0.9",
     "@types/react": "18.0.31",
     "@types/react-dom": "18.0.11"
   }
