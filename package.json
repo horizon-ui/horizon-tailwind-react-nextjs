@@ -26,6 +26,7 @@
     "react-calendar": "^3.9.0",
     "next": "^13.3.2",
     "next-transpile-modules": "^9.0.0",
+    "react-custom-scrollbars-2": "^4.2.1",
     "react-dom": "^18.2.0",
     "react-icons": "^4.4.0",
     "react-router-dom": "^6.4.0",
@@ -43,9 +44,6 @@
     "lint": "next lint",
     "predeploy": "yarn run build",
     "deploy": "gh-pages -d build"
-  },
-  "resolutions": {
-    "react-error-overlay": "6.0.9"
   },
   "eslintConfig": {
     "extends": [
@@ -89,6 +87,7 @@
   },
   "resolutions": {
     "@types/react": "18.0.31",
-    "@types/react-dom": "18.0.11"
+    "@types/react-dom": "18.0.11",
+    "react-error-overlay": "6.0.9"
   }
 }

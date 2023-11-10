@@ -1,42 +1,23 @@
-import React from "react";
-import Chart from "react-apexcharts";
+'use client';
+import dynamic from 'next/dynamic';
+// import Chart from 'react-apexcharts';
+const Chart = dynamic(() => import('react-apexcharts'), {
+  ssr: false,
+});
 
-type ChartProps = {
-  // using `interface` is also ok
-  [x: string]: any;
+const BarChart = (props) => {
+  const { chartData, chartOptions } = props;
+
+  return (
+    // @ts-expect-error
+    <Chart
+      options={chartOptions}
+      type="bar"
+      width="100%"
+      height="100%"
+      series={chartData}
+    />
+  );
 };
-type ChartState = {
-  chartData: any[];
-  chartOptions: any;
-};
 
-class ColumnChart extends React.Component<ChartProps, ChartState> {
-  constructor(props: { chartData: any[]; chartOptions: any }) {
-    super(props);
-    this.state = {
-      chartData: [],
-      chartOptions: {},
-    };
-  }
-
-  componentDidMount() {
-    this.setState({
-      chartData: this.props.chartData,
-      chartOptions: this.props.chartOptions,
-    });
-  }
-
-  render() {
-    return (
-      <Chart
-        options={this.state.chartOptions}
-        series={this.state.chartData}
-        type="bar"
-        width="100%"
-        height="100%"
-      />
-    );
-  }
-}
-
-export default ColumnChart;
+export default BarChart;

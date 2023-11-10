@@ -1,43 +1,23 @@
-import React from "react";
-import ReactApexChart from "react-apexcharts";
+'use client';
+import dynamic from 'next/dynamic';
+// import Chart from 'react-apexcharts';
+const Chart = dynamic(() => import('react-apexcharts'), {
+  ssr: false,
+});
 
-type ChartProps = {
-  // using `interface` is also ok
-  [x: string]: any;
+const LineChart = (props) => {
+  const { chartData, chartOptions } = props;
+
+  return (
+    // @ts-expect-error
+    <Chart
+      options={chartOptions}
+      type="line"
+      width="100%"
+      height="100%"
+      series={chartData}
+    />
+  );
 };
-type ChartState = {
-  chartData: any[];
-  chartOptions: any;
-};
 
-class PieChart extends React.Component<ChartProps, ChartState> {
-  constructor(props: { chartData: any[]; chartOptions: any }) {
-    super(props);
-
-    this.state = {
-      chartData: [],
-      chartOptions: {},
-    };
-  }
-
-  componentDidMount() {
-    this.setState({
-      chartData: this.props.chartData,
-      chartOptions: this.props.chartOptions,
-    });
-  }
-
-  render() {
-    return (
-      <ReactApexChart
-        options={this.state.chartOptions}
-        series={this.state.chartData}
-        type="pie"
-        width="100%"
-        height="100%"
-      />
-    );
-  }
-}
-
-export default PieChart;
+export default LineChart;
