@@ -1,6 +1,6 @@
 {
   "name": "horizon-tailwind-react-nextjs",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "private": true,
   "dependencies": {
     "@chakra-ui/hooks": "^2.1.4",
@@ -30,7 +30,6 @@
     "react-dom": "^18.2.0",
     "react-icons": "^4.4.0",
     "react-router-dom": "^6.4.0",
-    "react-scripts": "5.0.1",
     "react-no-ssr": "^1.1.0",
     "tailwindcss-rtl": "^0.9.0",
     "typescript": "^4.7.4",
@@ -41,9 +40,7 @@
     "build": "next build",
     "start": "next start",
     "export": "next export",
-    "lint": "next lint",
-    "predeploy": "yarn run build",
-    "deploy": "gh-pages -d build"
+    "lint": "next lint"
   },
   "eslintConfig": {
     "extends": [
@@ -79,7 +76,6 @@
     "css-loader": "^6.7.1",
     "eslint": "^8.23.0",
     "eslint-config-next": "^13.3.2",
-    "gh-pages": "^3.2.3",
     "postcss": "^8.4.30",
     "prettier": "^2.8.3",
     "prettier-plugin-tailwindcss": "^0.2.1",

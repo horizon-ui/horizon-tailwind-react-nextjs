@@ -1,5 +1,9 @@
 # Changelog
 
+## [2.1.0] 2024-06-19
+
+### Vulnerabilities removed
+
 ## [2.0.0] 2024-02-06
 
 ### Next 14
