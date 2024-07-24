@@ -26,9 +26,9 @@
       "@constants/*": ["src/constants/*"],
       "@layouts/*": ["src/layouts/*"],
       "@utils/*": ["src/utils/*"],
+      "@styles/*": ["src/styles/*"],
       "@variables/*": ["src/variables/*"],
-      "@public/*": ["public/*"],
-      "@styles/*": ["src/styles/*"]
+      "@public/*": ["public/*"]
     },
     "incremental": true,
     "plugins": [
