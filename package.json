@@ -19,6 +19,7 @@
     "@types/jest": "^25.2.3",
     "apexcharts": "3.35.5",
     "framer-motion": "^7.10.2",
+    "mongoose": "^8.5.1",
     "next": "^14.0.2",
     "next-transpile-modules": "^9.0.0",
     "react": "^18.2.0",
