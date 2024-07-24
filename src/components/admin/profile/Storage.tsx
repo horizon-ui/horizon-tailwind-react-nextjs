@@ -1,9 +1,9 @@
-import Card from "components/card";
-import CardMenu from "components/card/CardMenu";
-import { BsCloudCheck } from "react-icons/bs";
+import Card from '@component/card';
+import CardMenu from '@component/card/CardMenu';
+import { BsCloudCheck } from 'react-icons/bs';
 const Storage = () => {
   return (
-    <Card extra={"w-full h-full p-4"}>
+    <Card extra={'w-full h-full p-4'}>
       <div className="ml-auto">
         <CardMenu />
       </div>

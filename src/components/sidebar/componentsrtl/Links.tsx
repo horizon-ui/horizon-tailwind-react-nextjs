@@ -2,8 +2,8 @@
 import React from 'react';
 import { useCallback } from 'react';
 import { usePathname } from 'next/navigation';
-import NavLink from 'components/link/NavLink';
-import DashIcon from 'components/icons/DashIcon';
+import NavLink from '@component/link/NavLink';
+import DashIcon from '@component/icons/DashIcon';
 // chakra imports
 
 export const SidebarLinks = (props: { routes: RoutesType[] }): JSX.Element => {

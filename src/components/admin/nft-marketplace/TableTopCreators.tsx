@@ -1,6 +1,6 @@
 import React from 'react';
-import Progress from 'components/progress';
-import Card from 'components/card';
+import Progress from '@component/progress';
+import Card from '@component/card';
 
 import {
   createColumnHelper,

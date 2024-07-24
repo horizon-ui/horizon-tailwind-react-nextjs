@@ -1,10 +1,10 @@
-import Card from "components/card";
-import CardMenu from "components/card/CardMenu";
-import Switch from "components/switch";
+import Card from '@component/card';
+import CardMenu from '@component/card/CardMenu';
+import Switch from '@component/switch';
 
 function Notification() {
   return (
-    <Card extra={"w-full h-full p-3"}>
+    <Card extra={'w-full h-full p-3'}>
       <div className="relative mb-3 flex items-center justify-between pt-1">
         <h4 className="text-xl font-bold text-navy-700 dark:text-white">
           Notifications

@@ -1,5 +1,4 @@
-import { IRoute } from 'types/navigation';
-import Router from 'next/router';
+import { IRoute } from '@src/types/navigation';
 
 // NextJS Requirement
 export const isWindowAvailable = () => typeof window !== 'undefined';

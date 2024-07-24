@@ -1,10 +1,10 @@
 import React from 'react';
-import CardMenu from 'components/card/CardMenu';
+import CardMenu from '@component/card/CardMenu';
 import { DiApple } from 'react-icons/di';
 import { DiAndroid } from 'react-icons/di';
 import { DiWindows } from 'react-icons/di';
-import Card from 'components/card';
-import Progress from 'components/progress';
+import Card from '@component/card';
+import Progress from '@component/progress';
 
 import {
   createColumnHelper,

@@ -7,7 +7,7 @@ import Nft6 from '/public/img/nfts/Nft6.png';
 import Image from 'next/image';
 
 import { FaEthereum } from 'react-icons/fa';
-import Card from 'components/card';
+import Card from '@component/card';
 
 const HistoryCard = () => {
   const HistoryData = [

@@ -1,19 +1,19 @@
 'use client';
-import MiniCalendar from 'components/calendar/MiniCalendar';
-import WeeklyRevenue from 'components/admin/default/WeeklyRevenue';
-import TotalSpent from 'components/admin/default/TotalSpent';
-import PieChartCard from 'components/admin/default/PieChartCard';
+import MiniCalendar from '@component/calendar/MiniCalendar';
+import WeeklyRevenue from '@component/admin/default/WeeklyRevenue';
+import TotalSpent from '@component/admin/default/TotalSpent';
+import PieChartCard from '@component/admin/default/PieChartCard';
 import { IoMdHome } from 'react-icons/io';
 import { IoDocuments } from 'react-icons/io5';
 import { MdBarChart, MdDashboard } from 'react-icons/md';
 
-import Widget from 'components/widget/Widget';
-import CheckTable from 'components/admin/default/CheckTable';
-import ComplexTable from 'components/admin/default/ComplexTable';
-import DailyTraffic from 'components/admin/default/DailyTraffic';
-import TaskCard from 'components/admin/default/TaskCard';
-import tableDataCheck from 'variables/data-tables/tableDataCheck';
-import tableDataComplex from 'variables/data-tables/tableDataComplex';
+import Widget from '@component/widget/Widget';
+import CheckTable from '@component/admin/default/CheckTable';
+import ComplexTable from '@component/admin/default/ComplexTable';
+import DailyTraffic from '@component/admin/default/DailyTraffic';
+import TaskCard from '@component/admin/default/TaskCard';
+import tableDataCheck from '@variables/data-tables/tableDataCheck';
+import tableDataComplex from '@variables/data-tables/tableDataComplex';
 
 const Dashboard = () => {
   return (

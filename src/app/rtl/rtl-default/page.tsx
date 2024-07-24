@@ -1,19 +1,19 @@
 'use client';
-import MiniCalendar from 'components/calendar/MiniCalendar';
-import WeeklyRevenue from 'components/rtl/dashboard/WeeklyRevenue';
-import TotalSpent from 'components/rtl/dashboard/TotalSpent';
-import PieChartCard from 'components/rtl/dashboard/PieCard';
+import MiniCalendar from '@component/calendar/MiniCalendar';
+import WeeklyRevenue from '@component/rtl/dashboard/WeeklyRevenue';
+import TotalSpent from '@component/rtl/dashboard/TotalSpent';
+import PieChartCard from '@component/rtl/dashboard/PieCard';
 import { IoMdHome } from 'react-icons/io';
 import { IoDocuments } from 'react-icons/io5';
 import { MdBarChart, MdDashboard } from 'react-icons/md';
 
-import Widget from 'components/rtl/dashboard/Widget';
-import CheckTable from 'components/rtl/dashboard/CheckTable';
-import ComplexTable from 'components/rtl/dashboard/ComplexTable';
-import DailyTraffic from 'components/rtl/dashboard/DailyTraffic';
-import TaskCard from 'components/rtl/dashboard/Tasks';
-import tableDataCheck from 'variables/dashboards/rtl/tableDataCheck';
-import tableDataComplex from 'variables/dashboards/rtl/tableDataComplex';
+import Widget from '@component/rtl/dashboard/Widget';
+import CheckTable from '@component/rtl/dashboard/CheckTable';
+import ComplexTable from '@component/rtl/dashboard/ComplexTable';
+import DailyTraffic from '@component/rtl/dashboard/DailyTraffic';
+import TaskCard from '@component/rtl/dashboard/Tasks';
+import tableDataCheck from '@variables/dashboards/rtl/tableDataCheck';
+import tableDataComplex from '@variables/dashboards/rtl/tableDataComplex';
 
 const Dashboard = () => {
   return (

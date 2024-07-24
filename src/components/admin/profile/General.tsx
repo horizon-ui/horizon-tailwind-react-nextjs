@@ -1,10 +1,10 @@
-import Card from "components/card";
+import Card from '@component/card';
 
 const General = () => {
   return (
-    <Card extra={"w-full h-full p-3"}>
+    <Card extra={'w-full h-full p-3'}>
       {/* Header */}
-      <div className="mt-2 mb-8 w-full">
+      <div className="mb-8 mt-2 w-full">
         <h4 className="px-2 text-xl font-bold text-navy-700 dark:text-white">
           General Information
         </h4>

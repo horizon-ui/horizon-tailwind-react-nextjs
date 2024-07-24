@@ -3,8 +3,8 @@
 import { HiX } from 'react-icons/hi';
 import Links from './components/Links';
 
-import SidebarCard from 'components/sidebar/components/SidebarCard';
-import { IRoute } from 'types/navigation';
+import SidebarCard from '@component/sidebar/components/SidebarCard';
+import { IRoute } from '@src/types/navigation';
 
 function SidebarHorizon(props: { routes: IRoute[]; [x: string]: any }) {
   const { routes, open, setOpen } = props;

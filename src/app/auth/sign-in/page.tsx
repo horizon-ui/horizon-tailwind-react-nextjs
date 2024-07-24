@@ -1,8 +1,8 @@
 'use client';
-import InputField from 'components/fields/InputField';
-import Default from 'components/auth/variants/DefaultAuthLayout';
+import InputField from '@component/fields/InputField';
+import Default from '@component/auth/variants/DefaultAuthLayout';
 import { FcGoogle } from 'react-icons/fc';
-import Checkbox from 'components/checkbox';
+import Checkbox from '@component/checkbox';
 
 function SignInDefault() {
   return (

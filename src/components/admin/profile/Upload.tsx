@@ -1,5 +1,5 @@
-import { MdFileUpload } from "react-icons/md";
-import Card from "components/card";
+import { MdFileUpload } from 'react-icons/md';
+import Card from '@component/card';
 
 const Upload = () => {
   return (
@@ -16,7 +16,7 @@ const Upload = () => {
         </button>
       </div>
 
-      <div className="col-span-5 flex h-full w-full flex-col justify-center overflow-hidden rounded-xl bg-white pl-3 pb-4 dark:!bg-navy-800">
+      <div className="col-span-5 flex h-full w-full flex-col justify-center overflow-hidden rounded-xl bg-white pb-4 pl-3 dark:!bg-navy-800">
         <h4 className="text-left text-xl font-bold leading-9 text-navy-700 dark:text-white">
           Complete Your Profile
         </h4>

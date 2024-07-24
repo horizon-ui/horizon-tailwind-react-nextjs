@@ -1,6 +1,6 @@
-import Card from 'components/card';
-import CardMenu from 'components/card/CardMenu';
-import Switch from 'components/switch';
+import Card from '@component/card';
+import CardMenu from '@component/card/CardMenu';
+import Switch from '@component/switch';
 
 function Notification() {
   return (

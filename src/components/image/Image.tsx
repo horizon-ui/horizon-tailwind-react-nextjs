@@ -1,6 +1,5 @@
 'use client';
-import NextImage, { ImageProps } from 'next/legacy/image';
-import { ComponentProps } from 'react';
+import NextImage from 'next/legacy/image';
 
 function parseAssetPrefix(image: string) {
   const alreadyHasHttp = image.match('http');

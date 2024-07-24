@@ -1,6 +1,6 @@
 import avatar from '/public/img/avatars/avatar11.png';
 import banner from '/public/img/profile/banner.png';
-import Card from 'components/card';
+import Card from '@component/card';
 import Image from 'next/image';
 
 const Banner = () => {
