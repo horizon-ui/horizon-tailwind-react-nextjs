@@ -49,7 +49,7 @@ const Intro = () => {
             <h1 className="text-4xl font-bold leading-snug tracking-tight text-gray-800 dark:text-white lg:text-3xl lg:leading-tight xl:text-5xl xl:leading-tight">
               Omerald Admin
             </h1>
-            <p className="lg:text-md py-5 text-xl italic leading-normal text-gray-700 dark:text-gray-300 xl:text-lg">
+            <p className="lg:text-md text-md py-5 italic leading-normal text-gray-700 dark:text-gray-300 xl:text-lg">
               {PRODUCT_DESCRIPTION}
             </p>
 

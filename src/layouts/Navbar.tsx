@@ -10,9 +10,6 @@ const Navbar: React.FC = () => {
   const user = useUser();
   const session = useSession();
 
-  console.log('sess');
-  console.log(session);
-
   return (
     <div className="w-full">
       <nav className="container relative mx-auto flex flex-wrap items-center justify-between p-8 lg:justify-between xl:px-24">
@@ -57,8 +54,16 @@ const Navbar: React.FC = () => {
                     )}
                   </svg>
                 </Disclosure.Button>
+                <span className="mx-1 block lg:hidden">
+                  <UserButton />
+                </span>
 
                 <Disclosure.Panel className="my-5 flex w-full flex-wrap lg:hidden">
+                  <section className="flex">
+                    <Link href="/admin/default" className="my-2 text-gray-600">
+                      Dashboard
+                    </Link>
+                  </section>
                   <>
                     {navigation.map((item) => (
                       <Link
@@ -69,20 +74,6 @@ const Navbar: React.FC = () => {
                         {item}
                       </Link>
                     ))}
-
-                    {/* Dashboard */}
-                    <Link
-                      href="/signIn"
-                      className="rounded-md bg-orange-400 px-6 py-2 text-white md:ml-5"
-                    >
-                      SignIn
-                    </Link>
-                    <Link
-                      href="/admin/default"
-                      className="rounded-md bg-indigo-600 px-6 py-2 text-white md:ml-5"
-                    >
-                      Dashboard
-                    </Link>
                   </>
                 </Disclosure.Panel>
               </div>
@@ -90,6 +81,8 @@ const Navbar: React.FC = () => {
           )}
         </Disclosure>
         {/* menu  */}
+        {/* Dashboard */}
+
         <div className="hidden text-center lg:flex lg:items-center">
           <ul className="flex-1 list-none items-center justify-end pt-6 lg:flex lg:pt-0">
             {navigation.map((menu) => (
@@ -115,20 +108,14 @@ const Navbar: React.FC = () => {
           ) : (
             <section className="flex">
               <UserButton />
+              <Link
+                href="/admin/default"
+                className="rounded-md bg-indigo-600 px-6 py-2 text-white md:ml-5"
+              >
+                Dashboard
+              </Link>
             </section>
           )}
-
-          {session.isLoaded && user.isSignedIn ? (
-            <Link
-              href="/admin/default"
-              className="rounded-md bg-indigo-600 px-6 py-2 text-white md:ml-5"
-            >
-              Dashboard
-            </Link>
-          ) : (
-            <></>
-          )}
-          {/* <ThemeSwitch /> */}
         </div>
       </nav>
     </div>
