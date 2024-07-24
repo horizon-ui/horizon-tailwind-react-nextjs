@@ -34,7 +34,7 @@ function SidebarHorizon(props: { variant?: string; [x: string]: any }) {
       <Card
         extra={`mr-3 w-full h-[96.5vh] sm:ml-4 sm:my-4 m-7 !rounded-[20px]`}
       >
-        {/* @ts-expect-error */}
+        {/* */}
         <Scrollbars
           autoHide
           renderTrackVertical={renderTrack}
