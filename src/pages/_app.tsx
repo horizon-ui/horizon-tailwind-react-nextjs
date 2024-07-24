@@ -16,14 +16,14 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
   return (
     <ReactQueryProvider client={reactQueryClient}>
       <ReduxProvider store={store}>
-        <ThemeProvider attribute="class">
-          <ClerkProvider
-            publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
-            {...pageProps}
-          >
-            {getLayout(<Component {...pageProps} />)}
-          </ClerkProvider>
-        </ThemeProvider>
+        {/* <ThemeProvider attribute="class"> */}
+        <ClerkProvider
+          publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
+          {...pageProps}
+        >
+          {getLayout(<Component {...pageProps} />)}
+        </ClerkProvider>
+        {/* </ThemeProvider> */}
       </ReduxProvider>
     </ReactQueryProvider>
   );

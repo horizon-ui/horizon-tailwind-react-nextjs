@@ -7,7 +7,7 @@ const UserSignIn: PageWithPrimaryLayout = () => {
     <div className="min-[h-screen/2] p-8">
       <div className={`flex w-full flex-col items-center justify-between`}>
         <section className="my-10">
-          {/* <SignIn signUpUrl="/signUp" redirectUrl="/verifyUser" /> */}
+          <SignIn signUpUrl="/signUp" />
         </section>
       </div>
     </div>

@@ -53,7 +53,7 @@ export default function Footer() {
   return (
     <div className="relative p-8 xl:px-24">
       <Container>
-        <div className="dark:border-trueGray-700 mx-auto mt-5 grid grid-cols-1 gap-10 border-t border-gray-400 pt-10 lg:grid-cols-5">
+        <div className="dark:border-trueGray-700 mx-auto mt-5 grid grid-cols-1 gap-10 border-t border-gray-400 pt-10 lg:grid-cols-5 lg:px-20">
           <div className="lg:col-span-2">
             {/* product name and desc */}
             <div>

@@ -3,9 +3,15 @@ import React from 'react';
 import { Disclosure } from '@headlessui/react';
 import { PRODUCT_NAME } from 'src/constants/meta';
 import Image from 'next/image';
+import { UserButton, useSession, useUser } from '@clerk/nextjs';
 
 const Navbar: React.FC = () => {
   const navigation = ['Features', 'Terms', 'ChangeLog'];
+  const user = useUser();
+  const session = useSession();
+
+  console.log('sess');
+  console.log(session);
 
   return (
     <div className="w-full">
@@ -99,19 +105,29 @@ const Navbar: React.FC = () => {
           </ul>
         </div>
         <div className="nav__item mr-3 hidden space-x-4 lg:flex">
-          <Link
-            href="/signIn"
-            className="rounded-md bg-orange-400 px-6 py-2 text-white md:ml-5"
-          >
-            SignIn
-          </Link>
-          <Link
-            href="/admin/default"
-            className="rounded-md bg-indigo-600 px-6 py-2 text-white md:ml-5"
-          >
-            Dashboard
-          </Link>
+          {session.isLoaded && !user.isSignedIn ? (
+            <Link
+              href="/signIn"
+              className="rounded-md bg-orange-400 px-6 py-2 text-white md:ml-5"
+            >
+              SignIn
+            </Link>
+          ) : (
+            <section className="flex">
+              <UserButton />
+            </section>
+          )}
 
+          {session.isLoaded && user.isSignedIn ? (
+            <Link
+              href="/admin/default"
+              className="rounded-md bg-indigo-600 px-6 py-2 text-white md:ml-5"
+            >
+              Dashboard
+            </Link>
+          ) : (
+            <></>
+          )}
           {/* <ThemeSwitch /> */}
         </div>
       </nav>
