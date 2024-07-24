@@ -40,6 +40,7 @@ const Intro = () => {
               src={'banner/lightBanner.gif'}
               width={400}
               height={400}
+              priority
               alt="banner"
             />
           </div>

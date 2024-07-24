@@ -4,11 +4,14 @@ import { Disclosure } from '@headlessui/react';
 import { PRODUCT_NAME } from 'src/constants/meta';
 import Image from 'next/image';
 import { UserButton, useSession, useUser } from '@clerk/nextjs';
+import { useRecoilValue } from 'recoil';
+import { userState } from '@src/utils/recoil/user';
 
 const Navbar: React.FC = () => {
   const navigation = ['Features', 'Terms', 'ChangeLog'];
   const user = useUser();
   const session = useSession();
+  const userValue = useRecoilValue(userState);
 
   return (
     <div className="w-full">
@@ -60,9 +63,14 @@ const Navbar: React.FC = () => {
 
                 <Disclosure.Panel className="my-5 flex w-full flex-wrap lg:hidden">
                   <section className="flex">
-                    <Link href="/admin/default" className="my-2 text-gray-600">
-                      Dashboard
-                    </Link>
+                    {userValue && (
+                      <Link
+                        href="/admin/default"
+                        className="rounded-md bg-indigo-600 px-6 py-2 text-white md:ml-5"
+                      >
+                        Dashboard
+                      </Link>
+                    )}
                   </section>
                   <>
                     {navigation.map((item) => (
@@ -108,12 +116,14 @@ const Navbar: React.FC = () => {
           ) : (
             <section className="flex">
               <UserButton />
-              <Link
-                href="/admin/default"
-                className="rounded-md bg-indigo-600 px-6 py-2 text-white md:ml-5"
-              >
-                Dashboard
-              </Link>
+              {userValue && (
+                <Link
+                  href="/admin/default"
+                  className="rounded-md bg-indigo-600 px-6 py-2 text-white md:ml-5"
+                >
+                  Dashboard
+                </Link>
+              )}
             </section>
           )}
         </div>
