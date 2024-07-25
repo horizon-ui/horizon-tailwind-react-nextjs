@@ -3,6 +3,7 @@ import { AppPropsWithLayout } from 'src/types/page';
 import { ClerkProvider } from '@clerk/nextjs';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { RecoilRoot } from 'recoil';
+import { ToastContainer } from 'react-toastify';
 
 // Configure the QueryClient
 const queryClient = new QueryClient({
@@ -26,6 +27,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
         publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
         {...pageProps}
       >
+        <ToastContainer />
         <RecoilRoot>{getLayout(<Component {...pageProps} />)}</RecoilRoot>
       </ClerkProvider>
     </QueryClientProvider>

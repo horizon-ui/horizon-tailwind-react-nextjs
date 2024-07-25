@@ -7,6 +7,7 @@ import { userState } from '@src/utils/recoil/user';
 import { useCreateUser, useGetUser } from '@src/utils/reactQuery';
 import PrimaryLayout from 'src/layouts/PrimaryLayout';
 import { PageWithPrimaryLayout } from 'src/types/page';
+import { errorAlert } from '@src/components/alert';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -27,6 +28,7 @@ const VerifyUser: PageWithPrimaryLayout = () => {
     },
     onError: () => {
       console.log('Error Creating User');
+      errorAlert('Error Creating user');
     },
   });
 

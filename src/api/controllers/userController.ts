@@ -6,6 +6,7 @@ import {
   getUserByPhone,
   revertDeleteUserService,
   softDeleteUserService,
+  updateUserService,
 } from '../services/userService';
 import { UserData } from '../utils/interface';
 import {
@@ -169,6 +170,32 @@ export const revertDeletedUserController = async (
   } catch (error: any) {
     {
       console.error('Error reverted user:', error);
+      throw internalServerError();
+    }
+  }
+};
+
+export const updateUserController = async (
+  _req: NextApiRequest,
+  res: NextApiResponse,
+) => {
+  try {
+    let phoneNumber = _req.query.phoneNumber as string;
+
+    if (!phoneNumber) {
+      res.status(400).json({ error: 'Phone number is required' });
+      return;
+    }
+    phoneNumber = decodeURIComponent(phoneNumber);
+    console.log('phoneNumber', phoneNumber);
+    if (Array.isArray(phoneNumber) || typeof phoneNumber !== 'string') {
+      throw badRequestError('Invalid PhooneNumber');
+    }
+    const users = await updateUserService(phoneNumber, _req.body);
+    res.status(200).json(users);
+  } catch (error: any) {
+    {
+      console.error('Error deleting user:', error);
       throw internalServerError();
     }
   }
