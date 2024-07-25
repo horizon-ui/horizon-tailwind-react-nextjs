@@ -26,6 +26,7 @@
     "antd": "^5.19.3",
     "apexcharts": "3.35.5",
     "axios": "^1.7.2",
+    "cors": "^2.8.5",
     "framer-motion": "^7.10.2",
     "mongoose": "^8.5.1",
     "next": "^14.0.2",
