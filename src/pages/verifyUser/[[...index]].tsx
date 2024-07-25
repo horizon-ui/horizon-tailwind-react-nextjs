@@ -17,12 +17,13 @@ const VerifyUser: PageWithPrimaryLayout = () => {
   const setUserRecoil = useSetRecoilState(userState);
   const userValue = useRecoilValue(userState);
   const router = useRouter();
-  const { data, isLoading } = useGetUser(user?.phoneNumbers[0]?.phoneNumber);
+  const { data, isLoading, isError } = useGetUser(
+    user?.phoneNumbers[0]?.phoneNumber,
+  );
 
   const createUser = useCreateUser({
     onSuccess: (res) => {
-      //@ts-ignore
-      if (res?.status == 200 && res?.data?._id) {
+      if (res?.status === 200 && res?.data?._id) {
         setUserRecoil(res.data);
       }
     },
@@ -32,19 +33,14 @@ const VerifyUser: PageWithPrimaryLayout = () => {
     },
   });
 
-  // Create User
   useEffect(() => {
-    //@ts-ignore
     if (
       session?.status === 'active' &&
       !isLoading &&
       data &&
-      //@ts-ignore
       data.status === 200 &&
-      //@ts-ignore
       data.data === null
     ) {
-      // Data received is null, indicating no user found, proceed to create a new user
       let userData = {
         phoneNumber: user?.phoneNumbers[0]?.phoneNumber,
         userName: user?.fullName,
@@ -53,32 +49,34 @@ const VerifyUser: PageWithPrimaryLayout = () => {
 
       createUser.mutate({ data: userData });
     }
-  }, [isLoading, session, data, setUserRecoil]);
+  }, [session, isLoading, data, createUser]);
 
   useEffect(() => {
-    //@ts-ignore
     if (session?.status === 'active' && !isLoading && data && data.data) {
-      //@ts-ignore
       setUserRecoil(data.data);
     }
   }, [session, isLoading, data, setUserRecoil]);
 
   useEffect(() => {
-    //@ts-ignore
-    if (userValue && userValue.role == 'admin') {
+    if (userValue && userValue.role === 'admin') {
       router.push('/dashboard/default');
-    } else if (!user && !isLoading) {
+    } else if (!user && !isLoading && !isError) {
       router.push('/signIn');
     }
-  }, [userValue, user, isLoading, router]);
+  }, [userValue, user, isLoading, isError, router]);
 
   return (
-    <div className="min-h-screen/2 p-8">
-      <div
-        className={`flex flex-col items-center justify-between ${inter.className} w-full`}
-      >
-        <section className="my-10">Verify User</section>
-      </div>
+    <div className="min-h-screen p-8">
+      {isLoading && (
+        <div className="flex h-screen items-center justify-center">
+          <p>Loading...</p>
+        </div>
+      )}
+      {!isLoading && (
+        <div className={`flex flex-col items-center ${inter.className} w-full`}>
+          <section className="my-10">Verify User</section>
+        </div>
+      )}
     </div>
   );
 };
