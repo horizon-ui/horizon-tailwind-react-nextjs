@@ -1,6 +1,6 @@
 import DiagnosticSetting, {
   DiagnosticSettingDocument,
-} from '../models/userDiagnostic';
+} from '../models/diagnosticSetting';
 
 // Find all Diagnostics from the Diagnostic schema
 export const getAllDiagnosticSettingService = async (): Promise<
