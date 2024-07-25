@@ -1,6 +1,4 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { createUserService } from '../services/userService';
-import { UserData } from '../utils/interface';
 import {
   badRequestError,
   internalServerError,
