@@ -28,7 +28,6 @@ const VerifyUser: PageWithPrimaryLayout = () => {
       }
     },
     onError: () => {
-      console.log('Error Creating User');
       errorAlert('Error Creating user');
     },
   });

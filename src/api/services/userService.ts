@@ -55,14 +55,12 @@ export const updateUserService = async (
   updatedData: Partial<UserDocument>,
 ): Promise<UserDocument | null> => {
   try {
-    console.log(phoneNumber);
     const updatedUser = await User.findOneAndUpdate(
       { phoneNumber: phoneNumber }, // Filter condition
       updatedData, // Updated data object
       { new: true }, // To return the updated document
     ).exec();
 
-    console.log(updatedUser);
     return updatedUser;
   } catch (error) {
     throw internalServerError('Server Error');

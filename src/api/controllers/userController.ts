@@ -187,7 +187,6 @@ export const updateUserController = async (
       return;
     }
     phoneNumber = decodeURIComponent(phoneNumber);
-    console.log('phoneNumber', phoneNumber);
     if (Array.isArray(phoneNumber) || typeof phoneNumber !== 'string') {
       throw badRequestError('Invalid PhooneNumber');
     }
