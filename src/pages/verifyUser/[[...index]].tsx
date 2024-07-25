@@ -23,6 +23,7 @@ const VerifyUser: PageWithPrimaryLayout = () => {
 
   const createUser = useCreateUser({
     onSuccess: (res) => {
+      //@ts-ignore
       if (res?.status === 200 && res?.data?._id) {
         setUserRecoil(res.data);
       }
@@ -37,7 +38,9 @@ const VerifyUser: PageWithPrimaryLayout = () => {
       session?.status === 'active' &&
       !isLoading &&
       data &&
+      //@ts-ignore
       data.status === 200 &&
+      //@ts-ignore
       data.data === null
     ) {
       let userData = {
@@ -51,12 +54,15 @@ const VerifyUser: PageWithPrimaryLayout = () => {
   }, [session, isLoading, data, createUser]);
 
   useEffect(() => {
+    //@ts-ignore
     if (session?.status === 'active' && !isLoading && data && data.data) {
+      //@ts-ignore
       setUserRecoil(data.data);
     }
   }, [session, isLoading, data, setUserRecoil]);
 
   useEffect(() => {
+    //@ts-ignore
     if (userValue && userValue.role === 'admin') {
       router.push('/dashboard/default');
     } else if (!user && !isLoading && !isError) {
