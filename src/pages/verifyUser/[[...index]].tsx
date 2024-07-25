@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { useSession, useUser } from '@clerk/nextjs';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { userState } from '@src/utils/recoil/user';
-import { useGetUser } from '@src/utils/reactQuery';
+import { useCreateUser, useGetUser } from '@src/utils/reactQuery';
 import PrimaryLayout from 'src/layouts/PrimaryLayout';
 import { PageWithPrimaryLayout } from 'src/types/page';
 
@@ -18,6 +18,40 @@ const VerifyUser: PageWithPrimaryLayout = () => {
   const router = useRouter();
   const { data, isLoading } = useGetUser(user?.phoneNumbers[0]?.phoneNumber);
 
+  const createUser = useCreateUser({
+    onSuccess: (res) => {
+      if (res?.status == 200 && res?.data?._id) {
+        setUserRecoil(res.data);
+      }
+    },
+    onError: () => {
+      console.log('Error Creating User');
+    },
+  });
+
+  // Create User
+  useEffect(() => {
+    //@ts-ignore
+    if (
+      session?.status === 'active' &&
+      !isLoading &&
+      data &&
+      //@ts-ignore
+      data.status === 200 &&
+      //@ts-ignore
+      data.data === null
+    ) {
+      // Data received is null, indicating no user found, proceed to create a new user
+      let userData = {
+        phoneNumber: user?.phoneNumbers[0]?.phoneNumber,
+        userName: user?.fullName,
+        role: 'user',
+      };
+
+      createUser.mutate({ data: userData });
+    }
+  }, [isLoading, session, data, setUserRecoil]);
+
   useEffect(() => {
     //@ts-ignore
     if (session?.status === 'active' && !isLoading && data && data.data) {
@@ -28,7 +62,7 @@ const VerifyUser: PageWithPrimaryLayout = () => {
 
   useEffect(() => {
     //@ts-ignore
-    if (userValue && userValue.role === 'admin') {
+    if (userValue && userValue.role == 'admin') {
       router.push('/dashboard/default');
     } else if (!user && !isLoading) {
       router.push('/signIn');

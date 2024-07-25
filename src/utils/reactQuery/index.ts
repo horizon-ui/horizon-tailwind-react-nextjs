@@ -1,6 +1,6 @@
-import { getUserByPhoneApi } from '@src/constants/api';
+import { createUserApi, getUserByPhoneApi } from '@src/constants/api';
 import axios, { AxiosResponse } from 'axios';
-import { useQuery, UseQueryOptions } from 'react-query';
+import { useMutation, useQuery, UseQueryOptions } from 'react-query';
 
 // useQuery hook to get data
 export function useQueryGetData<T>(
@@ -18,32 +18,25 @@ interface UseMutationProps<TData, TVariables> {
   onError?: (error: any) => void;
 }
 
-export function useGetUser(userPhoneNumber: string) {
-  const encodedPhoneNumber = encodeURIComponent(userPhoneNumber);
-  return useQueryGetData('userData', getUserByPhoneApi + encodedPhoneNumber, {
-    enabled: !!userPhoneNumber,
-  });
+function createMutation<TData, TVariables>(
+  method: 'put' | 'post' | 'delete',
+  url: string,
+  { onSuccess, onError }: UseMutationProps<TData, TVariables>,
+) {
+  return useMutation(
+    (data: any) =>
+      axios[method](url, method === 'delete' ? null : data?.data, {
+        headers:
+          method === 'post'
+            ? { 'Content-Type': 'application/json' }
+            : undefined,
+      }),
+    {
+      onSuccess,
+      onError,
+    },
+  );
 }
-
-// function createMutation<TData, TVariables>(
-//   method: 'put' | 'post' | 'delete',
-//   url: string,
-//   { onSuccess, onError }: UseMutationProps<TData, TVariables>,
-// ) {
-//   return useMutation(
-//     (data: any) =>
-//       axios[method](url, method === 'delete' ? null : data?.data, {
-//         headers:
-//           method === 'post'
-//             ? { 'Content-Type': 'application/json' }
-//             : undefined,
-//       }),
-//     {
-//       onSuccess,
-//       onError,
-//     },
-//   );
-// }
 
 // Functions for different mutations
 // export function useGetUser({ userPhoneNumber }: any) {
@@ -60,11 +53,18 @@ export function useGetUser(userPhoneNumber: string) {
 //   );
 // }
 
-// export function useCreateUser<TData, TVariables>(
-//   props: UseMutationProps<TData, TVariables>,
-// ) {
-//   return createMutation('post', createDiagnosticUserApi, props);
-// }
+export function useGetUser(userPhoneNumber: string) {
+  const encodedPhoneNumber = encodeURIComponent(userPhoneNumber);
+  return useQueryGetData('userData', getUserByPhoneApi + encodedPhoneNumber, {
+    enabled: !!userPhoneNumber,
+  });
+}
+
+export function useCreateUser<TData, TVariables>(
+  props: UseMutationProps<TData, TVariables>,
+) {
+  return createMutation('post', createUserApi, props);
+}
 
 // export function useUpdateUser<TData, TVariables>(
 //   props: UseMutationProps<TData, TVariables>,
