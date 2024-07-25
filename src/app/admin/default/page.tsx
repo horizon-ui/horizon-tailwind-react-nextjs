@@ -4,6 +4,7 @@ import WeeklyRevenue from '@component/admin/default/WeeklyRevenue';
 import TotalSpent from '@component/admin/default/TotalSpent';
 import PieChartCard from '@component/admin/default/PieChartCard';
 import { IoMdHome } from 'react-icons/io';
+
 import { IoDocuments } from 'react-icons/io5';
 import { MdBarChart, MdDashboard } from 'react-icons/md';
 
