@@ -18,7 +18,7 @@ interface UseMutationProps<TData, TVariables> {
   onError?: (error: any) => void;
 }
 
-function createMutation<TData, TVariables>(
+function CreateMutation<TData, TVariables>(
   method: 'put' | 'post' | 'delete',
   url: string,
   { onSuccess, onError }: UseMutationProps<TData, TVariables>,
@@ -63,7 +63,7 @@ export function useGetUser(userPhoneNumber: string) {
 export function useCreateUser<TData, TVariables>(
   props: UseMutationProps<TData, TVariables>,
 ) {
-  return createMutation('post', createUserApi, props);
+  return CreateMutation('post', createUserApi, props);
 }
 
 // export function useUpdateUser<TData, TVariables>(

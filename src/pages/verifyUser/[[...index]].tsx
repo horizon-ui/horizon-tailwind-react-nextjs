@@ -20,6 +20,7 @@ const VerifyUser: PageWithPrimaryLayout = () => {
 
   const createUser = useCreateUser({
     onSuccess: (res) => {
+      //@ts-ignore
       if (res?.status == 200 && res?.data?._id) {
         setUserRecoil(res.data);
       }

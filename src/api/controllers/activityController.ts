@@ -55,7 +55,6 @@ export const createActivityController = async (
       action,
       user,
     };
-    console.log(activityObj);
     const activity = await createActivityService(activityObj);
     res.status(200).json(activity);
   } catch (error: any) {
