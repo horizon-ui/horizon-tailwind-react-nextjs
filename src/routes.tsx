@@ -13,14 +13,14 @@ import {
 
 const routes = [
   {
-    name: 'Main Dashboard',
-    layout: '/admin',
+    name: 'Dashboard',
+    layout: '/dashboard',
     path: 'default',
     icon: <MdHome className="h-6 w-6" />,
   },
   {
     name: 'NFT Marketplace',
-    layout: '/admin',
+    layout: '/dashboard',
     path: 'nft-marketplace',
     icon: <MdOutlineShoppingCart className="h-6 w-6" />,
 
@@ -28,27 +28,27 @@ const routes = [
   },
   {
     name: 'Data Tables',
-    layout: '/admin',
+    layout: '/dashboard',
     icon: <MdBarChart className="h-6 w-6" />,
     path: 'data-tables',
   },
   {
     name: 'Profile',
-    layout: '/admin',
+    layout: '/dashboard',
     path: 'profile',
     icon: <MdPerson className="h-6 w-6" />,
   },
   {
     name: 'Sign In',
-    layout: '/auth',
+    layout: '/dashboard',
     path: 'sign-in',
     icon: <MdLock className="h-6 w-6" />,
   },
-  {
-    name: 'RTL Admin',
-    layout: '/rtl',
-    path: 'rtl-default',
-    icon: <MdHome className="h-6 w-6" />,
-  },
+  // {
+  //   name: 'RTL Admin',
+  //   layout: '/rtl',
+  //   path: 'rtl-default',
+  //   icon: <MdHome className="h-6 w-6" />,
+  // },
 ];
 export default routes;

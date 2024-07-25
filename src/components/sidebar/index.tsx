@@ -5,6 +5,9 @@ import Links from './components/Links';
 
 import SidebarCard from '@component/sidebar/components/SidebarCard';
 import { IRoute } from '@src/types/navigation';
+import Image from 'next/image';
+import Link from 'next/link';
+import { PRODUCT_NAME } from '@src/constants/meta';
 
 function SidebarHorizon(props: { routes: IRoute[]; [x: string]: any }) {
   const { routes, open, setOpen } = props;
@@ -21,12 +24,15 @@ function SidebarHorizon(props: { routes: IRoute[]; [x: string]: any }) {
         <HiX />
       </span>
 
-      <div className={`mx-[56px] mt-[50px] flex items-center`}>
-        <div className="ml-1 mt-1 h-2.5 font-poppins text-[26px] font-bold uppercase text-navy-700 dark:text-white">
-          Horizon <span className="font-medium">FREE</span>
-        </div>
+      <div className={`mx-[30px] mt-[50px] items-center`}>
+        <Link href="/">
+          <span className="flex items-center space-x-2 text-xl font-medium text-gray-900 dark:text-gray-100">
+            <Image src={'/logo/logo.webp'} alt="" width={40} height={40} />
+            <span>{PRODUCT_NAME}</span>
+          </span>
+        </Link>
       </div>
-      <div className="mb-7 mt-[58px] h-px bg-gray-300 dark:bg-white/30" />
+      <div className="mb-7 mt-[30px] h-px bg-gray-300 dark:bg-white/30" />
       {/* Nav item */}
 
       <ul className="mb-auto pt-1">
@@ -34,9 +40,9 @@ function SidebarHorizon(props: { routes: IRoute[]; [x: string]: any }) {
       </ul>
 
       {/* Free Horizon Card */}
-      <div className="flex justify-center">
+      {/* <div className="flex justify-center">
         <SidebarCard />
-      </div>
+      </div> */}
 
       {/* Nav item end */}
     </div>

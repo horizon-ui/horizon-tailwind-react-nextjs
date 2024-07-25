@@ -26,7 +26,6 @@ export const connectDB = async (): Promise<void> => {
 
     // Connect to MongoDB
     await mongoose.connect(mongoURI);
-    console.log('Successfully connected to MongoDB.');
   } catch (error) {
     console.error('Error connecting to MongoDB:', error);
     throw new Error('Failed to connect to MongoDB');
@@ -41,7 +40,6 @@ export const connectDB = async (): Promise<void> => {
 export const disconnectDB = async (): Promise<void> => {
   try {
     await mongoose.disconnect();
-    console.log('Successfully disconnected from MongoDB.');
   } catch (error) {
     console.error('Error disconnecting from MongoDB:', error);
     throw new Error('Failed to disconnect from MongoDB');

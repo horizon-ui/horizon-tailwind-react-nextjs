@@ -19,7 +19,7 @@ const UserSignIn: PageWithPrimaryLayout = () => {
                 },
               },
             }}
-            redirectUrl="/admin/default"
+            redirectUrl="/dashboard/default"
           />
           <ClerkLoading>
             <p>Loading...</p>

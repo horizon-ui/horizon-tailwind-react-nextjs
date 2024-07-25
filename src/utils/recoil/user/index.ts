@@ -1,7 +1,7 @@
 const { atom } = require('recoil');
 
 export const userState = atom({
-  key: 'user',
+  key: 'userState',
   default: {
     username: '',
     phoneNumber: '',

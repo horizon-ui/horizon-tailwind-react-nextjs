@@ -14,18 +14,6 @@ function CustomUserButton() {
       <div onClick={toggleDropdown}>
         <UserButton />
       </div>
-      {dropdownOpen && (
-        <div className="dropdown-content">
-          {/* Dropdown options */}
-          <button onClick={() => console.log('Option 1 clicked')}>
-            Option 1
-          </button>
-          <button onClick={() => console.log('Option 2 clicked')}>
-            Option 2
-          </button>
-          {/* Add more options as needed */}
-        </div>
-      )}
     </div>
   );
 }
