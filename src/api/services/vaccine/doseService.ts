@@ -7,10 +7,8 @@ export const createDoseService = async (
 };
 
 export const readDoseService = async (): Promise<DoseDocument[]> => {
-  return await dose
-    .find()
-    .populate('vaccine') // Ensure these field names match the schema
-    .populate('duration');
+  return await dose.find(); // Ensure these field names match the schema
+  // .populate('duration');
 };
 
 export const updatedDoseService = async (

@@ -17,12 +17,9 @@ export const readDoseController = async (
 ) => {
   try {
     const dose = await readDoseService();
-    if (!dose) {
-      throw internalServerError('Error fetching vacccine');
-    }
     return res.status(200).json(dose);
   } catch (error) {
-    throw internalServerError('Error fetching vacccine');
+    throw internalServerError('Error fetching dose ' + error);
   }
 };
 
@@ -31,14 +28,14 @@ export const createDoseController = async (
   res: NextApiResponse,
 ) => {
   try {
-    const { name, doseType, vaccine, duration } = _req.body;
-    if (!name || !doseType || !vaccine || !duration) {
+    const { name, doseType, vaccines, duration } = _req.body;
+    if (!name || !doseType || !vaccines || !duration) {
       throw validationError('dose name, type, vaccine, and duration required');
     }
     const doseObj = {
       name,
       doseType,
-      vaccine,
+      vaccines,
       duration,
     };
 

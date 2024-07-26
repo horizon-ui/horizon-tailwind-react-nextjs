@@ -12,5 +12,4 @@ const VaccineSchema: Schema<VaccineDocument> = new Schema<VaccineDocument>({
   },
 });
 
-export default mongoose.models.vaccine ||
-  mongoose.model<VaccineDocument>('vaccine', VaccineSchema);
+export default mongoose.model<VaccineDocument>('Vaccine', VaccineSchema);
