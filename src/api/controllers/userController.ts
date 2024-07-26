@@ -4,8 +4,6 @@ import {
   deleteUserService,
   getAllUsers,
   getUserByPhone,
-  revertDeleteUserService,
-  softDeleteUserService,
   updateUserService,
 } from '../services/userService';
 import { UserData } from '../utils/interface';
@@ -118,58 +116,6 @@ export const deleteUserController = async (
   } catch (error: any) {
     {
       console.error('Error creating user:', error);
-      throw internalServerError();
-    }
-  }
-};
-
-/**
- * Controller function to delete user temporarily
- * @param req Next.js API request object (Unused in this specific function)
- * @param res Next.js API response object
- */
-export const softDeleteUserController = async (
-  _req: NextApiRequest,
-  res: NextApiResponse,
-) => {
-  try {
-    const { phoneNumber } = _req.query;
-
-    if (Array.isArray(phoneNumber) || typeof phoneNumber !== 'string') {
-      throw badRequestError('Invalid PhooneNumber');
-    }
-
-    const users = await softDeleteUserService(phoneNumber);
-    res.status(200).json(users);
-  } catch (error: any) {
-    {
-      console.error('Error deleting user:', error);
-      throw internalServerError();
-    }
-  }
-};
-
-/**
- * Controller function to delete user temporarily
- * @param req Next.js API request object (Unused in this specific function)
- * @param res Next.js API response object
- */
-export const revertDeletedUserController = async (
-  _req: NextApiRequest,
-  res: NextApiResponse,
-) => {
-  try {
-    const { phoneNumber } = _req.query;
-
-    if (Array.isArray(phoneNumber) || typeof phoneNumber !== 'string') {
-      throw badRequestError('Invalid PhooneNumber');
-    }
-
-    const users = await revertDeleteUserService(phoneNumber);
-    res.status(200).json(users);
-  } catch (error: any) {
-    {
-      console.error('Error reverted user:', error);
       throw internalServerError();
     }
   }

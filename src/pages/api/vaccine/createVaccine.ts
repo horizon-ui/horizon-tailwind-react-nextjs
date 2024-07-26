@@ -1,6 +1,6 @@
+import { createVaccinesHandler } from '@src/api/routes/vaccine/vaccineRoute';
+import { connectDB } from '@src/api/utils/db';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { connectDB } from '../../../api/utils/db';
-import { softDeleteUserHandler } from '../../../api/routes/userRoute';
 
 // Connect to MongoDB before handling API requests
 connectDB().catch((err) => {
@@ -8,7 +8,6 @@ connectDB().catch((err) => {
   process.exit(1); // Exit the process if unable to connect
 });
 
-// handle request to soft delete the user
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  softDeleteUserHandler(req, res);
+  createVaccinesHandler(req, res);
 }

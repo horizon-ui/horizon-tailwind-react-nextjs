@@ -12,6 +12,7 @@ export const errorHandler = (
     return res.status(customError.statusCode).json({
       reasonCode: customError.reasonCode,
       message: customError.message,
+      errorCode: customError.statusCode,
     });
   }
 

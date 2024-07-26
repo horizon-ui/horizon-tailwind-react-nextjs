@@ -4,8 +4,6 @@ import {
   deleteUserController,
   getAllUsersController,
   getUserByPhoneController,
-  revertDeletedUserController,
-  softDeleteUserController,
   updateUserController,
 } from '../controllers/userController';
 import { apiHandlerWrapper } from '../utils/apiHandler';
@@ -50,28 +48,6 @@ const handleDeleteUser = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-const handleSoftDeleteUser = async (
-  req: NextApiRequest,
-  res: NextApiResponse,
-) => {
-  if (req.method === 'PUT') {
-    await softDeleteUserController(req, res);
-  } else {
-    throw badRequestError('Soft Delete user supports PUT requests only');
-  }
-};
-
-const handlerevertDeletedUser = async (
-  req: NextApiRequest,
-  res: NextApiResponse,
-) => {
-  if (req.method === 'PUT') {
-    await revertDeletedUserController(req, res);
-  } else {
-    throw badRequestError('Revert deleted user supports PUT requests only');
-  }
-};
-
 const handleupdateUser = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'PUT') {
     await updateUserController(req, res);
@@ -85,8 +61,4 @@ export const getAllUsersHandler = apiHandlerWrapper(handleGetAllUsers);
 export const getUserByPhoneHandler = apiHandlerWrapper(handleGetUserByPhone);
 export const createUserHandler = apiHandlerWrapper(handleCreateUser);
 export const deleteUserHandler = apiHandlerWrapper(handleDeleteUser);
-export const softDeleteUserHandler = apiHandlerWrapper(handleSoftDeleteUser);
 export const updateUserHandler = apiHandlerWrapper(handleupdateUser);
-export const revertDeletedUserHandler = apiHandlerWrapper(
-  handlerevertDeletedUser,
-);

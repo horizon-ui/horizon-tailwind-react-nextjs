@@ -1,6 +1,9 @@
+import {
+  createVaccinesHandler,
+  deleteVaccinesHandler,
+} from '@src/api/routes/vaccine/vaccineRoute';
+import { connectDB } from '@src/api/utils/db';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { updateUserHandler } from '../../../api/routes/userRoute';
-import { connectDB } from '../../../api/utils/db';
 
 // Connect to MongoDB before handling API requests
 connectDB().catch((err) => {
@@ -8,7 +11,6 @@ connectDB().catch((err) => {
   process.exit(1); // Exit the process if unable to connect
 });
 
-// handle request to fetch all users
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  updateUserHandler(req, res);
+  deleteVaccinesHandler(req, res);
 }
