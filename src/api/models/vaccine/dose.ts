@@ -4,8 +4,8 @@ import { VaccineDocument } from './vaccine';
 
 export interface DoseDocument {
   name: string;
-  duration: DurationDocument;
-  vaccines: VaccineDocument;
+  doseDuration: DurationDocument;
+  vaccine: VaccineDocument;
   doseType: string;
 }
 
@@ -15,12 +15,12 @@ const DoseSchema: Schema<DoseDocument> = new Schema<DoseDocument>({
     unique: true,
     required: [true, 'Dose name required'],
   },
-  duration: {
+  doseDuration: {
     type: Schema.Types.ObjectId,
     ref: 'doseDuration',
     required: [true, 'Dose duration required'],
   },
-  vaccines: {
+  vaccine: {
     type: Schema.Types.ObjectId,
     ref: 'vaccine',
     required: [true, 'Dose vaccine required'],

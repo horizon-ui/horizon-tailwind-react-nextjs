@@ -28,20 +28,20 @@ export const createDoseController = async (
   res: NextApiResponse,
 ) => {
   try {
-    const { name, doseType, vaccines, duration } = _req.body;
-    if (!name || !doseType || !vaccines || !duration) {
+    const { name, doseType, vaccine, doseDuration } = _req.body;
+    if (!name || !doseType || !vaccine || !doseDuration) {
       throw validationError('dose name, type, vaccine, and duration required');
     }
     const doseObj = {
       name,
       doseType,
-      vaccines,
-      duration,
+      vaccine,
+      doseDuration,
     };
 
     const doseResp = await createDoseService(doseObj);
     if (!doseResp) {
-      throw internalServerError('Error creating vacccine');
+      throw internalServerError('Error creating dose');
     }
     res.status(200).json(doseResp);
   } catch (error) {

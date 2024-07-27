@@ -27,28 +27,44 @@ export const readVaccineController = async (
 };
 
 export const createVaccineController = async (
-  _req: NextApiRequest,
+  req: NextApiRequest,
   res: NextApiResponse,
 ) => {
   try {
-    const { name } = _req.body;
+    const { name } = req.body;
+
+    // Validate the input
     if (!name) {
-      validationError('vaccine name required');
+      return res.status(400).json({ message: 'Vaccine name required' });
     }
+
+    // Prepare vaccine object
     const vaccineObj = {
       name,
     };
 
+    // Call the service to create a vaccine
     const vaccine = await createVaccineService(vaccineObj);
+
+    // Check if the vaccine creation was successful
     if (!vaccine) {
-      throw internalServerError('Error creating vacccine');
+      return res.status(500).json({ message: 'Error creating vaccine' });
     }
-    res.status(200).json(vaccine);
+
+    // Send success response
+    return res.status(201).json(vaccine);
   } catch (error) {
+    // Handle specific errors
     if (error.code === 11000) {
-      throw badRequestError('Vaccine with name already exists');
+      return res
+        .status(400)
+        .json({ message: 'Vaccine with this name already exists' });
     } else {
-      throw internalServerError('Error creating vacccine');
+      // Log error details for debugging
+      console.error('Error creating vaccine:', error);
+
+      // Send generic error response
+      return res.status(500).json({ message: 'Internal Server Error' });
     }
   }
 };
