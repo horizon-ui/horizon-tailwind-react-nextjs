@@ -42,6 +42,11 @@ const ActivitySchema: Schema<ActivityDocument> = new Schema<ActivityDocument>({
   },
 });
 
+ActivitySchema.pre('findOneAndUpdate', function (next) {
+  this.setOptions({ runValidators: true });
+  next();
+});
+
 // Export the User model if it exists, otherwise create and export it
 export default mongoose.models.Activity ||
   mongoose.model<ActivityDocument>('Activity', ActivitySchema);

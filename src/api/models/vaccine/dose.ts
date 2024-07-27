@@ -31,5 +31,10 @@ const DoseSchema: Schema<DoseDocument> = new Schema<DoseDocument>({
   },
 });
 
+DoseSchema.pre('findOneAndUpdate', function (next) {
+  this.setOptions({ runValidators: true });
+  next();
+});
+
 export default mongoose.models.dose ||
   mongoose.model<DoseDocument>('dose', DoseSchema);

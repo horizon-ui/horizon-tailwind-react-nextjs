@@ -95,6 +95,11 @@ const DiagnosticSettingSchema: Schema<DiagnosticSettingDocument> =
     ],
   });
 
+DiagnosticSettingSchema.pre('findOneAndUpdate', function (next) {
+  this.setOptions({ runValidators: true });
+  next();
+});
+
 // Export the Diagnostic model if it exists, otherwise create and export it
 export default mongoose.models.DiagnosticSetting ||
   mongoose.model<DiagnosticSettingDocument>(

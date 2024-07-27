@@ -18,11 +18,9 @@ const SampleSchema: Schema<SampleDocument> = new Schema<SampleDocument>({
   },
   description: {
     type: String,
-    unique: true,
   },
   isActive: {
     type: Boolean,
-    default: true,
   },
   validity: {
     value: { type: Number },
@@ -35,5 +33,10 @@ const SampleSchema: Schema<SampleDocument> = new Schema<SampleDocument>({
   },
 });
 
-export default mongoose.models.dose ||
+SampleSchema.pre('findOneAndUpdate', function (next) {
+  this.setOptions({ runValidators: true });
+  next();
+});
+
+export default mongoose.models.sample ||
   mongoose.model<SampleDocument>('sample', SampleSchema);

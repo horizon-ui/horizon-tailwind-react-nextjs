@@ -40,6 +40,11 @@ const UserSchema: Schema<UserDocument> = new Schema<UserDocument>({
   },
 });
 
+UserSchema.pre('findOneAndUpdate', function (next) {
+  this.setOptions({ runValidators: true });
+  next();
+});
+
 // Export the User model if it exists, otherwise create and export it
 export default mongoose.models.User ||
   mongoose.model<UserDocument>('User', UserSchema);
