@@ -9,6 +9,13 @@ import {
   MdBarChart,
   MdPerson,
   MdLock,
+  MdStar,
+  MdHealing,
+  MdReport,
+  MdEditDocument,
+  MdVaccines,
+  MdSettings,
+  MdAdminPanelSettings,
 } from 'react-icons/md';
 
 const routes = [
@@ -19,36 +26,60 @@ const routes = [
     icon: <MdHome className="h-6 w-6" />,
   },
   {
-    name: 'NFT Marketplace',
+    name: 'Diganosed Conditions',
     layout: '/dashboard',
-    path: 'nft-marketplace',
-    icon: <MdOutlineShoppingCart className="h-6 w-6" />,
-
-    secondary: true,
+    path: 'dianosedConditions',
+    icon: <MdHealing className="h-6 w-6" />,
   },
   {
-    name: 'Data Tables',
+    name: 'Reports',
     layout: '/dashboard',
-    icon: <MdBarChart className="h-6 w-6" />,
-    path: 'data-tables',
+    path: 'reports',
+    icon: <MdEditDocument className="h-6 w-6" />,
   },
   {
-    name: 'Profile',
+    name: 'Vaccine',
     layout: '/dashboard',
-    path: 'profile',
-    icon: <MdPerson className="h-6 w-6" />,
+    path: 'vaccine',
+    icon: <MdVaccines className="h-6 w-6" />,
   },
   {
-    name: 'Sign In',
+    name: 'Settings',
     layout: '/dashboard',
-    path: 'sign-in',
-    icon: <MdLock className="h-6 w-6" />,
+    path: 'settings',
+    icon: <MdSettings className="h-6 w-6" />,
+  },
+  {
+    name: 'Admin Users',
+    layout: '/dashboard',
+    path: 'adminUsers',
+    icon: <MdAdminPanelSettings className="h-6 w-6" />,
   },
   // {
-  //   name: 'RTL Admin',
-  //   layout: '/rtl',
-  //   path: 'rtl-default',
-  //   icon: <MdHome className="h-6 w-6" />,
+  //   name: 'NFT Marketplace',
+  //   layout: '/dashboard',
+  //   path: 'nft-marketplace',
+  //   icon: <MdOutlineShoppingCart className="h-6 w-6" />,
+
+  //   secondary: true,
+  // },
+  // {
+  //   name: 'Data Tables',
+  //   layout: '/dashboard',
+  //   icon: <MdBarChart className="h-6 w-6" />,
+  //   path: 'data-tables',
+  // },
+  // {
+  //   name: 'Profile',
+  //   layout: '/dashboard',
+  //   path: 'profile',
+  //   icon: <MdPerson className="h-6 w-6" />,
+  // },
+  // {
+  //   name: 'Sign In',
+  //   layout: '/dashboard',
+  //   path: 'sign-in',
+  //   icon: <MdLock className="h-6 w-6" />,
   // },
 ];
 export default routes;

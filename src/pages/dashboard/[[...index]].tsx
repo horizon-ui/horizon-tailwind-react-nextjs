@@ -2,11 +2,7 @@
 // Layout @component
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
-import {
-  getActiveNavbar,
-  getActiveRoute,
-  isWindowAvailable,
-} from '@utils/navigation';
+import { getActiveNavbar, getActiveRoute } from '@utils/navigation';
 import React from 'react';
 import Navbar from '@component/navbar';
 import Sidebar from '@component/sidebar';
@@ -19,7 +15,6 @@ export default function Admin({ children }: { children: React.ReactNode }) {
   // states and functions
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
-  if (isWindowAvailable()) document.documentElement.dir = 'ltr';
   return (
     <div className="flex h-full w-full bg-background-100 dark:bg-background-900">
       {/* page meta data */}

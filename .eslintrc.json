@@ -1,7 +1,9 @@
 {
   "extends": "next/core-web-vitals",
   "rules": {
-    "react/no-unescaped-entities": ["error", { "forbid": [">", "}"] }]
+    "react/no-unescaped-entities": ["error", { "forbid": [">", "}"] }],
+    "import/no-unresolved": "off"
+
     // "no-unused-vars": "error", // Ensure no unused variables
     // "import/no-unresolved": "off", // Disable import/no-unresolved
     // "import/no-unused-modules": "error" // Ensure no unused import

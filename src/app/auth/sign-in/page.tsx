@@ -3,6 +3,7 @@ import InputField from '@component/fields/InputField';
 import Default from '@component/auth/variants/DefaultAuthLayout';
 import { FcGoogle } from 'react-icons/fc';
 import Checkbox from '@component/checkbox';
+import { Link } from 'react-router-dom';
 
 function SignInDefault() {
   return (
@@ -71,12 +72,12 @@ function SignInDefault() {
               <span className="text-sm font-medium text-navy-700 dark:text-gray-500">
                 Not registered yet?
               </span>
-              <a
-                href="/auth/sign-up/default"
+              <Link
+                to="/auth/sign-up/default"
                 className="ml-1 text-sm font-medium text-brand-500 hover:text-brand-600 dark:text-white"
               >
                 Create an account
-              </a>
+              </Link>
             </div>
           </div>
         </div>

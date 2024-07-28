@@ -10,9 +10,14 @@ const nextConfig = {
     ],
     unoptimized: true, // This should be removed if not needed
   },
-  // experimental: {
-  //   appDir: true,
-  // },
+  webpack: (config, { isServer }) => {
+    if (isServer) {
+      // Exclude problematic modules from server-side build
+      config.externals = ['react', ...config.externals];
+    }
+
+    return config;
+  },
 };
 
 module.exports = nextConfig;
