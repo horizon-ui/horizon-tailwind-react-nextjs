@@ -64,7 +64,7 @@ const Navbar = (props: {
         <Dropdown
           button={
             <p className="cursor-pointer">
-              <IoMdNotificationsOutline className="mt-3 h-6 w-6 text-gray-600 dark:text-white" />
+              <IoMdNotificationsOutline className="s h-6 w-6 text-gray-600 dark:text-white  " />
             </p>
           }
           animation="origin-[65%_0%] md:origin-top-right transition-all duration-300 ease-in-out"
