@@ -1,5 +1,4 @@
 'use client';
-import tableDataDevelopment from '@variables/data-tables/tableDataDevelopment';
 import tableDataCheck from '@variables/data-tables/tableDataCheck';
 import CheckTable from '@src/components/admin/backup/data-tables/CheckTable';
 import tableDataColumns from '@variables/data-tables/tableDataColumns';
@@ -14,7 +13,7 @@ const Tables = () => {
     <Admin>
       <div>
         <div className="mt-5 grid h-full grid-cols-1 gap-5 md:grid-cols-2">
-          <DevelopmentTable tableData={tableDataDevelopment} />
+          {/* <DevelopmentTable tableData={tableDataDevelopment} /> */}
           <CheckTable tableData={tableDataCheck} />
         </div>
 

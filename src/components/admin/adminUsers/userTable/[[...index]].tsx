@@ -182,6 +182,7 @@ const UserTable = () => {
           <div className="overflow-x-auto">
             <Table
               dataSource={filteredData}
+              //@ts-ignore
               columns={columns}
               style={{
                 borderRadius: '8px',
