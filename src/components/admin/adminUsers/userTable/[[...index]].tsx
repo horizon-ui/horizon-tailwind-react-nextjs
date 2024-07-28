@@ -168,7 +168,7 @@ const UserTable = () => {
         <div>
           <Space style={{ marginBottom: 16 }}>
             <Input
-              placeholder="Search..."
+              placeholder="Search by name, phoneNumber, role..."
               value={searchText}
               onChange={(e) => {
                 setSearchText(e.target.value);
