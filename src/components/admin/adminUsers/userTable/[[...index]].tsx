@@ -1,6 +1,7 @@
 'use client';
-import { Space, Table } from 'antd';
+// import { Space, Table } from 'antd';
 import adminDataComplex from '@src/variables/data-tables/tableDataDevelopment';
+import { Space, Table } from 'antd';
 import { MdEdit } from 'react-icons/md';
 
 const UserTable = () => {

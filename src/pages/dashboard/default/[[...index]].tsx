@@ -1,20 +1,20 @@
 'use client';
 import MiniCalendar from '@component/calendar/MiniCalendar';
-import WeeklyRevenue from '@component/admin/default/WeeklyRevenue';
-import TotalSpent from '@component/admin/default/TotalSpent';
-import PieChartCard from '@component/admin/default/PieChartCard';
+import WeeklyRevenue from '@src/components/admin/backup/default/WeeklyRevenue';
+import TotalSpent from '@src/components/admin/backup/default/TotalSpent';
+import PieChartCard from '@src/components/admin/backup/default/PieChartCard';
 import { IoMdHome } from 'react-icons/io';
 import { IoDocuments } from 'react-icons/io5';
 import { MdBarChart, MdDashboard } from 'react-icons/md';
 
 import Widget from '@component/widget/Widget';
-import CheckTable from '@component/admin/default/CheckTable';
-import ComplexTable from '@component/admin/default/ComplexTable';
-import DailyTraffic from '@component/admin/default/DailyTraffic';
-import TaskCard from '@component/admin/default/TaskCard';
+import CheckTable from '@src/components/admin/backup/default/CheckTable';
+import ComplexTable from '@src/components/admin/backup/default/ComplexTable';
+import DailyTraffic from '@src/components/admin/backup/default/DailyTraffic';
+import TaskCard from '@src/components/admin/backup/default/TaskCard';
 import tableDataCheck from '@variables/data-tables/tableDataCheck';
 import tableDataComplex from '@variables/data-tables/tableDataComplex';
-import Admin from '../[[...index]]';
+import Admin from '../../../pages/dashboard/[[...index]]';
 
 const Dashboard = () => {
   return (

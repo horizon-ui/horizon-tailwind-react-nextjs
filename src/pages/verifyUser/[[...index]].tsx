@@ -51,7 +51,14 @@ const VerifyUser: PageWithPrimaryLayout = () => {
 
       createUser.mutate({ data: userData });
     }
-  }, [session, isLoading, data, createUser]);
+  }, [
+    session,
+    isLoading,
+    data,
+    createUser,
+    user?.fullName,
+    user?.phoneNumbers,
+  ]);
 
   useEffect(() => {
     //@ts-ignore
