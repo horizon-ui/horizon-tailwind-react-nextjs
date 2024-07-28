@@ -22,3 +22,13 @@ export const deleteVaccineService = async (
 ): Promise<VaccineDocument> => {
   return await vaccine.findByIdAndDelete(id);
 };
+
+export const getVaccineService = async (): Promise<number> => {
+  try {
+    const count = await vaccine.countDocuments();
+    return count;
+  } catch (error) {
+    console.error('Error fetching vaccine count:', error);
+    throw new Error('Failed to fetch vaccine count');
+  }
+};

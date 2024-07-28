@@ -22,3 +22,13 @@ export const deletedDoseService = async (
 ): Promise<DoseDocument> => {
   return await dose.findByIdAndDelete(id);
 };
+
+export const getDoseCountService = async (): Promise<number> => {
+  try {
+    const count = await dose.countDocuments();
+    return count;
+  } catch (error) {
+    console.error('Error fetching dose count:', error);
+    throw new Error('Failed to fetch dose count');
+  }
+};

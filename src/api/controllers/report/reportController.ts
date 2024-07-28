@@ -32,7 +32,14 @@ export const createReportController = async (
   res: NextApiResponse,
 ) => {
   try {
-    const { name, description, isActive, parameter, sample } = _req.body;
+    const {
+      name,
+      description,
+      isActive,
+      parameter,
+      sample,
+      diagnosedCondition,
+    } = _req.body;
     if (!name) {
       throw validationError('invalid report name');
     }
@@ -42,6 +49,7 @@ export const createReportController = async (
       isActive,
       parameter,
       sample,
+      diagnosedCondition,
     };
 
     const reportResp = await createReportService(reportObj);

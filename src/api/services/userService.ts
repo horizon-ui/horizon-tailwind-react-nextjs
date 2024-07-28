@@ -47,3 +47,13 @@ export const updateUserService = async (
     throw internalServerError('Server Error');
   }
 };
+
+export const getAdminCountService = async (): Promise<number> => {
+  try {
+    const count = await User.countDocuments();
+    return count;
+  } catch (error) {
+    console.error('Error fetching admin user count:', error);
+    throw new Error('Failed to fetch admin user count');
+  }
+};

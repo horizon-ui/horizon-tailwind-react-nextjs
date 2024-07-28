@@ -7,7 +7,11 @@ export const createReportService = async (
 };
 
 export const readReportService = async (): Promise<ReportDocument[]> => {
-  return await report.find().populate('parameter').populate('sample');
+  return await report
+    .find()
+    .populate('parameter')
+    .populate('sample')
+    .populate('diagnosedCondition');
 };
 
 export const updateReportService = async (
@@ -21,4 +25,14 @@ export const deleteReportService = async (
   id: string | string[],
 ): Promise<ReportDocument> => {
   return await report.findByIdAndDelete(id);
+};
+
+export const getReportCountService = async (): Promise<number> => {
+  try {
+    const count = await report.countDocuments();
+    return count;
+  } catch (error) {
+    console.error('Error fetching report count:', error);
+    throw new Error('Failed to fetch report count');
+  }
 };

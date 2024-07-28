@@ -1,6 +1,7 @@
 import mongoose, { Schema } from 'mongoose';
 import { SampleDocument } from './sample';
 import { ParamDocument } from './parameter';
+import { DiagnosedConditionDocument } from '../diagnosedCondition';
 
 export interface ReportDocument {
   name: string;
@@ -8,6 +9,7 @@ export interface ReportDocument {
   isActive: boolean;
   parameter: ParamDocument;
   sample: SampleDocument;
+  diagnosedCondition: DiagnosedConditionDocument;
 }
 
 const ReportSchema: Schema<ReportDocument> = new Schema<ReportDocument>({
@@ -29,6 +31,11 @@ const ReportSchema: Schema<ReportDocument> = new Schema<ReportDocument>({
   sample: {
     type: Schema.Types.ObjectId,
     ref: 'sample',
+    required: [true, 'sample required'],
+  },
+  diagnosedCondition: {
+    type: Schema.Types.ObjectId,
+    ref: 'diagnosedCondition',
     required: [true, 'sample required'],
   },
 });

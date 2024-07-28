@@ -1,3 +1,4 @@
+import duration from '@src/api/models/vaccine/duration';
 import doseDuration, {
   DurationDocument,
 } from '@src/api/models/vaccine/duration';
@@ -27,4 +28,14 @@ export const deletedoseDurationService = async (
   id: string | string[],
 ): Promise<DurationDocument> => {
   return await doseDuration.findByIdAndDelete(id);
+};
+
+export const getDurationCountService = async (): Promise<number> => {
+  try {
+    const count = await duration.countDocuments();
+    return count;
+  } catch (error) {
+    console.error('Error fetching duration count:', error);
+    throw new Error('Failed to fetch duration count');
+  }
 };

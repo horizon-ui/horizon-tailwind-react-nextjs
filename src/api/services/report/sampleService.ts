@@ -22,3 +22,13 @@ export const deleteSampleService = async (
 ): Promise<SampleDocument> => {
   return await sample.findByIdAndDelete(id);
 };
+
+export const getSampleCountService = async (): Promise<number> => {
+  try {
+    const count = await sample.countDocuments();
+    return count;
+  } catch (error) {
+    console.error('Error fetching sample count:', error);
+    throw new Error('Failed to fetch sample count');
+  }
+};

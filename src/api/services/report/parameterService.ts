@@ -1,3 +1,4 @@
+import parameter from '@src/api/models/reports/parameter';
 import param, { ParamDocument } from '@src/api/models/reports/parameter';
 
 export const createParamService = async (
@@ -21,4 +22,14 @@ export const deleteParamService = async (
   id: string | string[],
 ): Promise<ParamDocument> => {
   return await param.findByIdAndDelete(id);
+};
+
+export const getParameterCountService = async (): Promise<number> => {
+  try {
+    const count = await parameter.countDocuments();
+    return count;
+  } catch (error) {
+    console.error('Error fetching paramter count:', error);
+    throw new Error('Failed to fetch paramter count');
+  }
 };
