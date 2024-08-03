@@ -5,12 +5,13 @@ import { useSession, useUser } from '@clerk/nextjs';
 import { useRecoilState } from 'recoil';
 import { userState } from '@src/utils/recoil/user';
 import { useCreateUser, useGetUser } from '@src/utils/reactQuery';
-import PrimaryLayout from 'src/layouts/PrimaryLayout';
 import { PageWithPrimaryLayout } from 'src/types/page';
 import { errorAlert, errorAlert2, successAlert } from '@src/components/alert';
 import { ALLOWED_USERS } from '@src/constants/appConstants';
 import { UserData } from '@src/api/utils/interface';
-import { Button, Stack } from '@chakra-ui/react';
+import PrimaryLayout from 'src/layouts/PrimaryLayout';
+import Image from 'next/image';
+import { Button } from '@chakra-ui/react';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -32,11 +33,12 @@ const VerifyUser: PageWithPrimaryLayout = () => {
         successAlert('Created user succesfully');
         refetch();
         //@ts-ignore
-        handleVerifyUser(userValue);
+        handleVerifyUser(res.data);
       }
     },
     onError: (error: Error) => {
       errorAlert('Error Creating user ' + error.message);
+      router.push('/signIn');
     },
   });
 
@@ -70,29 +72,32 @@ const VerifyUser: PageWithPrimaryLayout = () => {
   }, [session, isLoading, userData]);
 
   return (
-    <div className="min-h-screen p-8">
-      {isLoading && (
-        <div className="flex h-screen items-center justify-center">
+    <div className="p-8">
+      <div className="m-auto flex justify-center text-center">
+        <div className="bg-container">
           <section>
-            <Stack direction="row" spacing={4}>
-              <Button isLoading loadingText="Loading.." variant="brand">
-                Verify User...
-              </Button>
-            </Stack>
+            <Image
+              src="banner/verifyUser.gif"
+              alt="Verifying User"
+              width={1000}
+              height={1000}
+            />
           </section>
-        </div>
-      )}
-      {!isLoading && (
-        <div className={`flex flex-col items-center ${inter.className} w-full`}>
-          <section className="my-10">
-            <Stack direction="row" spacing={4}>
-              <Button isLoading loadingText="verify user" variant="brand">
-                Verify User...
+
+          {isLoading && (
+            <div className="fixed left-0 top-0 flex h-full w-full items-center justify-center bg-gray-500 bg-opacity-50">
+              <Button
+                isLoading
+                loadingText="Fetching user"
+                variant="outline"
+                size="xxl"
+              >
+                Button
               </Button>
-            </Stack>
-          </section>
+            </div>
+          )}
         </div>
-      )}
+      </div>
     </div>
   );
 };
