@@ -15,4 +15,4 @@ export const ADMIN_TABS = [
   },
 ];
 
-
+export const ALLOWED_USERS = ['admin', 'sme', 'legal'];

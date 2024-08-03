@@ -2,80 +2,70 @@ import { Inter } from 'next/font/google';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useSession, useUser } from '@clerk/nextjs';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { userState } from '@src/utils/recoil/user';
 import { useCreateUser, useGetUser } from '@src/utils/reactQuery';
 import PrimaryLayout from 'src/layouts/PrimaryLayout';
 import { PageWithPrimaryLayout } from 'src/types/page';
-import { errorAlert } from '@src/components/alert';
+import { errorAlert, successAlert } from '@src/components/alert';
+import { ALLOWED_USERS } from '@src/constants/appConstants';
+import { UserData } from '@src/api/utils/interface';
+import { AxiosResponse } from 'axios';
+import { FiLoader } from 'react-icons/fi';
 
 const inter = Inter({ subsets: ['latin'] });
 
+//Fetch user and navigate to dashboard
+//Create user if user not found
 const VerifyUser: PageWithPrimaryLayout = () => {
   const { session } = useSession();
   const { user } = useUser();
-  const setUserRecoil = useSetRecoilState(userState);
-  const userValue = useRecoilValue(userState);
   const router = useRouter();
-  const { data, isLoading, isError } = useGetUser(
-    user?.phoneNumbers[0]?.phoneNumber,
-  );
+  const phone = user?.phoneNumbers[0]?.phoneNumber;
+  const { data: userData, refetch, isLoading } = useGetUser(phone);
+  const [userValue, setUserRecoil] = useRecoilState(userState);
 
   const createUser = useCreateUser({
     onSuccess: (res) => {
       //@ts-ignore
-      if (res?.status === 200 && res?.data?._id) {
+      if (res?.status === 201 && res?.data?._id) {
         setUserRecoil(res.data);
+        successAlert('Created user succesfully');
+        refetch();
+        //@ts-ignore
+        handleVerifyUser(userValue);
       }
     },
-    onError: () => {
-      errorAlert('Error Creating user');
+    onError: (error: Error) => {
+      errorAlert('Error Creating user ' + error.message);
     },
   });
 
-  useEffect(() => {
-    if (
-      session?.status === 'active' &&
-      !isLoading &&
-      data &&
-      //@ts-ignore
-      data.status === 200 &&
-      //@ts-ignore
-      data.data === null
-    ) {
-      let userData = {
-        phoneNumber: user?.phoneNumbers[0]?.phoneNumber,
-        userName: user?.fullName,
+  const handleCreateUser = (userObj: UserData): void => {
+    createUser.mutate({ data: userObj });
+  };
+
+  const handleVerifyUser = (userObj: UserData): void => {
+    if (userObj === null) {
+      const userObj: UserData = {
         role: 'user',
+        userName: user?.fullName,
+        phoneNumber: phone,
       };
-
-      createUser.mutate({ data: userData });
+      handleCreateUser(userObj);
     }
-  }, [
-    session,
-    isLoading,
-    data,
-    createUser,
-    user?.fullName,
-    user?.phoneNumbers,
-  ]);
 
-  useEffect(() => {
-    //@ts-ignore
-    if (session?.status === 'active' && !isLoading && data && data.data) {
-      //@ts-ignore
-      setUserRecoil(data.data);
-    }
-  }, [session, isLoading, data, setUserRecoil]);
-
-  useEffect(() => {
-    //@ts-ignore
-    if (userValue && userValue.role === 'admin') {
+    if (userObj && userObj.phoneNumber) {
       router.push('/dashboard/default');
-    } else if (!user && !isLoading && !isError) {
-      router.push('/signIn');
     }
-  }, [userValue, user, isLoading, isError, router]);
+  };
+
+  useEffect(() => {
+    if (session?.status === 'active' && !isLoading && userData) {
+      // @ts-ignore
+      userData && handleVerifyUser(userData.data);
+    }
+  }, [session, isLoading, userData]);
 
   return (
     <div className="min-h-screen p-8">
@@ -86,7 +76,10 @@ const VerifyUser: PageWithPrimaryLayout = () => {
       )}
       {!isLoading && (
         <div className={`flex flex-col items-center ${inter.className} w-full`}>
-          <section className="my-10">Verify User</section>
+          <section className="my-10">
+            Verify User...
+            <FiLoader />
+          </section>
         </div>
       )}
     </div>

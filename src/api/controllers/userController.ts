@@ -83,7 +83,7 @@ export const createUserController = async (
     }
 
     const users = await createUserService(user);
-    res.status(200).json(users);
+    res.status(201).json(users);
   } catch (error: any) {
     if (error.code === 11000) {
       console.error('Phone number already exists:');

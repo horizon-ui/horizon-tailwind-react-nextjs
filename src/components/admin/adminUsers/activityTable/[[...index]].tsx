@@ -41,7 +41,6 @@ const ActivityTable = () => {
       dataIndex: 'user',
       key: 'user',
       render: (_id, record) => {
-        console.log(record);
         return <p>{record?.user?.userName}</p>;
       },
     },

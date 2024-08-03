@@ -65,7 +65,7 @@ const Navbar: React.FC = () => {
                   <section className="flex">
                     {userValue && (
                       <Link
-                        href="/dashboard/default"
+                        href="/verifyUser"
                         className="rounded-md bg-indigo-600 px-6 py-2 text-white md:ml-5"
                       >
                         Dashboard
@@ -118,7 +118,7 @@ const Navbar: React.FC = () => {
               <UserButton />
               {userValue && (
                 <Link
-                  href="/dashboard/default"
+                  href="/verifyUser"
                   className="rounded-md bg-indigo-600 px-6 py-2 text-white md:ml-5"
                 >
                   Dashboard
