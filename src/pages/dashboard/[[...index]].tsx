@@ -1,7 +1,7 @@
 'use client';
 // Layout @component
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getActiveNavbar, getActiveRoute } from '@utils/navigation';
 import React from 'react';
 import Navbar from '@component/navbar';
@@ -10,11 +10,36 @@ import Footer from '@component/footer/Footer';
 import routes from '@src/routes';
 import Head from 'next/head';
 import { PRODUCT_DESCRIPTION, PRODUCT_NAME } from '@src/constants/meta';
+import { useRecoilValue } from 'recoil';
+import { userState } from '@src/utils/recoil/user';
+import { ALLOWED_USERS } from '@src/constants/appConstants';
+import { UserData } from '@src/api/utils/interface';
+import { useRouter } from 'next/router';
+import { errorAlert2 } from '@src/components/alert';
+import { Spinner } from '@chakra-ui/react';
 
-export default function Admin({ children }: { children: React.ReactNode }) {
-  // states and functions
+function Admin({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
+  const [hideDashboard, setHideDashboard] = useState(true);
+  const user: UserData = useRecoilValue(userState);
+  const router = useRouter();
   const pathname = usePathname();
+
+  useEffect(() => {
+    if (user && !ALLOWED_USERS.includes(user.role)) {
+      errorAlert2('You dont have relevant access');
+      router.push('/');
+    } else if (user && ALLOWED_USERS.includes(user.role)) {
+      setHideDashboard(false);
+    }
+  }, [user]);
+
+  hideDashboard && (
+    <div>
+      <Spinner /> No Access...
+    </div>
+  );
+
   return (
     <div className="flex h-full w-full bg-background-100 dark:bg-background-900">
       {/* page meta data */}
@@ -51,3 +76,5 @@ export default function Admin({ children }: { children: React.ReactNode }) {
     </div>
   );
 }
+
+export default Admin;

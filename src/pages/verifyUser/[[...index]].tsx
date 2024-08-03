@@ -2,16 +2,15 @@ import { Inter } from 'next/font/google';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useSession, useUser } from '@clerk/nextjs';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { userState } from '@src/utils/recoil/user';
 import { useCreateUser, useGetUser } from '@src/utils/reactQuery';
 import PrimaryLayout from 'src/layouts/PrimaryLayout';
 import { PageWithPrimaryLayout } from 'src/types/page';
-import { errorAlert, successAlert } from '@src/components/alert';
+import { errorAlert, errorAlert2, successAlert } from '@src/components/alert';
 import { ALLOWED_USERS } from '@src/constants/appConstants';
 import { UserData } from '@src/api/utils/interface';
-import { AxiosResponse } from 'axios';
-import { FiLoader } from 'react-icons/fi';
+import { Button, Stack } from '@chakra-ui/react';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -54,9 +53,12 @@ const VerifyUser: PageWithPrimaryLayout = () => {
       };
       handleCreateUser(userObj);
     }
-
-    if (userObj && userObj.phoneNumber) {
+    if (userObj && ALLOWED_USERS.includes(userObj.role)) {
+      setUserRecoil(userObj);
       router.push('/dashboard/default');
+    } else {
+      errorAlert2('You dont have relevant access');
+      router.push('/');
     }
   };
 
@@ -71,14 +73,23 @@ const VerifyUser: PageWithPrimaryLayout = () => {
     <div className="min-h-screen p-8">
       {isLoading && (
         <div className="flex h-screen items-center justify-center">
-          <p>Loading...</p>
+          <section>
+            <Stack direction="row" spacing={4}>
+              <Button isLoading loadingText="Loading.." variant="brand">
+                Verify User...
+              </Button>
+            </Stack>
+          </section>
         </div>
       )}
       {!isLoading && (
         <div className={`flex flex-col items-center ${inter.className} w-full`}>
           <section className="my-10">
-            Verify User...
-            <FiLoader />
+            <Stack direction="row" spacing={4}>
+              <Button isLoading loadingText="verify user" variant="brand">
+                Verify User...
+              </Button>
+            </Stack>
           </section>
         </div>
       )}
