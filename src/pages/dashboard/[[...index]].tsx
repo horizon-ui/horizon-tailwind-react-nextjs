@@ -32,7 +32,7 @@ function Admin({ children }: { children: React.ReactNode }) {
     } else if (user && ALLOWED_USERS.includes(user.role)) {
       setIsLoading(false);
     }
-  }, [user]);
+  }, [user, router]);
 
   return (
     <div className="flex h-full w-full bg-background-100 dark:bg-background-900">

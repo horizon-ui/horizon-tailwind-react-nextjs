@@ -76,8 +76,7 @@ const UserTable = () => {
   const [filteredData, setFilteredData] = useState(userData);
   const [pageSize, setPageSize] = useState(10); // Number of items per page
 
-  // Define the debounced search function
-  const debouncedSearch = useCallback(
+  const debouncedSearch = () => {
     debounce((value: string) => {
       const lowercasedValue = value.toLowerCase();
       setFilteredData(
@@ -88,11 +87,9 @@ const UserTable = () => {
             record?.role.toLowerCase().includes(lowercasedValue),
         ),
       );
-    }, 300), // Adjust debounce delay as needed (300ms here)
-    [],
-  );
+    }, 300);
+  };
 
-  // Reset search
   const handleReset = () => {
     setSearchText('');
     setFilteredData(userData);
@@ -111,7 +108,6 @@ const UserTable = () => {
     warningAlert('Deleted User');
   };
 
-  // Column data
   const columns = [
     {
       title: 'Name',
@@ -172,6 +168,7 @@ const UserTable = () => {
               value={searchText}
               onChange={(e) => {
                 setSearchText(e.target.value);
+                // @ts-ignore
                 debouncedSearch(e.target.value);
               }}
               prefix={<MdSearch />}

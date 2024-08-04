@@ -43,18 +43,18 @@ const Dashboard = () => {
     refetch();
   }, []);
 
-  useEffect(() => {
-    if (!isLoading && adminDashboard && adminDashboard.data) {
-      handleMapData(adminDashboard.data);
-    }
-  }, [adminDashboard, isLoading]);
-
   const handleMapData = (data: DashboardResponse) => {
     setCardData(data.cardData);
     setActivities(data.activities);
     setUserCount(data.donutChart.users);
     setAdminAssets(data.donutChart.adminData);
   };
+
+  useEffect(() => {
+    if (!isLoading && adminDashboard && adminDashboard.data) {
+      handleMapData(adminDashboard.data);
+    }
+  }, [adminDashboard, isLoading, refetch]);
 
   return (
     <Admin>

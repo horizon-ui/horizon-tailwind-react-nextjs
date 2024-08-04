@@ -12,7 +12,7 @@ const ActivityTable = () => {
   const [pageSize, setPageSize] = useState(10);
 
   // Define the debounced search function
-  const debouncedSearch = useCallback(
+  const debouncedSearch = () => {
     debounce((value: string) => {
       const lowercasedValue = value.toLowerCase();
       setFilteredData(
@@ -24,9 +24,8 @@ const ActivityTable = () => {
             record?.user?.userName.toLowerCase().includes(lowercasedValue),
         ),
       );
-    }, 300), // Adjust debounce delay as needed (300ms here)
-    [],
-  );
+    }, 300);
+  };
 
   // Reset search
   const handleReset = () => {
@@ -77,6 +76,7 @@ const ActivityTable = () => {
             value={searchText}
             onChange={(e) => {
               setSearchText(e.target.value);
+              //@ts-ignore
               debouncedSearch(e.target.value);
             }}
             prefix={<MdSearch />}
