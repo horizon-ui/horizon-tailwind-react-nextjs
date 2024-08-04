@@ -1,12 +1,12 @@
 'use client';
-// import { Space, Table } from 'antd';
 import { userData } from '@src/variables/data-tables/tableDataDevelopment';
 import { Button, Input, Space, Table } from 'antd';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { MdDelete, MdEdit, MdSearch } from 'react-icons/md';
 import debounce from 'lodash.debounce';
 import UpdateUser from './updateUser';
 import { warningAlert } from '@src/components/alert';
+import { useAdminUsers } from '@src/utils/reactQuery';
 import 'antd/dist/reset.css'; // Import Ant Design styles
 
 // Filter Config
@@ -70,11 +70,14 @@ interface User {
 }
 
 const UserTable = () => {
+  const { data: adminUserData, refetch, isLoading } = useAdminUsers();
+  const [adminUsers, setAdminUser] = useState<string>('');
   const [searchText, setSearchText] = useState<string>('');
   const [isUpdateUser, setUpdateUser] = useState<boolean>(false);
   const [userToBeUpdate, setUserToBeUpdated] = useState<{}>(false);
-  const [filteredData, setFilteredData] = useState(userData);
-  const [pageSize, setPageSize] = useState(10); // Number of items per page
+  const [pageSize, setPageSize] = useState(10);
+  //@ts-ignore
+  const [filteredData, setFilteredData] = useState(adminUsers);
 
   const debouncedSearch = () => {
     debounce((value: string) => {
@@ -107,6 +110,13 @@ const UserTable = () => {
     }
     warningAlert('Deleted User');
   };
+
+  useEffect(() => {
+    if (!isLoading && adminUserData.status == 200) {
+      setAdminUser(adminUserData?.data);
+      console.log(adminUsers);
+    }
+  }, [isLoading, adminUserData]);
 
   const columns = [
     {
@@ -196,13 +206,25 @@ const UserTable = () => {
                 pageSizeOptions: ['5', '10', '20', '50', '100'],
                 onShowSizeChange: (current, size) => setPageSize(size),
               }}
-              loading={false}
+              loading={isLoading}
               scroll={{ x: 'max-content' }}
             />
           </div>
         </div>
       ) : (
         <UpdateUser user={userToBeUpdate} handleViewUser={handleViewUser} />
+      )}
+      {isLoading && (
+        <div className="fixed left-0 top-0 flex h-full w-full items-center justify-center bg-gray-500 bg-opacity-50">
+          <Button
+            isLoading
+            loadingText="Fetching Data"
+            variant="outline"
+            size="xxl"
+          >
+            Button
+          </Button>
+        </div>
       )}
     </div>
   );

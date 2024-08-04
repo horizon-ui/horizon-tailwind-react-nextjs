@@ -36,20 +36,6 @@ function Admin({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="flex h-full w-full bg-background-100 dark:bg-background-900">
-      {isLoading && (
-        <div className="fixed left-0 top-0 flex h-full w-full items-center justify-center bg-gray-500 bg-opacity-50">
-          <Button
-            isLoading
-            loadingText="Fetching user"
-            variant="outline"
-            size="xxl"
-          >
-            Button
-          </Button>
-        </div>
-      )}
-
-      {/* page meta data */}
       <Head>
         <title>{PRODUCT_NAME}</title>
         <link rel="icon" href={'logo/logo.webp'} />

@@ -12,9 +12,7 @@ const Tabs = dynamic(() => import('antd').then((mod) => mod.Tabs), {
 
 const UserTable = dynamic(
   () => import('./userTable/[[...index]]').then((mod) => mod.default),
-  {
-    ssr: false,
-  },
+  { ssr: false },
 );
 
 const AdminUser = () => {
@@ -28,20 +26,18 @@ const AdminUser = () => {
   }, []);
 
   return (
-    <Admin>
+    <div>
       <div>
-        <div className="col-span-2 mt-5  h-full grid-cols-1 gap-5 md:grid-cols-2">
-          <Tabs defaultActiveKey="1">
-            <TabPane tab={'Admin Users'} key="1">
-              <UserTable />
-            </TabPane>
-            <TabPane tab={'User Activities'} key="2">
-              <ActivityTable />
-            </TabPane>
-          </Tabs>
-        </div>
+        <Tabs defaultActiveKey="1">
+          <TabPane tab={'Admin Users'} key="1">
+            <UserTable />
+          </TabPane>
+          <TabPane tab={'User Activities'} key="2">
+            {/* <ActivityTable /> */}
+          </TabPane>
+        </Tabs>
       </div>
-    </Admin>
+    </div>
   );
 };
 

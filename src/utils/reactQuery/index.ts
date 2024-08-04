@@ -1,6 +1,7 @@
 import {
   createUserApi,
   getAdminDashbord,
+  getAdminUsersApi,
   getUserByPhoneApi,
 } from '@src/constants/api';
 import axios, { AxiosResponse } from 'axios';
@@ -40,6 +41,10 @@ function CreateMutation<TData, TVariables>(
       onError,
     },
   );
+}
+
+export function useAdminUsers() {
+  return useQueryGetData('adminUserData', getAdminUsersApi);
 }
 
 export function useGetUser(userPhoneNumber: string) {
