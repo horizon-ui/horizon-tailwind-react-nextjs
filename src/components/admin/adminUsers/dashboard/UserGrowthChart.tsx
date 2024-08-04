@@ -5,9 +5,7 @@ import {
 } from 'react-icons/md';
 import Card from '@component/card';
 import {
-  lineChartDataTotalSpent,
   lineChartDataUserGrowth,
-  lineChartOptionsTotalSpent,
   lineChartOptionsUserGrowth,
 } from '@variables/charts';
 import LineChart from '@component/charts/LineChart';

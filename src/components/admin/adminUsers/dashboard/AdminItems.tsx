@@ -6,7 +6,15 @@ import {
 } from '@variables/charts';
 import { MdBarChart } from 'react-icons/md';
 
-const AdminItemsChart = () => {
+const AdminItemsChart = ({ adminAssets }: any) => {
+  const barChartDataWeeklyRevenue = [
+    {
+      name: 'Admin Assets',
+      data: Object.values(adminAssets) || [0, 0, 0, 0, 0, 0, 0],
+      color: '#3b3bf7',
+    },
+  ];
+
   return (
     <Card extra="flex flex-col bg-white w-full rounded-3xl py-6 px-2 text-center">
       <div className="mb-auto flex items-center justify-between px-6">

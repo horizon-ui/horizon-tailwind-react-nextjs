@@ -2,6 +2,9 @@
 export const getUserByPhoneApi = '/api/users/getUserByPhone?phoneNumber=';
 export const createUserApi = '/api/users/createUser';
 
+//Dashboard
+export const getAdminDashbord = '/api/dashboard/readDashboard';
+
 // Diagnostic
 export const BASE_DC_URL =
   process.env.NEXT_PUBLIC_BASE_DC_URL + '/user/getUsers';

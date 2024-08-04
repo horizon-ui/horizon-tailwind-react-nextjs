@@ -1,4 +1,8 @@
-import { createUserApi, getUserByPhoneApi } from '@src/constants/api';
+import {
+  createUserApi,
+  getAdminDashbord,
+  getUserByPhoneApi,
+} from '@src/constants/api';
 import axios, { AxiosResponse } from 'axios';
 import { useMutation, useQuery, UseQueryOptions } from 'react-query';
 
@@ -38,6 +42,19 @@ function CreateMutation<TData, TVariables>(
   );
 }
 
+export function useGetUser(userPhoneNumber: string) {
+  const encodedPhoneNumber = encodeURIComponent(userPhoneNumber);
+  return useQueryGetData('userData', getUserByPhoneApi + encodedPhoneNumber, {
+    enabled: !!userPhoneNumber,
+  });
+}
+
+export function useGetDashboard(userPhoneNumber: string) {
+  return useQueryGetData('adminDashboard', getAdminDashbord, {
+    enabled: !!userPhoneNumber,
+  });
+}
+
 // Functions for different mutations
 // export function useGetUser({ userPhoneNumber }: any) {
 //   return useQueryGetData('userData', getDiagnosticUserApi + userPhoneNumber, {
@@ -52,13 +69,6 @@ function CreateMutation<TData, TVariables>(
 //     { enabled: !!selectedCenterId },
 //   );
 // }
-
-export function useGetUser(userPhoneNumber: string) {
-  const encodedPhoneNumber = encodeURIComponent(userPhoneNumber);
-  return useQueryGetData('userData', getUserByPhoneApi + encodedPhoneNumber, {
-    enabled: !!userPhoneNumber,
-  });
-}
 
 export function useCreateUser<TData, TVariables>(
   props: UseMutationProps<TData, TVariables>,

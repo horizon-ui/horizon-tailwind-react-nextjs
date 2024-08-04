@@ -16,32 +16,39 @@ import { ALLOWED_USERS } from '@src/constants/appConstants';
 import { UserData } from '@src/api/utils/interface';
 import { useRouter } from 'next/router';
 import { errorAlert2 } from '@src/components/alert';
-import { Spinner } from '@chakra-ui/react';
+import { Button } from '@chakra-ui/react';
 
 function Admin({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
-  const [hideDashboard, setHideDashboard] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const user: UserData = useRecoilValue(userState);
   const router = useRouter();
   const pathname = usePathname();
 
   useEffect(() => {
-    if (user && !ALLOWED_USERS.includes(user.role)) {
+    if (user && user.role && !ALLOWED_USERS.includes(user.role)) {
       errorAlert2('You dont have relevant access');
       router.push('/');
     } else if (user && ALLOWED_USERS.includes(user.role)) {
-      setHideDashboard(false);
+      setIsLoading(false);
     }
   }, [user]);
 
-  hideDashboard && (
-    <div>
-      <Spinner /> No Access...
-    </div>
-  );
-
   return (
     <div className="flex h-full w-full bg-background-100 dark:bg-background-900">
+      {isLoading && (
+        <div className="fixed left-0 top-0 flex h-full w-full items-center justify-center bg-gray-500 bg-opacity-50">
+          <Button
+            isLoading
+            loadingText="Fetching user"
+            variant="outline"
+            size="xxl"
+          >
+            Button
+          </Button>
+        </div>
+      )}
+
       {/* page meta data */}
       <Head>
         <title>{PRODUCT_NAME}</title>

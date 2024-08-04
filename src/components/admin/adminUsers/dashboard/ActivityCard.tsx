@@ -51,6 +51,7 @@ const formatDate = (timestamp) => {
 // const columns = columnsDataCheck;
 export default function ActivityTable(props: { tableData: any }) {
   const { tableData } = props;
+
   const [sorting, setSorting] = React.useState<SortingState>([]);
   let defaultData = tableData;
   const columns = [
@@ -142,10 +143,9 @@ export default function ActivityTable(props: { tableData: any }) {
     //     </div>
     //   ),
     // }),
-  ]; // eslint-disable-next-line
-  const [data, setData] = React.useState(() => [...defaultData]);
+  ];
   const table = useReactTable({
-    data,
+    data: defaultData,
     columns,
     state: {
       sorting,

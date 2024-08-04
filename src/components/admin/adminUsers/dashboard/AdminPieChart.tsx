@@ -8,7 +8,7 @@ import {
 import Card from '@component/card';
 import DonoughtChart from '@src/components/charts/DonutChart';
 
-const AdminPieChartCard = () => {
+const AdminPieChartCard = ({ userCount }) => {
   return (
     <Card extra="rounded-[20px] p-3">
       <div className="flex flex-row justify-between px-3 pt-2">
@@ -22,7 +22,7 @@ const AdminPieChartCard = () => {
       <div className="mb-auto mt-10 flex h-[220px] w-full items-center justify-center">
         <DonoughtChart
           chartOptions={adminDonoughtOptions}
-          chartData={adminDonoughtChartData}
+          chartData={Object.values(userCount) || adminDonoughtChartData}
         />
       </div>
     </Card>
