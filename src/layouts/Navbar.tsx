@@ -57,18 +57,32 @@ const Navbar: React.FC = () => {
                     )}
                   </svg>
                 </Disclosure.Button>
-                <span className="mx-1 block lg:hidden">
-                  <UserButton />
-                </span>
+                {session.isLoaded && user.isSignedIn && (
+                  <span className="mx-1 block lg:hidden">
+                    <UserButton />
+                  </span>
+                )}
 
                 <Disclosure.Panel className="my-5 flex w-full flex-wrap lg:hidden">
-                  <section className="flex">
-                    {userValue && (
-                      <Link href="/verifyUser" className=" py-2 text-gray-500">
-                        Dashboard
-                      </Link>
-                    )}
-                  </section>
+                  {session.isLoaded && user.isSignedIn ? (
+                    <>
+                      <section className="flex">
+                        {userValue && (
+                          <Link
+                            href="/verifyUser"
+                            className=" py-2 text-gray-500"
+                          >
+                            Dashboard
+                          </Link>
+                        )}
+                      </section>
+                    </>
+                  ) : (
+                    <Link href="/signIn" className=" py-2 text-orange-400">
+                      SignIn
+                    </Link>
+                  )}
+
                   <>
                     {navigation.map((item) => (
                       <Link
