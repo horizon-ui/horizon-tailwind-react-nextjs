@@ -8,26 +8,23 @@ import {
 } from 'react-icons/md';
 
 import Widget from '@component/widget/Widget';
-import Admin from '../../../pages/dashboard/[[...index]]';
+import Admin from '@src/pages/dashboard/[[...index]]';
 import ActivityTable from '@src/components/admin/adminUsers/dashboard/ActivityCard';
 import AdminDataChart from '@src/components/admin/adminUsers/dashboard/AdminDataChart';
 import AdminPieChartCard from '@src/components/admin/adminUsers/dashboard/AdminPieChart';
 import UserGrowthChart from '@src/components/admin/adminUsers/dashboard/UserGrowthChart';
 import AdminItemsChart from '@src/components/admin/adminUsers/dashboard/AdminItems';
 import { useGetDashboard } from '@src/utils/reactQuery';
-import { useRecoilValue } from 'recoil';
-import { userState } from '@src/utils/recoil/user';
-import { DashboardResponse, UserData } from '@src/api/utils/interface';
+import { DashboardResponse } from '@src/api/utils/interface';
 import { useEffect, useState } from 'react';
 import { Button } from '@chakra-ui/react';
 
 const Dashboard = () => {
-  const user: UserData = useRecoilValue(userState);
   const [cardData, setCardData] = useState({});
   const [activities, setActivities] = useState([]);
   const [userCount, setUserCount] = useState({});
   const [adminAssets, setAdminAssets] = useState({});
-  const [omeraldUsers, setOmeraldUsers] = useState({});
+  const [omeraldUsers, setOmeraldUsers] = useState([]);
   const { data: adminDashboard, isLoading, refetch }: any = useGetDashboard();
 
   useEffect(() => {
@@ -86,7 +83,7 @@ const Dashboard = () => {
           </div>
 
           <div className="mt-5 grid grid-cols-1 gap-5 md:grid-cols-2">
-            {omeraldUsers?.length > 0 && (
+            {omeraldUsers.length > 0 && (
               <UserGrowthChart userData={omeraldUsers} />
             )}
             {adminAssets && <AdminItemsChart adminAssets={adminAssets} />}
