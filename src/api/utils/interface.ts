@@ -1,16 +1,3 @@
-export interface UserData {
-  role: string;
-  userName: string;
-  phoneNumber: string;
-}
-
-export interface CustomError {
-  reasonCode: string;
-  message: string;
-  statusCode: number;
-}
-
-//Dashboard
 interface User {
   userName: string;
   phoneNumber: string;
@@ -92,4 +79,23 @@ export interface DashboardResponse {
 export interface OmeraldUser {
   month: string;
   count: number;
+}
+
+export interface UserData {
+  role: string;
+  userName: string;
+  phoneNumber: string;
+}
+
+export interface CustomError {
+  reasonCode: string;
+  message: string;
+  statusCode: number;
+}
+
+export interface DCDataType {
+  key: string;
+  name: string;
+  alias: string;
+  status: string;
 }

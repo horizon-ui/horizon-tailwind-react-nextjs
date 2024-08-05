@@ -1,0 +1,1 @@
+export const DIAGNOSED_CONDITIONS_COLUMNS = [];

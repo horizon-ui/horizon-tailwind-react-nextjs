@@ -28,7 +28,7 @@ const routes = [
   {
     name: 'Diganosed Conditions',
     layout: '/dashboard',
-    path: 'dianosedConditions',
+    path: 'diagnosedConditions',
     icon: <MdHealing className="h-6 w-6" />,
   },
   {

@@ -2,6 +2,7 @@ import {
   createUserApi,
   getAdminDashbord,
   getAdminUsersApi,
+  getDiagnosedConditions,
   getUserByPhoneApi,
 } from '@src/constants/api';
 import axios, { AxiosResponse } from 'axios';
@@ -47,6 +48,7 @@ export function useAdminUsers() {
   return useQueryGetData('adminUserData', getAdminUsersApi);
 }
 
+// Get calls
 export function useGetUser(userPhoneNumber: string) {
   const encodedPhoneNumber = encodeURIComponent(userPhoneNumber);
   return useQueryGetData('userData', getUserByPhoneApi + encodedPhoneNumber, {
@@ -58,21 +60,11 @@ export function useGetDashboard() {
   return useQueryGetData('adminDashboard', getAdminDashbord);
 }
 
-// Functions for different mutations
-// export function useGetUser({ userPhoneNumber }: any) {
-//   return useQueryGetData('userData', getDiagnosticUserApi + userPhoneNumber, {
-//     enabled: !!userPhoneNumber,
-//   });
-// }
+export function useGetDiagnosedConditions() {
+  return useQueryGetData('diagnosedConditions', getDiagnosedConditions);
+}
 
-// export function useGetDcProfile({ selectedCenterId }: any) {
-//   return useQueryGetData(
-//     'diagnosticCenter',
-//     getDiagProfileByPhoneApi + selectedCenterId,
-//     { enabled: !!selectedCenterId },
-//   );
-// }
-
+// Post calls
 export function useCreateUser<TData, TVariables>(
   props: UseMutationProps<TData, TVariables>,
 ) {
