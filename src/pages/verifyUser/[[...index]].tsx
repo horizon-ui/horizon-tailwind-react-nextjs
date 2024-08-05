@@ -2,7 +2,7 @@ import { Inter } from 'next/font/google';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useSession, useUser } from '@clerk/nextjs';
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { userState } from '@src/utils/recoil/user';
 import { useCreateUser, useGetUser } from '@src/utils/reactQuery';
 import { PageWithPrimaryLayout } from 'src/types/page';
@@ -15,29 +15,26 @@ import { Button } from '@chakra-ui/react';
 
 const inter = Inter({ subsets: ['latin'] });
 
-//Fetch user and navigate to dashboard
-//Create user if user not found
 const VerifyUser: PageWithPrimaryLayout = () => {
   const { session } = useSession();
   const { user } = useUser();
   const router = useRouter();
   const phone = user?.phoneNumbers[0]?.phoneNumber;
   const { data: userData, refetch, isLoading } = useGetUser(phone);
-  const [userValue, setUserRecoil] = useRecoilState(userState);
+  const setUserRecoil = useSetRecoilState(userState);
 
   const createUser = useCreateUser({
     onSuccess: (res) => {
-      //@ts-ignore
       if (res?.status === 201 && res?.data?._id) {
         setUserRecoil(res.data);
-        successAlert('Created user succesfully');
+        successAlert('Created user successfully');
         refetch();
         //@ts-ignore
         handleVerifyUser(res.data);
       }
     },
     onError: (error: Error) => {
-      errorAlert('Error Creating user ' + error.message);
+      errorAlert('Error Creating user: ' + error.message);
       router.push('/signIn');
     },
   });
@@ -46,20 +43,22 @@ const VerifyUser: PageWithPrimaryLayout = () => {
     createUser.mutate({ data: userObj });
   };
 
-  const handleVerifyUser = (userObj: UserData): void => {
-    if (userObj === null) {
-      const userObj: UserData = {
-        role: 'user',
-        userName: user?.fullName,
-        phoneNumber: phone,
+  const handleVerifyUser = (userObj: UserData | null): void => {
+    if (!userObj) {
+      const newUser: UserData = {
+        role: 'sme',
+        userName: user?.fullName || '',
+        phoneNumber: phone || '',
       };
-      handleCreateUser(userObj);
+      handleCreateUser(newUser);
+      return;
     }
-    if (userObj && ALLOWED_USERS.includes(userObj.role)) {
+
+    if (ALLOWED_USERS.includes(userObj.role)) {
       setUserRecoil(userObj);
       router.push('/dashboard/default');
     } else {
-      errorAlert2('You dont have relevant access');
+      errorAlert2('You don’t have relevant access');
       router.push('/');
     }
   };
@@ -67,9 +66,9 @@ const VerifyUser: PageWithPrimaryLayout = () => {
   useEffect(() => {
     if (session?.status === 'active' && !isLoading && userData) {
       // @ts-ignore
-      userData && handleVerifyUser(userData.data);
+      handleVerifyUser(userData.data);
     }
-  }, [session, isLoading, userData]);
+  }, [session?.status, isLoading, userData]);
 
   return (
     <div className="p-8">
