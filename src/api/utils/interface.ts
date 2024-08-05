@@ -88,3 +88,8 @@ export interface DashboardResponse {
   lineCharts: LineCharts;
   donutChart: DonutChart;
 }
+
+export interface OmeraldUser {
+  month: string;
+  count: number;
+}

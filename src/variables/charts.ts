@@ -385,7 +385,7 @@ export const lineChartOptionsTotalSpent = {
 
 export const lineChartDataUserGrowth = [
   {
-    name: 'Omerald User',
+    name: 'omeraldUser',
     data: [1, 1],
     color: '#6AD2FF',
   },
@@ -451,7 +451,7 @@ export const lineChartOptionsUserGrowth = {
     },
     type: 'text',
     range: undefined,
-    categories: ['Apr 2023', 'Feb 2024'],
+    // categories: ['Apr 2023', 'Feb 2024'],
   },
   yaxis: {
     show: true,

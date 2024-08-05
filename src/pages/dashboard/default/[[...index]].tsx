@@ -1,8 +1,6 @@
 'use client';
 import {
-  MdBarChart,
   MdBoy,
-  MdDashboard,
   MdEditDocument,
   MdHealing,
   MdLocalHospital,
@@ -11,10 +9,6 @@ import {
 
 import Widget from '@component/widget/Widget';
 import Admin from '../../../pages/dashboard/[[...index]]';
-import {
-  DASHBOARD_RESP,
-  dashboardData,
-} from '@src/variables/data-tables/tableDataDevelopment';
 import ActivityTable from '@src/components/admin/adminUsers/dashboard/ActivityCard';
 import AdminDataChart from '@src/components/admin/adminUsers/dashboard/AdminDataChart';
 import AdminPieChartCard from '@src/components/admin/adminUsers/dashboard/AdminPieChart';
@@ -33,6 +27,7 @@ const Dashboard = () => {
   const [activities, setActivities] = useState([]);
   const [userCount, setUserCount] = useState({});
   const [adminAssets, setAdminAssets] = useState({});
+  const [omeraldUsers, setOmeraldUsers] = useState({});
   const { data: adminDashboard, isLoading, refetch }: any = useGetDashboard();
 
   useEffect(() => {
@@ -44,6 +39,7 @@ const Dashboard = () => {
     setActivities(data.activities);
     setUserCount(data.donutChart.users);
     setAdminAssets(data.donutChart.adminData);
+    setOmeraldUsers(data.lineCharts.userCounts.omeraldUsers);
   };
 
   useEffect(() => {
@@ -90,8 +86,10 @@ const Dashboard = () => {
           </div>
 
           <div className="mt-5 grid grid-cols-1 gap-5 md:grid-cols-2">
-            <UserGrowthChart />
-            <AdminItemsChart adminAssets={adminAssets} />
+            {omeraldUsers?.length > 0 && (
+              <UserGrowthChart userData={omeraldUsers} />
+            )}
+            {adminAssets && <AdminItemsChart adminAssets={adminAssets} />}
           </div>
 
           <div className="mt-5 grid grid-cols-1 gap-5 xl:grid-cols-2">
