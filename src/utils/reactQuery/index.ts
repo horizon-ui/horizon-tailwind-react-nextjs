@@ -54,10 +54,8 @@ export function useGetUser(userPhoneNumber: string) {
   });
 }
 
-export function useGetDashboard(userPhoneNumber: string) {
-  return useQueryGetData('adminDashboard', getAdminDashbord, {
-    enabled: !!userPhoneNumber,
-  });
+export function useGetDashboard() {
+  return useQueryGetData('adminDashboard', getAdminDashbord);
 }
 
 // Functions for different mutations

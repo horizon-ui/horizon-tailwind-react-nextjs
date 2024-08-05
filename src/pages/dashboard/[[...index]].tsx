@@ -16,11 +16,9 @@ import { ALLOWED_USERS } from '@src/constants/appConstants';
 import { UserData } from '@src/api/utils/interface';
 import { useRouter } from 'next/router';
 import { errorAlert2 } from '@src/components/alert';
-import { Button } from '@chakra-ui/react';
 
 function Admin({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
   const user: UserData = useRecoilValue(userState);
   const router = useRouter();
   const pathname = usePathname();
@@ -29,8 +27,6 @@ function Admin({ children }: { children: React.ReactNode }) {
     if (user && user.role && !ALLOWED_USERS.includes(user.role)) {
       errorAlert2('You dont have relevant access');
       router.push('/');
-    } else if (user && ALLOWED_USERS.includes(user.role)) {
-      setIsLoading(false);
     }
   }, [user, router]);
 

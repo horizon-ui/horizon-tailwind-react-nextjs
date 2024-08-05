@@ -70,6 +70,10 @@ const VerifyUser: PageWithPrimaryLayout = () => {
     }
   }, [session?.status, isLoading, userData]);
 
+  useEffect(() => {
+    refetch();
+  }, []);
+
   return (
     <div className="p-8">
       <div className="m-auto flex justify-center text-center">

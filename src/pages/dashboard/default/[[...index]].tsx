@@ -33,11 +33,7 @@ const Dashboard = () => {
   const [activities, setActivities] = useState([]);
   const [userCount, setUserCount] = useState({});
   const [adminAssets, setAdminAssets] = useState({});
-  const {
-    data: adminDashboard,
-    isLoading,
-    refetch,
-  }: any = useGetDashboard(user.phoneNumber);
+  const { data: adminDashboard, isLoading, refetch }: any = useGetDashboard();
 
   useEffect(() => {
     refetch();
