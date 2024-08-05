@@ -70,163 +70,163 @@ interface User {
 }
 
 const UserTable = () => {
-  const { data: adminUserData, refetch, isLoading } = useAdminUsers();
-  const [adminUsers, setAdminUser] = useState<string>('');
-  const [searchText, setSearchText] = useState<string>('');
-  const [isUpdateUser, setUpdateUser] = useState<boolean>(false);
-  const [userToBeUpdate, setUserToBeUpdated] = useState<{}>(false);
-  const [pageSize, setPageSize] = useState(10);
-  //@ts-ignore
-  const [filteredData, setFilteredData] = useState(adminUsers);
+  // const { data: adminUserData, refetch, isLoading } = useAdminUsers();
+  // const [adminUsers, setAdminUser] = useState<string>('');
+  // const [searchText, setSearchText] = useState<string>('');
+  // const [isUpdateUser, setUpdateUser] = useState<boolean>(false);
+  // const [userToBeUpdate, setUserToBeUpdated] = useState<{}>(false);
+  // const [pageSize, setPageSize] = useState(10);
+  // //@ts-ignore
+  // const [filteredData, setFilteredData] = useState(adminUsers);
 
-  const debouncedSearch = () => {
-    debounce((value: string) => {
-      const lowercasedValue = value.toLowerCase();
-      setFilteredData(
-        userData.filter(
-          (record) =>
-            record?.userName.toLowerCase().includes(lowercasedValue) ||
-            record?.phoneNumber.toLowerCase().includes(lowercasedValue) ||
-            record?.role.toLowerCase().includes(lowercasedValue),
-        ),
-      );
-    }, 300);
-  };
+  // const debouncedSearch = () => {
+  //   debounce((value: string) => {
+  //     // const lowercasedValue = value.toLowerCase();
+  //     // setFilteredData(
+  //     //   userData.filter(
+  //     //     (record) =>
+  //     //       record?.userName.toLowerCase().includes(lowercasedValue) ||
+  //     //       record?.phoneNumber.toLowerCase().includes(lowercasedValue) ||
+  //     //       record?.role.toLowerCase().includes(lowercasedValue),
+  //     //   ),
+  //     // );
+  //   }, 300);
+  // };
 
-  const handleReset = () => {
-    setSearchText('');
-    setFilteredData(userData);
-  };
+  // const handleReset = () => {
+  //   setSearchText('');
+  // };
 
-  const handleViewUser = () => {
-    setUpdateUser(false);
-  };
+  // const handleViewUser = () => {
+  //   setUpdateUser(false);
+  // };
 
-  const handleDeleteUser = (record: User) => {
-    if (record?._id) {
-      let updatedData = userData?.filter((user) => {
-        return user?._id === record?._id;
-      });
-    }
-    warningAlert('Deleted User');
-  };
+  // const handleDeleteUser = (record: User) => {
+  //   if (record?._id) {
+  //     let updatedData = userData?.filter((user) => {
+  //       return user?._id === record?._id;
+  //     });
+  //   }
+  //   warningAlert('Deleted User');
+  // };
 
-  useEffect(() => {
-    if (!isLoading && adminUserData.status == 200) {
-      setAdminUser(adminUserData?.data);
-      console.log(adminUsers);
-    }
-  }, [isLoading, adminUserData]);
+  // useEffect(() => {
+  //   if (!isLoading && adminUserData.status == 200) {
+  //     setAdminUser(adminUserData?.data);
+  //     console.log(adminUsers);
+  //   }
+  // }, [isLoading, adminUserData]);
 
-  const columns = [
-    {
-      title: 'Name',
-      dataIndex: 'userName',
-      key: 'userName',
-      sorter: (a, b) => a.name.localeCompare(b.name),
-    },
-    {
-      title: 'PhoneNumber',
-      dataIndex: 'phoneNumber',
-      key: 'phoneNumber',
-    },
-    {
-      title: 'Role',
-      dataIndex: 'role',
-      key: 'role',
-      sorter: (a, b) => a.role.localeCompare(b.role),
-      ...filterConfig,
-    },
-    {
-      title: 'Actions',
-      dataIndex: 'action',
-      render: (_, record) => (
-        <Space size="middle">
-          <span>
-            <a href="#">
-              <MdEdit
-                onClick={() => {
-                  setUpdateUser(true);
-                  setUserToBeUpdated(record);
-                }}
-                className="h-5 w-5 text-green-800"
-              />
-            </a>
-          </span>
-          <span>
-            <a href="#">
-              <MdDelete
-                onClick={() => {
-                  handleDeleteUser(record);
-                }}
-                className="h-5 w-5 text-red-600"
-              />
-            </a>
-          </span>
-        </Space>
-      ),
-    },
-  ];
+  // const columns = [
+  //   {
+  //     title: 'Name',
+  //     dataIndex: 'userName',
+  //     key: 'userName',
+  //     sorter: (a, b) => a.name.localeCompare(b.name),
+  //   },
+  //   {
+  //     title: 'PhoneNumber',
+  //     dataIndex: 'phoneNumber',
+  //     key: 'phoneNumber',
+  //   },
+  //   {
+  //     title: 'Role',
+  //     dataIndex: 'role',
+  //     key: 'role',
+  //     sorter: (a, b) => a.role.localeCompare(b.role),
+  //     ...filterConfig,
+  //   },
+  //   {
+  //     title: 'Actions',
+  //     dataIndex: 'action',
+  //     render: (_, record) => (
+  //       <Space size="middle">
+  //         <span>
+  //           <a href="#">
+  //             <MdEdit
+  //               onClick={() => {
+  //                 setUpdateUser(true);
+  //                 setUserToBeUpdated(record);
+  //               }}
+  //               className="h-5 w-5 text-green-800"
+  //             />
+  //           </a>
+  //         </span>
+  //         <span>
+  //           <a href="#">
+  //             <MdDelete
+  //               onClick={() => {
+  //                 handleDeleteUser(record);
+  //               }}
+  //               className="h-5 w-5 text-red-600"
+  //             />
+  //           </a>
+  //         </span>
+  //       </Space>
+  //     ),
+  //   },
+  // ];
 
   return (
-    <div>
-      {!isUpdateUser ? (
-        <div>
-          <Space style={{ marginBottom: 16 }}>
-            <Input
-              placeholder="Search by name, phoneNumber, role..."
-              value={searchText}
-              onChange={(e) => {
-                setSearchText(e.target.value);
-                // @ts-ignore
-                debouncedSearch(e.target.value);
-              }}
-              prefix={<MdSearch />}
-              style={{ width: 300 }}
-            />
-            <Button onClick={handleReset}>Reset</Button>
-          </Space>
-          <div className="overflow-x-auto">
-            <Table
-              dataSource={filteredData}
-              //@ts-ignore
-              columns={columns}
-              style={{
-                borderRadius: '8px',
-                border: '2px solid @#00000', // Apply border color
-                boxShadow:
-                  'rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px',
-                backgroundColor: 'white', // Ensure background color is set
-              }}
-              borderColor="red"
-              pagination={{
-                pageSize: pageSize,
-                showQuickJumper: true,
-                showSizeChanger: true,
-                pageSizeOptions: ['5', '10', '20', '50', '100'],
-                onShowSizeChange: (current, size) => setPageSize(size),
-              }}
-              loading={isLoading}
-              scroll={{ x: 'max-content' }}
-            />
-          </div>
-        </div>
-      ) : (
-        <UpdateUser user={userToBeUpdate} handleViewUser={handleViewUser} />
-      )}
-      {isLoading && (
-        <div className="fixed left-0 top-0 flex h-full w-full items-center justify-center bg-gray-500 bg-opacity-50">
-          <Button
-            isLoading
-            loadingText="Fetching Data"
-            variant="outline"
-            size="xxl"
-          >
-            Button
-          </Button>
-        </div>
-      )}
-    </div>
+    <></>
+    // <div>
+    //   {!isUpdateUser ? (
+    //     <div>
+    //       <Space style={{ marginBottom: 16 }}>
+    //         <Input
+    //           placeholder="Search by name, phoneNumber, role..."
+    //           value={searchText}
+    //           onChange={(e) => {
+    //             setSearchText(e.target.value);
+    //             // @ts-ignore
+    //             debouncedSearch(e.target.value);
+    //           }}
+    //           prefix={<MdSearch />}
+    //           style={{ width: 300 }}
+    //         />
+    //         <Button onClick={handleReset}>Reset</Button>
+    //       </Space>
+    //       <div className="overflow-x-auto">
+    //         <Table
+    //           dataSource={filteredData}
+    //           //@ts-ignore
+    //           columns={columns}
+    //           style={{
+    //             borderRadius: '8px',
+    //             border: '2px solid @#00000', // Apply border color
+    //             boxShadow:
+    //               'rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px',
+    //             backgroundColor: 'white', // Ensure background color is set
+    //           }}
+    //           borderColor="red"
+    //           pagination={{
+    //             pageSize: pageSize,
+    //             showQuickJumper: true,
+    //             showSizeChanger: true,
+    //             pageSizeOptions: ['5', '10', '20', '50', '100'],
+    //             onShowSizeChange: (current, size) => setPageSize(size),
+    //           }}
+    //           loading={isLoading}
+    //           scroll={{ x: 'max-content' }}
+    //         />
+    //       </div>
+    //     </div>
+    //   ) : (
+    //     <UpdateUser user={userToBeUpdate} handleViewUser={handleViewUser} />
+    //   )}
+    //   {isLoading && (
+    //     <div className="fixed left-0 top-0 flex h-full w-full items-center justify-center bg-gray-500 bg-opacity-50">
+    //       <Button
+    //         isLoading
+    //         loadingText="Fetching Data"
+    //         variant="outline"
+    //         size="xxl"
+    //       >
+    //         Button
+    //       </Button>
+    //     </div>
+    //   )}
+    // </div>
   );
 };
 
