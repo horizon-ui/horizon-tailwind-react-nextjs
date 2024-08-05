@@ -1,0 +1,20 @@
+/* styles.css */
+.custom-table .ant-table {
+  border-radius: 8px;
+  border: 2px solid #000; /* Border color */
+  background-color: #f9f9f9; /* Table background color */
+}
+
+.custom-table .ant-table-thead > tr > th {
+  background-color: #1890ff; /* Header background color */
+  color: white; /* Header text color */
+  font-weight: bold;
+}
+
+.custom-table .ant-table-tbody > tr:nth-child(odd) {
+  background-color: #f1f1f1; /* Alternating row background color */
+}
+
+.custom-table .ant-table-tbody > tr:nth-child(even) {
+  background-color: #ffffff; /* Alternating row background color */
+}

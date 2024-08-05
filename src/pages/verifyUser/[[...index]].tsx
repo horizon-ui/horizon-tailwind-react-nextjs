@@ -24,7 +24,7 @@ const VerifyUser: PageWithPrimaryLayout = () => {
   const setUserRecoil = useSetRecoilState(userState);
 
   const createUser = useCreateUser({
-    onSuccess: (res) => {
+    onSuccess: (res: any) => {
       if (res?.status === 201 && res?.data?._id) {
         setUserRecoil(res.data);
         successAlert('Created user successfully');

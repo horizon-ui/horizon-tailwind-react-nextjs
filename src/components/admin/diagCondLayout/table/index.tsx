@@ -1,60 +1,51 @@
 'use client';
+
 import { Table } from 'antd';
-import { useEffect } from 'react';
-import { DIAGNOSED_CONDITIONS_COLUMNS } from '../utils/column';
+import { useEffect, useState } from 'react';
 import { useGetDiagnosedConditions } from '@src/utils/reactQuery';
+import { DIAGNOSED_CONDITIONS_COLUMNS } from '../utils/column';
+import { useRecoilState } from 'recoil';
+import { diagConditionState } from '@src/utils/recoil/diagnosedConditions';
+import './dc.module.css';
 
 const DcTable = () => {
+  const [pageSize, setPageSize] = useState(10);
+  const [dcRecoilValue, setDcRecoilValue] = useRecoilState(diagConditionState);
   const {
-    data: DiagnosedConditions,
+    data: diagConditionsData,
+    isLoading,
     refetch,
-    status,
   } = useGetDiagnosedConditions();
-  const handleEdit = (record: Object) => {};
-  const handleDelete = (record: Object) => {};
-
-  let columns = DIAGNOSED_CONDITIONS_COLUMNS.map((column) =>
-    column.key === 'action'
-      ? {
-          ...column,
-          render: (text, record) => (
-            <div>
-              <button onClick={() => handleEdit(record)}>🖉 Edit</button>
-              <button onClick={() => handleDelete(record)}>🗑 Delete</button>
-            </div>
-          ),
-        }
-      : column,
-  );
-
-  let dcDataSource = DiagnosedConditions?.data;
 
   useEffect(() => {
     refetch();
-  }, []);
+  }, [refetch]);
+
+  useEffect(() => {
+    if (!isLoading && diagConditionsData && diagConditionsData.data) {
+      setDcRecoilValue(diagConditionsData.data);
+    }
+  }, [isLoading, diagConditionsData, setDcRecoilValue]);
 
   return (
-    <div className="my-8">
-      <div className="overflow-x-auto">
+    <div className="my-6">
+      <div className="custom-table overflow-x-auto">
         <Table
-          dataSource={dcDataSource}
           //@ts-ignore
-          columns={columns}
-          style={{
-            borderRadius: '8px',
-            border: '2px solid @#00000', // Apply border color
-            boxShadow:
-              'rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px',
-            backgroundColor: 'white', // Ensure background color is set
-          }}
+          dataSource={dcRecoilValue.length > 0 ? dcRecoilValue : []}
+          columns={DIAGNOSED_CONDITIONS_COLUMNS}
           pagination={{
-            pageSize: 10,
+            pageSize,
             showQuickJumper: true,
             showSizeChanger: true,
             pageSizeOptions: ['5', '10', '20', '50', '100'],
-            // onShowSizeChange: (current, size) => setPageSize(size),
+            onShowSizeChange: (_, size) => setPageSize(size),
+            style: {
+              marginRight: '2vw',
+              textAlign: 'center',
+            },
           }}
-          //   loading={isLoading}
+          loading={isLoading}
           scroll={{ x: 'max-content' }}
         />
       </div>

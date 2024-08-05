@@ -3,6 +3,7 @@ import mongoose, { Schema } from 'mongoose';
 export interface DiagnosedConditionDocument {
   name: string;
   alias: string[];
+  status: boolean;
 }
 
 const DiagnosedConditionSchema: Schema<DiagnosedConditionDocument> =
@@ -15,6 +16,10 @@ const DiagnosedConditionSchema: Schema<DiagnosedConditionDocument> =
     alias: {
       type: [String],
       unique: true,
+    },
+    status: {
+      type: Boolean,
+      default: false,
     },
   });
 
