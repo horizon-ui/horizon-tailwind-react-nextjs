@@ -82,16 +82,12 @@ const DcTable = ({ handleEditDc }) => {
           <>
             <span className="hidden sm:block">
               <Space size="middle">
-                <Button
-                  icon={<MdEdit />}
-                  onClick={() => handleEdit(record._id)}
-                >
+                <Button onClick={() => handleEdit(record._id)}>
+                  <MdEdit />
                   Edit
                 </Button>
-                <Button
-                  icon={<MdDelete />}
-                  onClick={() => handleDCDelete(record._id)}
-                >
+                <Button onClick={() => handleDCDelete(record._id)}>
+                  <MdDelete />
                   Delete
                 </Button>
               </Space>

@@ -1,16 +1,13 @@
 import Card from '@component/card';
 import BarChart from '@component/charts/BarChart';
-import {
-  barChartDataWeeklyRevenue,
-  barChartOptionsWeeklyRevenue,
-} from '@variables/charts';
+import { barChartOptionsWeeklyRevenue } from '@variables/charts';
 import { MdBarChart } from 'react-icons/md';
 
 const AdminItemsChart = ({ adminAssets }: any) => {
   const barChartDataWeeklyRevenue = [
     {
       name: 'Admin Assets',
-      data: Object.values(adminAssets) || [0, 0, 0, 0, 0, 0, 0],
+      data: Object.values(adminAssets) || [1, 0, 0, 0, 0, 0, 0],
       color: '#3b3bf7',
     },
   ];

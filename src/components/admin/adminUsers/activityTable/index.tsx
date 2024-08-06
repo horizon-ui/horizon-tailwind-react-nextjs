@@ -16,7 +16,9 @@ const ActivityTable = () => {
   const [userListRecoil, setUserListRecoil] = useRecoilState<[]>(userListState);
 
   const dataSourceWithKeys =
+    //@ts-ignore
     adminUserData?.data?.length > 0 &&
+    //@ts-ignore
     adminUserData?.data.map((record: any, index) => ({
       ...record,
       key: record.key || record.id || index,

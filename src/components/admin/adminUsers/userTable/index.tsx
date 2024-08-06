@@ -1,6 +1,6 @@
 'use client';
 
-import { Button, Space, Table } from 'antd';
+import { Space, Table } from 'antd';
 import { useEffect, useState } from 'react';
 import { useAdminUsers } from '@src/utils/reactQuery';
 import { ADMIN_USER_COLUMNS } from './utils';
@@ -11,6 +11,7 @@ import { MdEdit } from 'react-icons/md';
 import { useUser } from '@clerk/nextjs';
 import AdminUserHeader from './header';
 import UpdateUser from './updateUser';
+import { Button } from '@chakra-ui/react';
 
 const UserTable = () => {
   const { user } = useUser();
@@ -50,10 +51,8 @@ const UserTable = () => {
             {!(record.phoneNumber === phone) && (
               <span className="hidden sm:block">
                 <Space size="middle">
-                  <Button
-                    icon={<MdEdit />}
-                    onClick={() => handleEdit(record._id)}
-                  >
+                  <Button onClick={() => handleEdit(record._id)}>
+                    <MdEdit />
                     Update
                   </Button>
                 </Space>

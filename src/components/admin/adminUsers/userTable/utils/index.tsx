@@ -87,5 +87,5 @@ export const formatDate = (timestamp) => {
     second: '2-digit',
   };
 
-  return date.toLocaleDateString(undefined, options);
+  return date.toLocaleDateString();
 };
