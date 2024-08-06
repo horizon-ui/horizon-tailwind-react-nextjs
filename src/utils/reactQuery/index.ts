@@ -1,8 +1,14 @@
 import {
   createAdminActivitiessApi,
   createDiagnosedConditionsApi,
+  createDoseApi,
+  createDoseDurationApi,
   createUserApi,
+  createVaccineApi,
   deleteDiagnosedConditionsApi,
+  deleteDoseApi,
+  deleteDoseDurationApi,
+  deleteVaccineApi,
   getAdminActivitiessApi,
   getAdminDashbord,
   getAdminUsersApi,
@@ -18,8 +24,11 @@ import {
   getVaccineApi,
   updateDiagnosedConditionsApi,
   updateDiagSettings,
+  updateDoseApi,
+  updateDoseDurationApi,
   updateUserApi,
   updateUserSettings,
+  updateVaccineApi,
 } from '@src/constants/api';
 import axios, { AxiosResponse } from 'axios';
 import {
@@ -136,6 +145,24 @@ export function useCreateDC<TData, TVariables>(
   return CreateMutation('post', createDiagnosedConditionsApi, props);
 }
 
+export function useCreateVaccine<TData, TVariables>(
+  props: UseMutationProps<TData, TVariables>,
+) {
+  return CreateMutation('post', createVaccineApi, props);
+}
+
+export function useCreateDose<TData, TVariables>(
+  props: UseMutationProps<TData, TVariables>,
+) {
+  return CreateMutation('post', createDoseApi, props);
+}
+
+export function useCreateDoseDuration<TData, TVariables>(
+  props: UseMutationProps<TData, TVariables>,
+) {
+  return CreateMutation('post', createDoseDurationApi, props);
+}
+
 export function useCreateActivities<TData, TVariables>(
   props: UseMutationProps<TData, TVariables>,
 ) {
@@ -174,6 +201,24 @@ export function useUpdateUser<TData, TVariables>(
   return UpdateMutation('put', updateUserApi, props);
 }
 
+export function useUpdateVaccine<TData, TVariables>(
+  props: UseMutationProps<TData, TVariables>,
+) {
+  return UpdateMutation('put', updateVaccineApi, props);
+}
+
+export function useUpdateDose<TData, TVariables>(
+  props: UseMutationProps<TData, TVariables>,
+) {
+  return UpdateMutation('put', updateDoseApi, props);
+}
+
+export function useUpdateDoseDuration<TData, TVariables>(
+  props: UseMutationProps<TData, TVariables>,
+) {
+  return UpdateMutation('put', updateDoseDurationApi, props);
+}
+
 export function useUpdateUserSetting<TData, TVariables>(
   props: UseMutationProps<TData, TVariables>,
 ) {
@@ -202,6 +247,24 @@ export function useDeleteDC<TData, TVariables>(
   props: UseMutationProps<TData, TVariables>,
 ) {
   return DeleteMutation('delete', deleteDiagnosedConditionsApi, props);
+}
+
+export function useDeleteVaccine<TData, TVariables>(
+  props: UseMutationProps<TData, TVariables>,
+) {
+  return DeleteMutation('delete', deleteVaccineApi, props);
+}
+
+export function useDeleteDose<TData, TVariables>(
+  props: UseMutationProps<TData, TVariables>,
+) {
+  return DeleteMutation('delete', deleteDoseApi, props);
+}
+
+export function useDeleteDoseDuration<TData, TVariables>(
+  props: UseMutationProps<TData, TVariables>,
+) {
+  return DeleteMutation('delete', deleteDoseDurationApi, props);
 }
 
 // Invalidate

@@ -1,18 +1,37 @@
 'use client';
 
-import { useGetDoses } from '@src/utils/reactQuery';
+import {
+  useDeleteDose,
+  useGetDoses,
+  useInvalidateQuery,
+} from '@src/utils/reactQuery';
 import ReportsTable from '../../reports/utils/table';
 import { VACCINE_DOSE_COLUMNS } from '../utils/columns';
 import { DataWithKeys } from '../../reports/utils/columns';
+import { AxiosResponse } from 'axios';
+import { errorAlert, warningAlert2 } from '@src/components/alert';
 
 const DosesTab = () => {
   const { data: doseData, isLoading, refetch } = useGetDoses();
+  const invalidateQuery = useInvalidateQuery();
+
+  const deleteMutation = useDeleteDose({
+    onSuccess: (resp: AxiosResponse) => {
+      warningAlert2('Deleted Dose succesfully');
+      invalidateQuery('doseData');
+    },
+    onError: (error: Error) => {
+      errorAlert('Error deleting dose');
+    },
+  });
 
   const handleEdit = (record: any) => {
     console.log(record);
   };
-  const handleDelete = (record: any) => {
-    console.log(record);
+  const handleDelete = (record: string) => {
+    if (record) {
+      deleteMutation.mutate(record);
+    }
   };
 
   // useEffect(() => {

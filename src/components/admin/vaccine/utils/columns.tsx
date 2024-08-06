@@ -18,10 +18,10 @@ export const VACCINE_COLUMNS = ({ handleEdit, handleDelete }) => {
         <>
           <span className="hidden sm:block">
             <Space size="middle">
-              <Button onClick={() => handleEdit(record._id)}>
+              {/* <Button onClick={() => handleEdit(record._id)}>
                 <MdEdit />
                 Edit
-              </Button>
+              </Button> */}
               <Button onClick={() => handleDelete(record._id)}>
                 <MdDelete />
                 Delete
@@ -29,10 +29,10 @@ export const VACCINE_COLUMNS = ({ handleEdit, handleDelete }) => {
             </Space>
           </span>
           <span className="block flex gap-4 sm:hidden">
-            <MdEdit
+            {/* <MdEdit
               className="text-indigo-800"
               onClick={() => handleDelete(record._id)}
-            />
+            /> */}
             <MdDelete
               className="text-red-500"
               onClick={() => handleDelete(record._id)}
@@ -119,10 +119,10 @@ export const VACCINE_DOSE_DURATION_COLUMNS = ({ handleEdit, handleDelete }) => {
         <>
           <span className="hidden sm:block">
             <Space size="middle">
-              <Button onClick={() => handleEdit(record._id)}>
+              {/* <Button onClick={() => handleEdit(record._id)}>
                 <MdEdit />
                 Edit
-              </Button>
+              </Button> */}
               <Button onClick={() => handleDelete(record._id)}>
                 <MdDelete />
                 Delete
@@ -130,10 +130,10 @@ export const VACCINE_DOSE_DURATION_COLUMNS = ({ handleEdit, handleDelete }) => {
             </Space>
           </span>
           <span className="block flex gap-4 sm:hidden">
-            <MdEdit
+            {/* <MdEdit
               className="text-indigo-800"
               onClick={() => handleDelete(record._id)}
-            />
+            /> */}
             <MdDelete
               className="text-red-500"
               onClick={() => handleDelete(record._id)}
