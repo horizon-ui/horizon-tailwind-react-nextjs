@@ -66,17 +66,34 @@ const DcTable = ({ handleEditDc }) => {
       return {
         ...dc,
         render: (_, record: DCDataInterface) => (
-          <Space size="middle">
-            <Button icon={<MdEdit />} onClick={() => handleEdit(record._id)}>
-              Edit
-            </Button>
-            <Button
-              icon={<MdDelete />}
-              onClick={() => handleDCDelete(record._id)}
-            >
-              Delete
-            </Button>
-          </Space>
+          <>
+            <span className="hidden sm:block">
+              <Space size="middle">
+                <Button
+                  icon={<MdEdit />}
+                  onClick={() => handleEdit(record._id)}
+                >
+                  Edit
+                </Button>
+                <Button
+                  icon={<MdDelete />}
+                  onClick={() => handleDCDelete(record._id)}
+                >
+                  Delete
+                </Button>
+              </Space>
+            </span>
+            <span className="block flex gap-4 sm:hidden">
+              <MdEdit
+                className="text-indigo-800"
+                onClick={() => handleEdit(record._id)}
+              />
+              <MdDelete
+                className="text-red-500"
+                onClick={() => handleDCDelete(record._id)}
+              />
+            </span>
+          </>
         ),
       };
     }
@@ -109,6 +126,7 @@ const DcTable = ({ handleEditDc }) => {
             },
           }}
           loading={isLoading}
+          // style={{ backgroundColor: 'white' }}
           scroll={{ x: 'max-content' }}
         />
       </div>

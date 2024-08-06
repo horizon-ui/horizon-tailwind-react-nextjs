@@ -87,8 +87,10 @@ const AddDC = ({ handleShowDc }) => {
 
   return (
     <div className="my-10 max-w-full bg-white p-10">
-      <section className="m-auto w-[50%]">
-        <p className="my-4 text-xl font-bold">Add Diagnosed Condition</p>
+      <section className="m-auto xl:w-[50%]">
+        <p className="font-semi-bold text-md my-4 lg:text-xl lg:font-bold">
+          Add Diagnosed Condition
+        </p>
         <form onSubmit={handleSubmit} className="space-y-4 ">
           <Stack spacing={4}>
             <FormControl id="name" className="my-2" isRequired>

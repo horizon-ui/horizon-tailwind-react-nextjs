@@ -9,7 +9,7 @@ export const DIAGNOSED_CONDITIONS_COLUMNS = [
     sorter: (a, b) => a.title.localeCompare(b.title),
     render: (text) => (
       <div
-        className="w-[10vw] capitalize"
+        className="w-auto capitalize sm:w-[10vw]"
         style={{ wordWrap: 'break-word', whiteSpace: 'pre-wrap' }}
       >
         {text}
@@ -24,7 +24,7 @@ export const DIAGNOSED_CONDITIONS_COLUMNS = [
     sorter: (a, b) => a.title.localeCompare(b.title),
     render: (text) => (
       <div
-        className="w-[10vw] capitalize"
+        className="w-auto capitalize sm:w-[10vw]"
         style={{ wordWrap: 'break-word', whiteSpace: 'pre-wrap' }}
       >
         {text}
@@ -36,7 +36,6 @@ export const DIAGNOSED_CONDITIONS_COLUMNS = [
     dataIndex: 'aliases',
     key: 'aliases',
     render: (aliases) => {
-      console.log(aliases);
       let moreDots = false;
       if (aliases?.length > 3) {
         aliases = aliases.slice(0, 3);
@@ -44,14 +43,18 @@ export const DIAGNOSED_CONDITIONS_COLUMNS = [
       }
       return (
         <Space
-          className="w-[10vw] uppercase"
+          className="w-[auto] uppercase lg:w-[10vw]"
           style={{ wordWrap: 'break-word', whiteSpace: 'pre-wrap' }}
           onMouseEnter={() => {}}
           size={[0, 1]}
           wrap
         >
           {aliases?.map((alias) => (
-            <Tag color="geekblue" key={alias}>
+            <Tag
+              className="sm:text-md p-[1px] text-[8px] sm:px-4 sm:text-[10px]"
+              color="geekblue"
+              key={alias}
+            >
               {alias}
             </Tag>
           ))}

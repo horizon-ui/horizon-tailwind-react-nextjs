@@ -35,3 +35,16 @@ body {
 .cl-internal-11ttlho {
   display: none;
 }
+
+/* styles.css */
+.custom-table .ant-table {
+  background-color: white;
+}
+
+.custom-table .ant-table-thead > tr > th {
+  background-color: white; /* Header background color */
+}
+
+.custom-table .ant-table-tbody > tr > td {
+  background-color: white; /* Body cells background color */
+}

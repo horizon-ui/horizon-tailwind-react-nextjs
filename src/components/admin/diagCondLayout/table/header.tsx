@@ -43,7 +43,7 @@ const DcHeader = ({ showDc, handleShowDc }) => {
           {/* Search */}
           <InputGroup size="md">
             <Input
-              className="w-[15vw] border-2 p-2"
+              className="w-[60vw] border-2 p-2 sm:w-[40vw] lg:w-[25vw] xl:w-[15vw]"
               placeholder="Search Diagnostic Center"
               value={searchTerm}
               onChange={handleSearch}
