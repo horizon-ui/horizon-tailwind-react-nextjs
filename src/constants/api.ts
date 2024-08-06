@@ -7,14 +7,14 @@ export const createUserApi = '/api/users/createUser';
 export const getAdminDashbord = '/api/dashboard/readDashboard';
 
 //Diagnosed Conditions
-export const getDiagnosedConditions =
+export const getDiagnosedConditionsApi =
   '/api/diagnosedCondition/readDiagCondition';
-export const createDiagnosedConditions =
+export const createDiagnosedConditionsApi =
   '/api/diagnosedCondition/createDiagCondition';
-export const updateDiagnosedConditions =
-  '/api/diagnosedCondition/updateDiagCondition';
-export const deleteDiagnosedConditions =
-  '/api/diagnosedCondition/updateDiagCondition';
+export const updateDiagnosedConditionsApi =
+  '/api/diagnosedCondition/updateDiagCondition/?id=';
+export const deleteDiagnosedConditionsApi =
+  '/api/diagnosedCondition/deleteDiagCondition/?id=';
 
 // Diagnostic
 export const BASE_DC_URL =

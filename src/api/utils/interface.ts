@@ -96,6 +96,15 @@ export interface CustomError {
 export interface DCDataType {
   key: string;
   name: string;
-  alias: string;
+  aliases: string;
+  status: string;
+}
+
+export interface DCDataInterface {
+  key?: string;
+  _id?: string;
+  name: string;
+  description: string;
+  aliases: [];
   status: string;
 }

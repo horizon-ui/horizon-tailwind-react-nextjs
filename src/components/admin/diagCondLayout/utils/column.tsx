@@ -1,9 +1,4 @@
-import { DCDataType } from '@src/api/utils/interface';
-import { Button, Input, Space, Tag } from 'antd';
-import { MdDelete, MdEdit, MdSearch } from 'react-icons/md';
-
-export const handleEdit = (record: Object) => {};
-export const handleDelete = (record: Object) => {};
+import { Space, Tag } from 'antd';
 
 export const DIAGNOSED_CONDITIONS_COLUMNS = [
   {
@@ -22,10 +17,26 @@ export const DIAGNOSED_CONDITIONS_COLUMNS = [
     ),
   },
   {
+    title: 'Description',
+    dataIndex: 'description',
+    key: 'description',
+    ellipsis: true,
+    sorter: (a, b) => a.title.localeCompare(b.title),
+    render: (text) => (
+      <div
+        className="w-[10vw] capitalize"
+        style={{ wordWrap: 'break-word', whiteSpace: 'pre-wrap' }}
+      >
+        {text}
+      </div>
+    ),
+  },
+  {
     title: 'Alias',
-    dataIndex: 'alias',
-    key: 'alias',
+    dataIndex: 'aliases',
+    key: 'aliases',
     render: (aliases) => {
+      console.log(aliases);
       let moreDots = false;
       if (aliases?.length > 3) {
         aliases = aliases.slice(0, 3);
@@ -39,7 +50,7 @@ export const DIAGNOSED_CONDITIONS_COLUMNS = [
           size={[0, 1]}
           wrap
         >
-          {aliases.map((alias) => (
+          {aliases?.map((alias) => (
             <Tag color="geekblue" key={alias}>
               {alias}
             </Tag>
@@ -62,15 +73,5 @@ export const DIAGNOSED_CONDITIONS_COLUMNS = [
   {
     title: 'Action',
     key: 'action',
-    render: (_, record: DCDataType) => (
-      <Space size="middle">
-        <Button icon={<MdEdit />} onClick={() => handleEdit(record.key)}>
-          Edit
-        </Button>
-        <Button icon={<MdDelete />} onClick={() => handleDelete(record.key)}>
-          Delete
-        </Button>
-      </Space>
-    ),
   },
 ];

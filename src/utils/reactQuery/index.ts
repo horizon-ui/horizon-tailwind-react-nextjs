@@ -1,12 +1,19 @@
 import {
+  createDiagnosedConditionsApi,
   createUserApi,
+  deleteDiagnosedConditionsApi,
   getAdminDashbord,
   getAdminUsersApi,
-  getDiagnosedConditions,
+  getDiagnosedConditionsApi,
   getUserByPhoneApi,
 } from '@src/constants/api';
 import axios, { AxiosResponse } from 'axios';
-import { useMutation, useQuery, UseQueryOptions } from 'react-query';
+import {
+  useMutation,
+  useQuery,
+  useQueryClient,
+  UseQueryOptions,
+} from 'react-query';
 
 // useQuery hook to get data
 export function useQueryGetData<T>(
@@ -48,7 +55,7 @@ export function useAdminUsers() {
   return useQueryGetData('adminUserData', getAdminUsersApi);
 }
 
-// Get calls
+// GET
 export function useGetUser(userPhoneNumber: string) {
   const encodedPhoneNumber = encodeURIComponent(userPhoneNumber);
   return useQueryGetData('userData', getUserByPhoneApi + encodedPhoneNumber, {
@@ -61,7 +68,7 @@ export function useGetDashboard() {
 }
 
 export function useGetDiagnosedConditions() {
-  return useQueryGetData('diagnosedConditions', getDiagnosedConditions);
+  return useQueryGetData('diagnosedConditions', getDiagnosedConditionsApi);
 }
 
 // Post calls
@@ -71,9 +78,37 @@ export function useCreateUser<TData, TVariables>(
   return CreateMutation('post', createUserApi, props);
 }
 
-// export function useUpdateUser<TData, TVariables>(
-//   props: UseMutationProps<TData, TVariables>,
-//   userId: String,
-// ) {
-//   return createMutation('put', updateDiagnosticUserApi + userId, props);
-// }
+export function useCreateDC<TData, TVariables>(
+  props: UseMutationProps<TData, TVariables>,
+) {
+  return CreateMutation('post', createDiagnosedConditionsApi, props);
+}
+
+function DeleteMutation<TData, TVariables>(
+  method: 'delete',
+  url: string,
+  { onSuccess, onError }: UseMutationProps<TData, TVariables>,
+) {
+  return useMutation((recordId: string) => axios[method](url + recordId), {
+    onSuccess,
+    onError,
+  });
+}
+
+// Delete
+export function useDeleteDC<TData, TVariables>(
+  props: UseMutationProps<TData, TVariables>,
+) {
+  return DeleteMutation('delete', deleteDiagnosedConditionsApi, props);
+}
+
+// Invalidate
+export function useInvalidateQuery() {
+  const queryClient = useQueryClient();
+
+  const invalidateQuery = (queryKey: string) => {
+    queryClient.invalidateQueries(queryKey);
+  };
+
+  return invalidateQuery;
+}

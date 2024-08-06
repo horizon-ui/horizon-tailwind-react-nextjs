@@ -6,10 +6,10 @@ import { diagConditionState } from '@src/utils/recoil/diagnosedConditions';
 import { useState, useCallback } from 'react';
 import { MdSearch } from 'react-icons/md';
 import { useSetRecoilState } from 'recoil';
+import { Space, Switch } from 'antd';
 import debounce from 'lodash.debounce';
-import { Button, Space, Switch } from 'antd';
 
-const DcHeader = ({ handleShowDc }) => {
+const DcHeader = ({ showDc, handleShowDc }) => {
   const { data: diagConditionsData } = useGetDiagnosedConditions();
   const [searchTerm, setSearchTerm] = useState('');
   const setDcRecoilValue = useSetRecoilState(diagConditionState);
@@ -17,6 +17,7 @@ const DcHeader = ({ handleShowDc }) => {
   const debouncedSearch = useCallback(
     debounce((searchText: string) => {
       setDcRecoilValue(
+        //@ts-ignore
         diagConditionsData?.data.filter((dc) => {
           return dc.name.toLowerCase().includes(searchText.toLowerCase());
         }) || [],
@@ -55,6 +56,7 @@ const DcHeader = ({ handleShowDc }) => {
         <section>
           <Space direction="vertical">
             <Switch
+              value={showDc}
               onChange={(checked, event) => {
                 handleSwitch(checked);
               }}

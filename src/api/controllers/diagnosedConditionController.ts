@@ -27,7 +27,7 @@ export const createDiagnosedConditionController = async (
   res: NextApiResponse,
 ) => {
   try {
-    const { name, alias } = req.body;
+    const { name, aliases, description, status } = req.body;
 
     // Validate the input
     if (!name) {
@@ -39,7 +39,9 @@ export const createDiagnosedConditionController = async (
     // Prepare diagnosedCondition object
     const diagnosedConditionObj = {
       name,
-      alias,
+      description,
+      aliases,
+      status,
     };
 
     // Call the service to create a diagnosedCondition
@@ -57,18 +59,9 @@ export const createDiagnosedConditionController = async (
     // Send success response
     return res.status(201).json(diagnosedCondition);
   } catch (error) {
-    // Handle specific errors
-    if (error.code === 11000) {
-      return res
-        .status(400)
-        .json({ message: 'diagnosedCondition with this name already exists' });
-    } else {
-      // Log error details for debugging
-      console.error('Error creating diagnosedCondition:', error);
-
-      // Send generic error response
-      return res.status(500).json({ message: 'Internal Server Error' });
-    }
+    return res
+      .status(500)
+      .json({ message: 'Internal Server Error' + error.message });
   }
 };
 

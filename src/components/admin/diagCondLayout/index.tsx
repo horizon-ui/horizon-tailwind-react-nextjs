@@ -1,6 +1,7 @@
 'use client';
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
+import AddDC from './addEdit';
 
 const DcHeader = dynamic(
   () => import('./table/dcHeader').then((mod) => mod.default),
@@ -15,14 +16,14 @@ const DcTable = dynamic(() => import('./table').then((mod) => mod.default), {
 const DiagConditionsLayout = () => {
   const [showDc, setShowDc] = useState(false);
 
-  const handleShowDc = (checked: Boolean) => {
+  const handleShowDc = (checked: any) => {
     setShowDc(checked);
   };
 
   return (
     <div className="my-8">
-      <DcHeader handleShowDc={handleShowDc} />
-      {showDc ? <></> : <DcTable />}
+      <DcHeader showDc={showDc} handleShowDc={handleShowDc} />
+      {showDc ? <AddDC handleShowDc={handleShowDc} /> : <DcTable />}
     </div>
   );
 };

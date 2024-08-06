@@ -1,16 +1,39 @@
 'use client';
 
-import { Table } from 'antd';
+import { Button, Space, Table } from 'antd';
 import { useEffect, useState } from 'react';
-import { useGetDiagnosedConditions } from '@src/utils/reactQuery';
+import {
+  useDeleteDC,
+  useGetDiagnosedConditions,
+  useInvalidateQuery,
+} from '@src/utils/reactQuery';
 import { DIAGNOSED_CONDITIONS_COLUMNS } from '../utils/column';
 import { useRecoilState } from 'recoil';
 import { diagConditionState } from '@src/utils/recoil/diagnosedConditions';
 import './dc.module.css';
+import { DCDataInterface, DCDataType } from '@src/api/utils/interface';
+import { MdDelete, MdEdit } from 'react-icons/md';
+import { AxiosResponse } from 'axios';
+import { errorAlert, successAlert, warningAlert2 } from '@src/components/alert';
 
 const DcTable = () => {
   const [pageSize, setPageSize] = useState(10);
-  const [dcRecoilValue, setDcRecoilValue] = useRecoilState(diagConditionState);
+  const invalidateQuery = useInvalidateQuery();
+
+  const deleteDCMutation = useDeleteDC({
+    onSuccess: (resp: AxiosResponse) => {
+      if (resp && resp.status === 200) {
+        warningAlert2('Deleted DC succesfully');
+        invalidateQuery('diagnosedConditions');
+      }
+    },
+    onError: (err: Error) => {
+      errorAlert('DC deleting sucesfully');
+    },
+  });
+
+  const [dcRecoilValue, setDcRecoilValue] =
+    useRecoilState<[]>(diagConditionState);
   const {
     data: diagConditionsData,
     isLoading,
@@ -22,18 +45,59 @@ const DcTable = () => {
   }, [refetch]);
 
   useEffect(() => {
+    //@ts-ignore
     if (!isLoading && diagConditionsData && diagConditionsData.data) {
+      //@ts-ignore
       setDcRecoilValue(diagConditionsData.data);
     }
   }, [isLoading, diagConditionsData, setDcRecoilValue]);
+
+  const dataSourceWithKeys =
+    dcRecoilValue?.length > 0 &&
+    dcRecoilValue.map((record: any, index) => ({
+      ...record,
+      key: record.key || record.id || index,
+    }));
+
+  const handleEdit = (recordId: string) => {};
+
+  const handleDCDelete = (recordId: string) => {
+    if (recordId) {
+      deleteDCMutation.mutate(recordId);
+    } else {
+      errorAlert('Error Deleting DC');
+    }
+  };
+
+  const columns = DIAGNOSED_CONDITIONS_COLUMNS.map((dc) => {
+    if (dc.key === 'action') {
+      return {
+        ...dc,
+        render: (_, record: DCDataInterface) => (
+          <Space size="middle">
+            <Button icon={<MdEdit />} onClick={() => handleEdit(record.key)}>
+              Edit
+            </Button>
+            <Button
+              icon={<MdDelete />}
+              onClick={() => handleDCDelete(record._id)}
+            >
+              Delete
+            </Button>
+          </Space>
+        ),
+      };
+    }
+    return dc;
+  });
 
   return (
     <div className="my-6">
       <div className="custom-table overflow-x-auto">
         <Table
           //@ts-ignore
-          dataSource={dcRecoilValue.length > 0 ? dcRecoilValue : []}
-          columns={DIAGNOSED_CONDITIONS_COLUMNS}
+          dataSource={dataSourceWithKeys.length > 0 ? dataSourceWithKeys : []}
+          columns={columns}
           pagination={{
             pageSize,
             showQuickJumper: true,
