@@ -69,8 +69,10 @@ const VerifyUser: PageWithPrimaryLayout = () => {
       status === 'success' &&
       !isLoading &&
       userData &&
+      // @ts-ignore
       userData?.data
     ) {
+      //@ts-ignore
       handleVerifyUser(userData.data);
     }
   }, [session?.status, isLoading, userData, status]);

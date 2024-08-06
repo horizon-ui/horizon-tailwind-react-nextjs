@@ -27,7 +27,7 @@ const Navbar = (props: {
           </Link>
         </span>
 
-        <div>
+        <div className="align-bottom">
           <div className="hidden h-6 w-[224px] pt-1 md:block">
             <a
               className="text-sm font-normal text-navy-700 hover:underline dark:text-white dark:hover:text-white"
@@ -46,10 +46,10 @@ const Navbar = (props: {
               {brandText}
             </NavLink>
           </div>
-          <p className="shrink text-[20px] capitalize text-navy-700 dark:text-white md:text-[33px]">
+          <p className="mt-2 shrink text-[16px] capitalize text-navy-700 dark:text-white sm:mt-0 md:text-[33px]">
             <NavLink
               href="#"
-              className="capitalize hover:text-navy-700 dark:hover:text-white md:font-bold"
+              className="font-light capitalize hover:text-navy-700  dark:hover:text-white md:font-bold"
             >
               {brandText}
             </NavLink>
