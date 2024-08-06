@@ -16,6 +16,7 @@ import { AxiosResponse } from 'axios';
 import { errorAlert, warningAlert2 } from '@src/components/alert';
 import { useActivityLogger } from '@src/components/logger';
 import { Button } from '@chakra-ui/react';
+import { DataWithKeys } from '../../reports/utils/columns';
 
 const DcTable = ({ handleEditDc }) => {
   const [pageSize, setPageSize] = useState(10);
@@ -66,7 +67,7 @@ const DcTable = ({ handleEditDc }) => {
     handleEditDc(true, recordId);
   };
 
-  const handleDCDelete = (recordId: string) => {
+  const handleDelete = (recordId: string) => {
     if (recordId) {
       deleteDCMutation.mutate(recordId);
     } else {
@@ -74,47 +75,8 @@ const DcTable = ({ handleEditDc }) => {
     }
   };
 
-  const columns = DIAGNOSED_CONDITIONS_COLUMNS.map((dc) => {
-    if (dc.key === 'action') {
-      return {
-        ...dc,
-        render: (_, record: DCDataInterface) => (
-          <>
-            <span className="hidden sm:block">
-              <Space size="middle">
-                <Button onClick={() => handleEdit(record._id)}>
-                  <MdEdit />
-                  Edit
-                </Button>
-                <Button onClick={() => handleDCDelete(record._id)}>
-                  <MdDelete />
-                  Delete
-                </Button>
-              </Space>
-            </span>
-            <span className="block flex gap-4 sm:hidden">
-              <MdEdit
-                className="text-indigo-800"
-                onClick={() => handleEdit(record._id)}
-              />
-              <MdDelete
-                className="text-red-500"
-                onClick={() => handleDCDelete(record._id)}
-              />
-            </span>
-          </>
-        ),
-      };
-    }
-    return dc;
-  });
-
-  const dataSourceWithKeys =
-    dcRecoilValue?.length > 0 &&
-    dcRecoilValue.map((record: any, index) => ({
-      ...record,
-      key: record.key || record.id || index,
-    }));
+  const dataSourceWithKeys = DataWithKeys(dcRecoilValue);
+  const columns = DIAGNOSED_CONDITIONS_COLUMNS({ handleEdit, handleDelete });
 
   return (
     <div className="my-6">

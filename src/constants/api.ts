@@ -17,6 +17,21 @@ export const updateDiagnosedConditionsApi =
 export const deleteDiagnosedConditionsApi =
   '/api/diagnosedCondition/deleteDiagCondition/?id=';
 
+// Reports - Samples
+export const getSamplesApi = '/api/report/sample/readSamples';
+export const createSamplesApi = '/api/report/sample/createSample';
+export const updateSamplesApi = '/api/report/sample/updateSample/?id=';
+export const deleteSamplesApi = '/api/report/sample/deleteSample/?id=';
+
+// Reports - Parameter
+export const getParamtersApi = '/api/report/param/readParam';
+
+// Reports
+export const getReportsApi = '/api/report/report/readReport';
+// export const createSamplesApi = '/api/report/sample/createSample';
+// export const updateSamplesApi = '/api/report/sample/updateSample/?id=';
+// export const deleteSamplesApi = '/api/report/sample/deleteSample/?id=';
+
 // Activities
 export const createAdminActivitiessApi = '/api/userActivity/createActivity';
 export const getAdminActivitiessApi = '/api/userActivity/getAllActivities';

@@ -8,34 +8,15 @@ import { Button } from '@chakra-ui/react';
 import { useRecoilState } from 'recoil';
 import { userListState } from '@src/utils/recoil';
 import { UserData } from '@src/api/utils/interface';
+import { DataWithKeys } from '../../reports/utils/columns';
 
 const ActivityTable = () => {
   const [pageSize, setPageSize] = useState(8);
   const { data: adminUserData, isLoading } = useGetActivities();
-  const [userListRecoil] = useRecoilState<[]>(userListState);
+  const [userListRecoil] = useRecoilState<any>(userListState);
 
-  const dataSourceWithKeys =
-    //@ts-ignore
-    adminUserData?.data?.length > 0 &&
-    //@ts-ignore
-    adminUserData?.data.map((record: any, index) => ({
-      ...record,
-      key: record.key || record.id || index,
-    }));
-
-  const columns = ADMIN_USER_ACTIVITES_COLUMNS.map((column) => {
-    if (column.key === 'user') {
-      return {
-        ...column,
-        filters: userListRecoil?.map((user: UserData) => ({
-          text: user?.userName,
-          value: user?.userName,
-        })),
-        onFilter: (value, record) => record.user.userName.includes(value),
-      };
-    }
-    return column;
-  });
+  const dataSourceWithKeys = DataWithKeys(adminUserData?.data);
+  const columns = ADMIN_USER_ACTIVITES_COLUMNS({ userList: userListRecoil });
 
   return (
     <div>

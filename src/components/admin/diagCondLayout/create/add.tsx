@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
 import { FormControl, FormLabel, Stack } from '@chakra-ui/react';
 import { Button, Input, Select, SelectProps, Switch } from 'antd';
-import { errorAlert, successAlert, warningAlert2 } from '@src/components/alert';
+import { errorAlert, warningAlert2 } from '@src/components/alert';
 import { useCreateDC, useInvalidateQuery } from '@src/utils/reactQuery';
 import { AxiosResponse } from 'axios';
 import { useRecoilValue } from 'recoil';
 import { diagConditionState } from '@src/utils/recoil/diagnosedConditions';
-import { DCDataInterface, UserData } from '@src/api/utils/interface';
-import TextArea from 'antd/es/input/TextArea';
+import { DCDataInterface } from '@src/api/utils/interface';
 import { useActivityLogger } from '@src/components/logger';
-import { useUser } from '@clerk/nextjs';
-import { userState } from '@src/utils/recoil/user';
+import TextArea from 'antd/es/input/TextArea';
 
 const AddDC = ({ handleShowDc }) => {
   const initialFormData = {

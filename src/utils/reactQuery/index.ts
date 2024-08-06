@@ -7,6 +7,9 @@ import {
   getAdminDashbord,
   getAdminUsersApi,
   getDiagnosedConditionsApi,
+  getParamtersApi,
+  getReportsApi,
+  getSamplesApi,
   getUserByPhoneApi,
   updateDiagnosedConditionsApi,
   updateUserApi,
@@ -78,6 +81,20 @@ export function useGetDiagnosedConditions() {
 export function useGetActivities() {
   return useQueryGetData('userActivities', getAdminActivitiessApi);
 }
+
+export function useGetSamples() {
+  return useQueryGetData('reportSampleType', getSamplesApi);
+}
+
+export function useGetReports() {
+  return useQueryGetData('reportData', getReportsApi);
+}
+
+export function useGetParameters() {
+  return useQueryGetData('paramData', getParamtersApi);
+}
+
+//*************************** */
 
 // Post calls
 export function useCreateUser<TData, TVariables>(

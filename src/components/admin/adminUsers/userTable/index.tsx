@@ -1,24 +1,24 @@
 'use client';
 
-import { Space, Table } from 'antd';
+import { Table } from 'antd';
 import { useEffect, useState } from 'react';
 import { useAdminUsers } from '@src/utils/reactQuery';
 import { ADMIN_USER_COLUMNS } from './utils';
 import { useRecoilState } from 'recoil';
 import { userListState } from '@src/utils/recoil';
-import { UserData } from '@src/api/utils/interface';
-import { MdEdit } from 'react-icons/md';
 import { useUser } from '@clerk/nextjs';
+import { Button } from '@chakra-ui/react';
 import AdminUserHeader from './header';
 import UpdateUser from './updateUser';
-import { Button } from '@chakra-ui/react';
+import { DataWithKeys } from '../../reports/utils/columns';
 
 const UserTable = () => {
   const { user } = useUser();
   const [pageSize, setPageSize] = useState(6);
   const phone = user?.phoneNumbers[0]?.phoneNumber;
   const { data: adminUserData, isLoading, refetch } = useAdminUsers();
-  const [userListRecoil, setUserListRecoil] = useRecoilState<[]>(userListState);
+  const [userListRecoil, setUserListRecoil] =
+    useRecoilState<any>(userListState);
   const [showEdit, setShowEdit] = useState<Boolean>(false);
   const [recordId, setRecordId] = useState('');
 
@@ -42,35 +42,8 @@ const UserTable = () => {
     setShowEdit(showUser);
   };
 
-  const columns = ADMIN_USER_COLUMNS.map((dc) => {
-    if (dc.key === 'action') {
-      return {
-        ...dc,
-        render: (_, record: UserData) => (
-          <>
-            {!(record.phoneNumber === phone) && (
-              <span className="hidden sm:block">
-                <Space size="middle">
-                  <Button onClick={() => handleEdit(record._id)}>
-                    <MdEdit />
-                    Update
-                  </Button>
-                </Space>
-              </span>
-            )}
-          </>
-        ),
-      };
-    }
-    return dc;
-  });
-
-  const dataSourceWithKeys =
-    userListRecoil?.length > 0 &&
-    userListRecoil.map((record: any, index) => ({
-      ...record,
-      key: record.key || record.id || index,
-    }));
+  const dataSourceWithKeys = DataWithKeys(userListRecoil);
+  const columns = ADMIN_USER_COLUMNS({ phone, handleEdit });
 
   return (
     <div>
@@ -85,7 +58,7 @@ const UserTable = () => {
               dataSource={
                 dataSourceWithKeys?.length > 0 ? dataSourceWithKeys : []
               }
-              columns={columns}
+              columns={columns || []}
               pagination={{
                 pageSize,
                 showQuickJumper: true,
