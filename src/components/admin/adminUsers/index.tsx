@@ -1,19 +1,13 @@
 'use client'; // This directive ensures this component is client-side only
 
-import Admin from '../../../pages/dashboard/[[...index]]';
 import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
+import UserTable from './userTable';
 import ActivityTable from './activityTable';
 
-// Dynamically import Tabs and TabPane from antd
 const Tabs = dynamic(() => import('antd').then((mod) => mod.Tabs), {
   ssr: false,
 });
-
-const UserTable = dynamic(
-  () => import('./userTable').then((mod) => mod.default),
-  { ssr: false },
-);
 
 const AdminUser = () => {
   const [TabPane, setTabPane] = useState<any>(null);
@@ -27,13 +21,17 @@ const AdminUser = () => {
 
   return (
     <div>
-      <div>
+      <div className="my-4">
         <Tabs defaultActiveKey="1">
           <TabPane tab={'Admin Users'} key="1">
-            <UserTable />
+            <section className="my-4">
+              <UserTable />
+            </section>
           </TabPane>
           <TabPane tab={'User Activities'} key="2">
-            {/* <ActivityTable /> */}
+            <section className="my-8">
+              <ActivityTable />
+            </section>
           </TabPane>
         </Tabs>
       </div>

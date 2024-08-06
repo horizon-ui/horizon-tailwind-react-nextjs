@@ -2,6 +2,7 @@
 export const getAdminUsersApi = '/api/users/getAllUsers';
 export const getUserByPhoneApi = '/api/users/getUserByPhone?phoneNumber=';
 export const createUserApi = '/api/users/createUser';
+export const updateUserApi = '/api/users/updateUser?phoneNumber=';
 
 //Dashboard
 export const getAdminDashbord = '/api/dashboard/readDashboard';

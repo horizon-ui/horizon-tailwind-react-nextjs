@@ -1,100 +1,137 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FormControl, FormLabel, Stack } from '@chakra-ui/react';
 import { Button, Input, Select } from 'antd';
-import { userData } from '@src/variables/data-tables/tableDataDevelopment';
-import { errorAlert, successAlert } from '@src/components/alert';
+import { useRecoilValue } from 'recoil';
+import { UserData } from '@src/api/utils/interface';
+import { userListState } from '@src/utils/recoil';
+import { useInvalidateQuery, useUpdateUser } from '@src/utils/reactQuery';
+import { errorAlert, warningAlert2 } from '@src/components/alert';
+import { useActivityLogger } from '@src/components/logger';
 
-const { Option } = Select;
+const UpdateUser = ({ handleShowUser, recordId }) => {
+  const initialFormData = {
+    userName: '',
+    description: '',
+    aliases: [],
+    status: true,
+  };
+  const { Option } = Select;
+  const [formData, setFormData] = useState<any>(initialFormData);
+  const userListRecoild = useRecoilValue<UserData[]>(userListState);
+  const invalidateQuery = useInvalidateQuery();
+  const logActivity = useActivityLogger();
 
-const UpdateUser = ({ user, handleViewUser }) => {
-  // Initialize state for form fields
-  const [firstName, setFirstName] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [role, setRole] = useState('');
-
-  // Populate state with user data if available
-  useEffect(() => {
-    if (user) {
-      setFirstName(user.userName || '');
-      setPhoneNumber(user.phoneNumber || '');
-      setRole(user.role?.toLowerCase() || '');
-    }
-  }, [user]);
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    // Create formData object
-    const formData = {
-      firstName,
-      phoneNumber,
-      role,
-    };
-
-    if (!formData.role || !formData?.firstName || !formData?.role) {
-      errorAlert('Invalid User Object');
-    }
-
-    const updatedData = userData.map((userItem) => {
-      if (userItem._id === user._id) {
-        return { ...userItem, ...formData }; // Merge the existing userItem with the new formData
+  const updateUser = useUpdateUser({
+    onSuccess: (resp) => {
+      if (resp && resp.status === 200) {
+        warningAlert2('User updated succesfully');
+        invalidateQuery('adminUserData');
+        logActivity({
+          title: 'Updated User Role',
+          description: resp?.data
+            ? //@ts-ignore
+              `Updated ${resp.data.userName}'s role to ${resp.data.role}`
+            : 'Updated User Role',
+          action: 'updated',
+        });
+        handleCancel();
       }
-      return userItem; // Return the userItem unchanged if it doesn't match
-    });
+    },
+    onError: () => {
+      errorAlert('Error updating user');
+    },
+  });
 
-    // Handle updating data here
-    successAlert('User updated.');
-    handleCancel();
+  useEffect(() => {
+    if (userListRecoild) {
+      const filteredUserList = userListRecoild.find(
+        (user) => user._id === recordId,
+      );
+
+      if (filteredUserList) {
+        const updatedObj = {
+          userName: filteredUserList.userName,
+          role: filteredUserList.role,
+          phoneNumber: filteredUserList.phoneNumber,
+          _id: filteredUserList._id,
+        };
+
+        setFormData(updatedObj);
+      }
+    }
+  }, [recordId, userListRecoild]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const updateObject = {
+      data: { role: formData.role },
+      recordId: encodeURIComponent(formData.phoneNumber),
+    };
+    updateUser.mutate(updateObject);
   };
 
   const handleCancel = () => {
-    handleViewUser();
+    setFormData(initialFormData);
+    handleShowUser(false);
+  };
+
+  const handleChange = (roleValue) => {
+    setFormData({ ...formData, role: roleValue });
   };
 
   return (
-    <div className="max-w-lg">
-      <p className="font-semi-bold my-4 text-lg">Update User</p>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <Stack spacing={4}>
-          <FormControl id="first-name" className="my-2" isRequired>
-            <FormLabel>First Name</FormLabel>
-            <Input
-              value={firstName}
-              disabled
-              onChange={(e) => setFirstName(e.target.value)}
-              placeholder="Update name"
-            />
-          </FormControl>
-          <FormControl id="phone-number" className="my-2" isRequired>
-            <FormLabel>Phone Number</FormLabel>
-            <Input
-              value={phoneNumber}
-              disabled
-              onChange={(e) => setPhoneNumber(e.target.value)}
-              placeholder="Update phone number"
-            />
-          </FormControl>
-          <FormControl id="role" className="my-2">
-            <FormLabel>Role</FormLabel>
-            <Select
-              value={role}
-              onChange={(value) => setRole(value)}
-              placeholder="Select Role"
-            >
-              <Option value="admin">Admin</Option>
-              <Option value="manager">Manager</Option>
-              <Option value="sme">Sme</Option>
-              <Option value="user">User</Option>
-            </Select>
-          </FormControl>
-        </Stack>
-        <Button type="primary" htmlType="submit">
-          Submit
-        </Button>
-        <Button type="default" className="ml-2" onClick={handleCancel}>
-          Cancel
-        </Button>
-      </form>
+    <div className="my-10 max-w-full bg-white p-10">
+      <section className="m-auto w-[50%]">
+        <p className="my-4 text-xl font-bold">Edit User</p>
+        <form onSubmit={handleSubmit} className="space-y-4 ">
+          <Stack spacing={4}>
+            <FormControl id="userName" className="my-2" isRequired>
+              <FormLabel>Name</FormLabel>
+              <Input
+                name="userName"
+                value={formData.userName}
+                placeholder="UserName"
+                className="border-2 p-2"
+                required
+                disabled
+              />
+            </FormControl>
+            <FormControl id="phoneNumber" className="my-2" isRequired>
+              <FormLabel>phoneNumber</FormLabel>
+              <Input
+                name="phoneNumber"
+                value={formData.phoneNumber}
+                placeholder="User phoneNumber"
+                className="border-2 p-2"
+                required
+                disabled
+              />
+            </FormControl>
+            <FormControl id="role" className="my-2" isRequired>
+              <FormLabel>Name</FormLabel>
+              <Select
+                value={formData.role}
+                placeholder="User Role"
+                className="w-[15vw] border-2"
+                onChange={(event) => {
+                  handleChange(event);
+                }}
+              >
+                <Option value={'admin'}>Admin</Option>
+                <Option value={'sme'}>SME</Option>
+                <Option value={'legal'}>LEGAL</Option>
+                <Option value={'manager'}>MANAGER</Option>
+              </Select>
+            </FormControl>
+          </Stack>
+          <Button type="primary" htmlType="submit">
+            Update
+          </Button>
+          <Button type="default" className="ml-2" onClick={handleCancel}>
+            Cancel
+          </Button>
+        </form>
+      </section>
     </div>
   );
 };

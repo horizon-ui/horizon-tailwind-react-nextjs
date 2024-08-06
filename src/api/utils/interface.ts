@@ -85,6 +85,7 @@ export interface UserData {
   role: string;
   userName: string;
   phoneNumber: string;
+  _id?: string;
 }
 
 export interface CustomError {

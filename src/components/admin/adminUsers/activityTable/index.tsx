@@ -1,111 +1,73 @@
 'use client';
-import { userActivityData } from '@src/variables/data-tables/tableDataDevelopment';
-import { Button, Input, Space, Table } from 'antd';
+import { useGetActivities } from '@src/utils/reactQuery';
+import { Table } from 'antd';
+import 'antd/dist/reset.css';
 import { useState } from 'react';
-import { MdSearch } from 'react-icons/md';
-import debounce from 'lodash.debounce';
-import 'antd/dist/reset.css'; // Import Ant Design styles
+import { ADMIN_USER_ACTIVITES_COLUMNS } from '../userTable/utils';
+import { Button } from '@chakra-ui/react';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { userListState } from '@src/utils/recoil';
+import { UserData } from '@src/api/utils/interface';
+import { AxiosResponse } from 'axios';
 
 const ActivityTable = () => {
-  const [searchText, setSearchText] = useState<string>('');
-  const [filteredData, setFilteredData] = useState(userActivityData);
   const [pageSize, setPageSize] = useState(10);
+  const { data: adminUserData, isLoading, refetch } = useGetActivities();
+  const [userListRecoil, setUserListRecoil] = useRecoilState<[]>(userListState);
 
-  // Define the debounced search function
-  const debouncedSearch = () => {
-    debounce((value: string) => {
-      const lowercasedValue = value.toLowerCase();
-      setFilteredData(
-        userActivityData.filter(
-          (record) =>
-            record?.title.toLowerCase().includes(lowercasedValue) ||
-            record?.description.toLowerCase().includes(lowercasedValue) ||
-            record?.action.toLowerCase().includes(lowercasedValue) ||
-            record?.user?.userName.toLowerCase().includes(lowercasedValue),
-        ),
-      );
-    }, 300);
-  };
+  const dataSourceWithKeys =
+    adminUserData?.data?.length > 0 &&
+    adminUserData?.data.map((record: any, index) => ({
+      ...record,
+      key: record.key || record.id || index,
+    }));
 
-  // Reset search
-  const handleReset = () => {
-    setSearchText('');
-    setFilteredData(userActivityData);
-  };
-
-  // Column data
-  const columns = [
-    {
-      title: 'User',
-      dataIndex: 'user',
-      key: 'user',
-      render: (_id, record) => {
-        return <p>{record?.user?.userName}</p>;
-      },
-    },
-    {
-      title: 'Title',
-      dataIndex: 'title',
-      key: 'title',
-      sorter: (a, b) => a.title.localeCompare(b.name),
-    },
-    {
-      title: 'Action',
-      dataIndex: 'action',
-      key: 'ractionole',
-      sorter: (a, b) => a.action.localeCompare(b.role),
-    },
-    {
-      title: 'Details',
-      dataIndex: 'description',
-      key: 'description',
-    },
-    {
-      title: 'Time',
-      dataIndex: 'timeStamp',
-      key: 'timeStamp',
-    },
-  ];
+  const columns = ADMIN_USER_ACTIVITES_COLUMNS.map((column) => {
+    if (column.key === 'user') {
+      return {
+        ...column,
+        filters: userListRecoil?.map((user: UserData) => ({
+          text: user?.userName,
+          value: user?.userName,
+        })),
+        onFilter: (value, record) => record.user.userName.includes(value),
+      };
+    }
+    return column;
+  });
 
   return (
     <div>
-      <div>
-        <Space style={{ marginBottom: 16 }}>
-          <Input
-            placeholder="Search by title, details, action..."
-            value={searchText}
-            onChange={(e) => {
-              setSearchText(e.target.value);
-              //@ts-ignore
-              debouncedSearch(e.target.value);
-            }}
-            prefix={<MdSearch />}
-            style={{ width: 300 }}
-          />
-          <Button onClick={handleReset}>Reset</Button>
-        </Space>
-        <div className="overflow-x-auto">
+      <div className="my-6">
+        <div className="custom-table overflow-x-auto">
           <Table
-            dataSource={filteredData}
+            //@ts-ignore
+            dataSource={
+              dataSourceWithKeys?.length > 0 ? dataSourceWithKeys : []
+            }
             columns={columns}
-            style={{
-              borderRadius: '8px',
-              border: '2px solid @#00000', // Apply border color
-              boxShadow:
-                'rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px',
-              backgroundColor: 'white', // Ensure background color is set
-            }}
             pagination={{
-              pageSize: pageSize,
+              pageSize,
               showQuickJumper: true,
               showSizeChanger: true,
               pageSizeOptions: ['5', '10', '20', '50', '100'],
-              onShowSizeChange: (current, size) => setPageSize(size),
+              onShowSizeChange: (_, size) => setPageSize(size),
+              style: {
+                marginRight: '2vw',
+                textAlign: 'center',
+              },
             }}
-            loading={false}
+            loading={isLoading}
             scroll={{ x: 'max-content' }}
           />
         </div>
+        {isLoading && (
+          <div className="fixed left-0 top-0 flex h-full w-full items-center justify-center bg-gray-500 bg-opacity-50">
+            <Button isLoading loadingText="Fetching Data" variant="outline">
+              Button
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -3,11 +3,13 @@ import {
   createDiagnosedConditionsApi,
   createUserApi,
   deleteDiagnosedConditionsApi,
+  getAdminActivitiessApi,
   getAdminDashbord,
   getAdminUsersApi,
   getDiagnosedConditionsApi,
   getUserByPhoneApi,
   updateDiagnosedConditionsApi,
+  updateUserApi,
 } from '@src/constants/api';
 import axios, { AxiosResponse } from 'axios';
 import {
@@ -73,6 +75,10 @@ export function useGetDiagnosedConditions() {
   return useQueryGetData('diagnosedConditions', getDiagnosedConditionsApi);
 }
 
+export function useGetActivities() {
+  return useQueryGetData('userActivities', getAdminActivitiessApi);
+}
+
 // Post calls
 export function useCreateUser<TData, TVariables>(
   props: UseMutationProps<TData, TVariables>,
@@ -116,6 +122,12 @@ export function useUpdateDC<TData, TVariables>(
   props: UseMutationProps<TData, TVariables>,
 ) {
   return UpdateMutation('put', updateDiagnosedConditionsApi, props);
+}
+
+export function useUpdateUser<TData, TVariables>(
+  props: UseMutationProps<TData, TVariables>,
+) {
+  return UpdateMutation('put', updateUserApi, props);
 }
 
 // Delete
