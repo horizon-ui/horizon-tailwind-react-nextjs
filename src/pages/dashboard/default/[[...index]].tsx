@@ -27,9 +27,9 @@ const Dashboard = () => {
   const [omeraldUsers, setOmeraldUsers] = useState([]);
   const { data: adminDashboard, isLoading, refetch }: any = useGetDashboard();
 
-  useEffect(() => {
-    refetch();
-  }, [refetch]);
+  // useEffect(() => {
+  //   refetch();
+  // }, [refetch]);
 
   const handleMapData = (data: DashboardResponse) => {
     setCardData(data.cardData);

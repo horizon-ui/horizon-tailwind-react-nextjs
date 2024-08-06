@@ -1,6 +1,6 @@
 'use client';
 
-import { Button, Space, Table } from 'antd';
+import { Space, Table } from 'antd';
 import { useEffect, useState } from 'react';
 import {
   useDeleteDC,
@@ -15,6 +15,7 @@ import { MdDelete, MdEdit } from 'react-icons/md';
 import { AxiosResponse } from 'axios';
 import { errorAlert, warningAlert2 } from '@src/components/alert';
 import { useActivityLogger } from '@src/components/logger';
+import { Button } from '@chakra-ui/react';
 
 const DcTable = ({ handleEditDc }) => {
   const [pageSize, setPageSize] = useState(10);
@@ -28,6 +29,7 @@ const DcTable = ({ handleEditDc }) => {
       if (resp && resp.status === 200) {
         warningAlert2('Deleted DC succesfully');
         invalidateQuery('diagnosedConditions');
+        invalidateQuery('adminDashboard');
         logActivity({
           title: 'Deleted Diagnosed Conditions',
           description: resp?.data
@@ -41,6 +43,7 @@ const DcTable = ({ handleEditDc }) => {
       errorAlert('DC deleting sucesfully');
     },
   });
+
   const {
     data: diagConditionsData,
     isLoading,
@@ -140,6 +143,13 @@ const DcTable = ({ handleEditDc }) => {
           scroll={{ x: 'max-content' }}
         />
       </div>
+      {isLoading && (
+        <div className="fixed left-0 top-0 flex h-full w-full items-center justify-center bg-gray-500 bg-opacity-50">
+          <Button isLoading loadingText="Fetching Data" variant="outline">
+            Button
+          </Button>
+        </div>
+      )}
     </div>
   );
 };

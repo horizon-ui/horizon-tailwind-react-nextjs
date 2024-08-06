@@ -34,7 +34,7 @@ function Admin({ children }: { children: React.ReactNode }) {
     <div className="flex h-full w-full bg-background-100 dark:bg-background-900">
       <Head>
         <title>{PRODUCT_NAME}</title>
-        <link rel="icon" href={'logo/logo.webp'} />
+        <link rel="icon" href={'@public/logo/logo.webp'} />
         <meta name="description" content={PRODUCT_DESCRIPTION} />
       </Head>
       {/* end of page meta data */}

@@ -30,6 +30,7 @@ const AddDC = ({ handleShowDc }) => {
       if (resp && resp.status === 201) {
         warningAlert2('DC created succesfully');
         invalidateQuery('diagnosedConditions');
+        invalidateQuery('adminDashboard');
         logActivity({
           title: 'Added Diagnosed Conditions',
           description: resp?.data
