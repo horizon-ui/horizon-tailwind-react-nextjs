@@ -46,7 +46,7 @@ const Navbar = (props: {
               {brandText}
             </NavLink>
           </div>
-          <p className="mt-2 shrink text-[16px] capitalize text-navy-700 dark:text-white sm:mt-0 md:text-[33px]">
+          <p className="shrink text-[16px] capitalize text-navy-700 dark:text-white md:text-[33px]">
             <NavLink
               href="#"
               className="font-light capitalize hover:text-navy-700  dark:hover:text-white md:font-bold"

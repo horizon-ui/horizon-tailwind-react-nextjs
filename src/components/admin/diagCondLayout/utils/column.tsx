@@ -9,7 +9,7 @@ export const DIAGNOSED_CONDITIONS_COLUMNS = [
     sorter: (a, b) => a.title.localeCompare(b.title),
     render: (text) => (
       <div
-        className="w-auto capitalize sm:w-[10vw]"
+        className="min-w-content capitalize sm:w-[10vw]"
         style={{ wordWrap: 'break-word', whiteSpace: 'pre-wrap' }}
       >
         {text}
@@ -24,7 +24,7 @@ export const DIAGNOSED_CONDITIONS_COLUMNS = [
     sorter: (a, b) => a.title.localeCompare(b.title),
     render: (text) => (
       <div
-        className="w-auto capitalize sm:w-[10vw]"
+        className="min-w-content capitalize sm:w-[10vw]"
         style={{ wordWrap: 'break-word', whiteSpace: 'pre-wrap' }}
       >
         {text}

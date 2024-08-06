@@ -1,5 +1,4 @@
 'use client';
-import dynamic from 'next/dynamic';
 import { useState } from 'react';
 import AddDC from './create/add';
 import EditDC from './create/update';
