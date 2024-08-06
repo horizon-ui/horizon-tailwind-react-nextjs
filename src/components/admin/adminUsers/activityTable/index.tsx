@@ -1,19 +1,18 @@
 'use client';
 import { useGetActivities } from '@src/utils/reactQuery';
 import { Table } from 'antd';
-import 'antd/dist/reset.css';
+// import 'antd/dist/reset.css';
 import { useState } from 'react';
 import { ADMIN_USER_ACTIVITES_COLUMNS } from '../userTable/utils';
 import { Button } from '@chakra-ui/react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { userListState } from '@src/utils/recoil';
 import { UserData } from '@src/api/utils/interface';
-import { AxiosResponse } from 'axios';
 
 const ActivityTable = () => {
-  const [pageSize, setPageSize] = useState(10);
-  const { data: adminUserData, isLoading, refetch } = useGetActivities();
-  const [userListRecoil, setUserListRecoil] = useRecoilState<[]>(userListState);
+  const [pageSize, setPageSize] = useState(8);
+  const { data: adminUserData, isLoading } = useGetActivities();
+  const [userListRecoil] = useRecoilState<[]>(userListState);
 
   const dataSourceWithKeys =
     //@ts-ignore

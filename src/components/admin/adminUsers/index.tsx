@@ -29,7 +29,7 @@ const AdminUser = () => {
             </section>
           </TabPane>
           <TabPane tab={'User Activities'} key="2">
-            <section className="my-8">
+            <section className="my-4">
               <ActivityTable />
             </section>
           </TabPane>
