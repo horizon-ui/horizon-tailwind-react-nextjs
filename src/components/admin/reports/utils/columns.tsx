@@ -367,8 +367,8 @@ function formatValidity(validity) {
 }
 
 const ParameterUnitsColumn = ({ data }) => {
+  const [visibleUnits, setVisibleUnits] = useState([]);
   if (data) {
-    const [visibleUnits, setVisibleUnits] = useState([]);
     const allUnits = extractUnitValues(data?.bioRefRange);
 
     const handlePopoverVisibleChange = (visible) => {
@@ -383,7 +383,7 @@ const ParameterUnitsColumn = ({ data }) => {
       <Space wrap>
         {allUnits.map((unit, index) => (
           <Tag color="green" key={index}>
-            {unit}
+            {/* {unit ? unit:} */}
           </Tag>
         ))}
       </Space>
@@ -413,11 +413,11 @@ const extractUnitValues = (bioRefRange) => {
 
   // Extract units from advanceRange
   const { advanceRange } = bioRefRange;
-  Object.values(advanceRange).forEach((ranges) => {
-    ranges.forEach((range) => {
-      units.add(range.unit);
-    });
-  });
+  // Object.values(advanceRange).forEach((ranges) => {
+  //   // ranges.forEach((range) => {
+  //   //   units.add(range.unit);
+  //   // });
+  // });
 
   // Extract units from basicRange
   const { basicRange } = bioRefRange;

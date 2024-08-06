@@ -15,6 +15,7 @@ const ActivityTable = () => {
   const { data: adminUserData, isLoading } = useGetActivities();
   const [userListRecoil] = useRecoilState<any>(userListState);
 
+  //@ts-ignore
   const dataSourceWithKeys = DataWithKeys(adminUserData?.data);
   const columns = ADMIN_USER_ACTIVITES_COLUMNS({ userList: userListRecoil });
 
