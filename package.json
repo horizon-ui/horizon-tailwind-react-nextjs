@@ -11,6 +11,8 @@
     "@chakra-ui/react": "^2.8.2",
     "@chakra-ui/system": "^2.3.5",
     "@chakra-ui/tooltip": "^2.2.6",
+    "@ckeditor/ckeditor5-build-classic": "^42.0.2",
+    "@ckeditor/ckeditor5-react": "^8.0.0",
     "@clerk/nextjs": "^5.2.6",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",

@@ -43,6 +43,14 @@ export const getDoseDurationApi = '/api/duration/readDuration';
 export const createAdminActivitiessApi = '/api/userActivity/createActivity';
 export const getAdminActivitiessApi = '/api/userActivity/getAllActivities';
 
+// Setting
+export const getUserSettings = '/api/userSetting/getAllUserSetting';
+export const updateUserSettings = '/api/userSetting/updateUserSetting/?id=';
+
+export const getDiagSettings = '/api/diagnosticSetting/getAllDiagnosticSetting';
+export const updateDiagSettings =
+  '/api/diagnosticSetting/updateDiagnosticSetting/?id=';
+
 // Diagnostic
 export const BASE_DC_URL =
   process.env.NEXT_PUBLIC_BASE_DC_URL + '/user/getUsers';

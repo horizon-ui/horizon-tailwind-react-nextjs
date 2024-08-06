@@ -33,9 +33,17 @@ export const updateUserSettingController = async (
   res: NextApiResponse,
 ) => {
   try {
+    if (!_req.query.id || _req.query.id === null) {
+      return res.status(500).send('Invalid Id');
+    }
+
     //@ts-ignore
     let setting = await updateUserSettingService(_req?.query.id, _req.body);
-    res.status(200).json(setting);
+    if (setting != null) {
+      res.status(200).json(setting);
+    } else {
+      throw internalServerError('');
+    }
   } catch (error: any) {
     console.error('Error creating user:', error);
     throw internalServerError();

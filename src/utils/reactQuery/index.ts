@@ -7,15 +7,19 @@ import {
   getAdminDashbord,
   getAdminUsersApi,
   getDiagnosedConditionsApi,
+  getDiagSettings,
   getDoseApi,
   getDoseDurationApi,
   getParamtersApi,
   getReportsApi,
   getSamplesApi,
   getUserByPhoneApi,
+  getUserSettings,
   getVaccineApi,
   updateDiagnosedConditionsApi,
+  updateDiagSettings,
   updateUserApi,
+  updateUserSettings,
 } from '@src/constants/api';
 import axios, { AxiosResponse } from 'axios';
 import {
@@ -109,6 +113,14 @@ export function useGetDoses() {
   return useQueryGetData('doseData', getDoseApi);
 }
 
+export function useGetUserSetting() {
+  return useQueryGetData('userSettings', getUserSettings);
+}
+
+export function useGetDiagSetting() {
+  return useQueryGetData('diagSettings', getDiagSettings);
+}
+
 //*************************** */
 
 // Post calls
@@ -160,6 +172,18 @@ export function useUpdateUser<TData, TVariables>(
   props: UseMutationProps<TData, TVariables>,
 ) {
   return UpdateMutation('put', updateUserApi, props);
+}
+
+export function useUpdateUserSetting<TData, TVariables>(
+  props: UseMutationProps<TData, TVariables>,
+) {
+  return UpdateMutation('put', updateUserSettings, props);
+}
+
+export function useUpdateDiagSetting<TData, TVariables>(
+  props: UseMutationProps<TData, TVariables>,
+) {
+  return UpdateMutation('put', updateDiagSettings, props);
 }
 
 // Delete

@@ -11,6 +11,10 @@ export const updateUserSettingService = async (
   userSettings: Partial<UserSettingDocument>,
 ): Promise<UserSettingDocument | null> => {
   try {
+    if (!id || id === null) {
+      return null;
+    }
+
     let updatedUserSetting: UserSettingDocument | null;
 
     let resp = await userSetting.find().exec();

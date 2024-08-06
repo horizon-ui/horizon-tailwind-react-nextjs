@@ -48,3 +48,7 @@ body {
 .custom-table .ant-table-tbody > tr > td {
   background-color: white; /* Body cells background color */
 }
+
+.editor-container .ck-editor__editable_inline {
+  min-height: 400px; /* Adjust the height as needed */
+}
