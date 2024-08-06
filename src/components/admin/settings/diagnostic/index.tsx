@@ -73,6 +73,7 @@ const DiagnosticTab = () => {
 
   const handleSave = () => {
     // delete settingData?._id;
+    //@ts-ignore
     updateMutation.mutate({ data: settingData, recordId: settingData?._id });
   };
 
