@@ -17,10 +17,10 @@ const inter = Inter({ subsets: ['latin'] });
 
 const VerifyUser: PageWithPrimaryLayout = () => {
   const { session } = useSession();
-  const { user } = useUser();
+  const { user, isLoaded } = useUser();
   const router = useRouter();
   const phone = user?.phoneNumbers[0]?.phoneNumber;
-  const { data: userData, refetch, isLoading } = useGetUser(phone);
+  const { data: userData, refetch, isLoading, status } = useGetUser(phone);
   const setUserRecoil = useSetRecoilState(userState);
 
   const createUser = useCreateUser({
@@ -64,15 +64,22 @@ const VerifyUser: PageWithPrimaryLayout = () => {
   };
 
   useEffect(() => {
-    if (session?.status === 'active' && !isLoading && userData) {
-      // @ts-ignore
+    if (
+      session?.status === 'active' &&
+      status === 'success' &&
+      !isLoading &&
+      userData &&
+      userData?.data
+    ) {
       handleVerifyUser(userData.data);
     }
-  }, [session?.status, isLoading, userData]);
+  }, [session?.status, isLoading, userData, status]);
 
   useEffect(() => {
-    refetch();
-  }, [refetch]);
+    if (isLoaded && user && phone) {
+      refetch();
+    }
+  }, [isLoaded, user, phone, refetch]);
 
   return (
     <div className="p-8">

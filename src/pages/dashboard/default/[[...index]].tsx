@@ -97,7 +97,7 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-        {/* {isLoading && (
+        {isLoading && (
           <div className="fixed left-0 top-0 flex h-full w-full items-center justify-center bg-gray-500 bg-opacity-50">
             <Button
               isLoading
@@ -108,7 +108,7 @@ const Dashboard = () => {
               Button
             </Button>
           </div>
-        )} */}
+        )}
       </>
     </Admin>
   );
