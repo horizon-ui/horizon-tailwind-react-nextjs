@@ -6,8 +6,11 @@ import { useCreateDC, useInvalidateQuery } from '@src/utils/reactQuery';
 import { AxiosResponse } from 'axios';
 import { useRecoilValue } from 'recoil';
 import { diagConditionState } from '@src/utils/recoil/diagnosedConditions';
-import { DCDataInterface } from '@src/api/utils/interface';
+import { DCDataInterface, UserData } from '@src/api/utils/interface';
 import TextArea from 'antd/es/input/TextArea';
+import { useActivityLogger } from '@src/components/logger';
+import { useUser } from '@clerk/nextjs';
+import { userState } from '@src/utils/recoil/user';
 
 const AddDC = ({ handleShowDc }) => {
   const initialFormData = {
@@ -16,7 +19,7 @@ const AddDC = ({ handleShowDc }) => {
     aliases: [],
     status: true,
   };
-
+  const logActivity = useActivityLogger();
   const [formData, setFormData] = useState(initialFormData);
   const options: SelectProps['options'] = [];
   const invalidateQuery = useInvalidateQuery();
@@ -27,6 +30,13 @@ const AddDC = ({ handleShowDc }) => {
       if (resp && resp.status === 201) {
         warningAlert2('DC created succesfully');
         invalidateQuery('diagnosedConditions');
+        logActivity({
+          title: 'Added Diagnosed Conditions',
+          description: resp?.data
+            ? `Added ${resp.data.name} to Diagnosed Condition`
+            : 'Added Diagnosed Condition',
+          action: 'added',
+        });
         handleCancel();
       }
     },

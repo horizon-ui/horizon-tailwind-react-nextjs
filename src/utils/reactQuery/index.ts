@@ -1,4 +1,5 @@
 import {
+  createAdminActivitiessApi,
   createDiagnosedConditionsApi,
   createUserApi,
   deleteDiagnosedConditionsApi,
@@ -83,6 +84,12 @@ export function useCreateDC<TData, TVariables>(
   props: UseMutationProps<TData, TVariables>,
 ) {
   return CreateMutation('post', createDiagnosedConditionsApi, props);
+}
+
+export function useCreateActivities<TData, TVariables>(
+  props: UseMutationProps<TData, TVariables>,
+) {
+  return CreateMutation('post', createAdminActivitiessApi, props);
 }
 
 // Update call

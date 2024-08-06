@@ -16,6 +16,10 @@ export const updateDiagnosedConditionsApi =
 export const deleteDiagnosedConditionsApi =
   '/api/diagnosedCondition/deleteDiagCondition/?id=';
 
+// Activities
+export const createAdminActivitiessApi = '/api/userActivity/createActivity';
+export const getAdminActivitiessApi = '/api/userActivity/getAllActivities';
+
 // Diagnostic
 export const BASE_DC_URL =
   process.env.NEXT_PUBLIC_BASE_DC_URL + '/user/getUsers';

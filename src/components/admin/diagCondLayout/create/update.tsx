@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { FormControl, FormLabel, Stack } from '@chakra-ui/react';
 import { Button, Input, Select, SelectProps, Switch } from 'antd';
-import { errorAlert, successAlert, warningAlert2 } from '@src/components/alert';
+import { errorAlert, warningAlert2 } from '@src/components/alert';
 import { useInvalidateQuery, useUpdateDC } from '@src/utils/reactQuery';
 import { AxiosResponse } from 'axios';
 import { useRecoilValue } from 'recoil';
 import { diagConditionState } from '@src/utils/recoil/diagnosedConditions';
-import TextArea from 'antd/es/input/TextArea';
 import { DCDataInterface } from '@src/api/utils/interface';
+import { useActivityLogger } from '@src/components/logger';
+import TextArea from 'antd/es/input/TextArea';
 
 const EditDC = ({ handleShowDc, recordId }) => {
   const initialFormData: DCDataInterface = {
@@ -20,12 +21,20 @@ const EditDC = ({ handleShowDc, recordId }) => {
   const options: SelectProps['options'] = [];
   const dcRecoilValue = useRecoilValue<DCDataInterface[]>(diagConditionState);
   const invalidateQuery = useInvalidateQuery();
+  const logActivity = useActivityLogger();
 
   const updateMutation = useUpdateDC({
     onSuccess: (resp: AxiosResponse) => {
       if (resp && resp.status === 200) {
         warningAlert2('DC updated succesfully');
         invalidateQuery('diagnosedConditions');
+        logActivity({
+          title: 'Updated Diagnosed Conditions',
+          description: resp?.data
+            ? `Updated ${resp.data.name} to Diagnosed Condition`
+            : 'Updated Diagnosed Condition',
+          action: 'updated',
+        });
         handleCancel();
       }
     },

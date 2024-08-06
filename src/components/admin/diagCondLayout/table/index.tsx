@@ -14,10 +14,13 @@ import { DCDataInterface } from '@src/api/utils/interface';
 import { MdDelete, MdEdit } from 'react-icons/md';
 import { AxiosResponse } from 'axios';
 import { errorAlert, warningAlert2 } from '@src/components/alert';
+import { useActivityLogger } from '@src/components/logger';
 
 const DcTable = ({ handleEditDc }) => {
   const [pageSize, setPageSize] = useState(10);
   const invalidateQuery = useInvalidateQuery();
+  const logActivity = useActivityLogger();
+
   const [dcRecoilValue, setDcRecoilValue] =
     useRecoilState<[]>(diagConditionState);
   const deleteDCMutation = useDeleteDC({
@@ -25,6 +28,13 @@ const DcTable = ({ handleEditDc }) => {
       if (resp && resp.status === 200) {
         warningAlert2('Deleted DC succesfully');
         invalidateQuery('diagnosedConditions');
+        logActivity({
+          title: 'Deleted Diagnosed Conditions',
+          description: resp?.data
+            ? `Deleted ${resp.data.name} to Diagnosed Condition`
+            : 'Deleted Diagnosed Condition',
+          action: 'deleted',
+        });
       }
     },
     onError: (err: Error) => {

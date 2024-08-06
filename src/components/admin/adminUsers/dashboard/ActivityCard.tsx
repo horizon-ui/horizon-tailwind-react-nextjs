@@ -59,7 +59,7 @@ export default function ActivityTable(props: { tableData: any }) {
     columnHelper.accessor('title', {
       id: 'title',
       header: () => (
-        <p className="text-sm font-bold text-gray-600 dark:text-white">Title</p>
+        <p className="text-sm font-bold text-gray-600 dark:text-white">User</p>
       ),
       //@ts-nocheck
       cell: (info: CellContext<ADMIN_ACTIVITY_RESP, { userName: string }>) => (
@@ -82,10 +82,6 @@ export default function ActivityTable(props: { tableData: any }) {
         // @ts-ignore
         return (
           <p className="text-sm italic text-navy-700 dark:text-white">
-            <span className="text-sm font-bold">
-              {/*@ts-ignore */}
-              {info.row.original.user?.userName + ' '}
-            </span>
             {/* <span className="text-sm">{info.row.original.action + ' '}</span> */}
             <span className="text-sm text-gray-700">
               {info.row.original?.description + ' on ' || ''}
