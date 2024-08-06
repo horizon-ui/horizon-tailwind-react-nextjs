@@ -30,8 +30,8 @@ const DiagnosticTab = () => {
   const updateMutation = useUpdateDiagSetting({
     onSuccess: (resp: AxiosResponse) => {
       if (resp && resp.status == 200) {
-        successAlert('User Setting udpated succesfully');
-        invalidateQuery('userSettings');
+        successAlert('Diag Setting udpated succesfully');
+        invalidateQuery('diagSettings');
         setEdit(false);
       }
     },
@@ -124,9 +124,9 @@ const DiagnosticTab = () => {
   });
 
   return (
-    <div className="my-4 bg-[#f7f5f5] py-4">
+    <div className="my-4 bg-[#f7f5f5] p-4">
       <section>
-        <Tabs onChange={handleChange} tabPosition="left" items={tabData} />
+        <Tabs onChange={handleChange} tabPosition="top" items={tabData} />
       </section>
     </div>
   );

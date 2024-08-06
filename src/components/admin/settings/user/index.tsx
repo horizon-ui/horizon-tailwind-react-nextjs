@@ -124,9 +124,9 @@ const UserTab = () => {
   });
 
   return (
-    <div className="my-4 bg-[#f1f0fa] py-4">
+    <div className="my-4 bg-[#f1f0fa] p-4">
       <section>
-        <Tabs onChange={handleChange} tabPosition="left" items={tabData} />
+        <Tabs onChange={handleChange} tabPosition={'top'} items={tabData} />
       </section>
     </div>
   );
