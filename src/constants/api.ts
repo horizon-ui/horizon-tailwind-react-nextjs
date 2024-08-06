@@ -32,6 +32,13 @@ export const getReportsApi = '/api/report/report/readReport';
 // export const updateSamplesApi = '/api/report/sample/updateSample/?id=';
 // export const deleteSamplesApi = '/api/report/sample/deleteSample/?id=';
 
+// Vaccine
+export const getVaccineApi = '/api/vaccine/readVaccines';
+
+export const getDoseApi = '/api/dose/readDose';
+
+export const getDoseDurationApi = '/api/duration/readDuration';
+
 // Activities
 export const createAdminActivitiessApi = '/api/userActivity/createActivity';
 export const getAdminActivitiessApi = '/api/userActivity/getAllActivities';

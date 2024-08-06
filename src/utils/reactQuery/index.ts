@@ -7,10 +7,13 @@ import {
   getAdminDashbord,
   getAdminUsersApi,
   getDiagnosedConditionsApi,
+  getDoseApi,
+  getDoseDurationApi,
   getParamtersApi,
   getReportsApi,
   getSamplesApi,
   getUserByPhoneApi,
+  getVaccineApi,
   updateDiagnosedConditionsApi,
   updateUserApi,
 } from '@src/constants/api';
@@ -92,6 +95,18 @@ export function useGetReports() {
 
 export function useGetParameters() {
   return useQueryGetData('paramData', getParamtersApi);
+}
+
+export function useGetVaccine() {
+  return useQueryGetData('vaccineData', getVaccineApi);
+}
+
+export function useGetDoseDuration() {
+  return useQueryGetData('durationData', getDoseDurationApi);
+}
+
+export function useGetDoses() {
+  return useQueryGetData('doseData', getDoseApi);
 }
 
 //*************************** */

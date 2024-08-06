@@ -3,22 +3,21 @@
 import Admin from '@src/pages/dashboard/[[...index]]';
 import dynamic from 'next/dynamic';
 
-const ReportsLayout = dynamic(
+const VaccineLayout = dynamic(
   () =>
-    import('@src/components/admin/reports/reportLayout').then(
+    import('@src/components/admin/vaccine/vaccineLayout').then(
       (mod) => mod.default,
     ),
   {
     ssr: false,
   },
 );
-
-const Reports = () => {
+const Vaccine = () => {
   return (
     <Admin>
-      <ReportsLayout />
+      <VaccineLayout />
     </Admin>
   );
 };
 
-export default Reports;
+export default Vaccine;
