@@ -113,7 +113,7 @@ function getCountByMonth(data: any[]): CountByMonth[] {
 
     // Validate if the date is valid
     if (isNaN(date.getTime())) {
-      console.warn(`Invalid date format: ${item.createdDate}`);
+      // console.warn(`Invalid date format: ${item.createdDate}`);
       return; // Skip invalid dates
     }
 

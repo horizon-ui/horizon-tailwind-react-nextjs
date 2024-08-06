@@ -25,27 +25,12 @@ type activityObj = {
 
 const columnHelper = createColumnHelper<activityObj>();
 
-const formatDate = (timestamp) => {
-  if (!timestamp) return '';
-
-  const date = new Date(timestamp);
-
-  // Format the day with suffix (e.g., "12th")
-  const day = date.getDate();
-  const suffix = ['th', 'st', 'nd', 'rd'][((day % 10) - 1) % 10] || 'th';
-  const formattedDay = `${day}${suffix}`;
-
-  // Format the month (e.g., "July")
-  const month = date.toLocaleString('default', { month: 'long' });
-
-  // Format the time (e.g., "10:53 PM")
-  const hours = date.getHours();
-  const minutes = date.getMinutes().toString().padStart(2, '0');
-  const period = hours >= 12 ? 'PM' : 'AM';
-  const formattedHours = (((hours + 11) % 12) + 1).toString().padStart(2, '0');
-  const formattedTime = `${formattedHours}:${minutes} ${period}`;
-
-  return `${formattedDay} ${month} ${formattedTime}`;
+export const formatDate = (timestamp) => {
+  if (timestamp) {
+    const date = new Date(timestamp);
+    return date.toLocaleDateString();
+  }
+  return '';
 };
 
 // const columns = columnsDataCheck;
@@ -93,52 +78,6 @@ export default function ActivityTable(props: { tableData: any }) {
         );
       },
     }),
-    // columnHelper.accessor('status', {
-    //   id: 'status',
-    //   header: () => (
-    //     <p className="text-sm font-bold text-gray-600 dark:text-white">
-    //       STATUS
-    //     </p>
-    //   ),
-    //   cell: (info) => (
-    //     <div className="flex items-center">
-    //       {info.getValue() === 'Approved' ? (
-    //         <MdCheckCircle className="me-1 text-green-500 dark:text-green-300" />
-    //       ) : info.getValue() === 'Disable' ? (
-    //         <MdCancel className="me-1 text-red-500 dark:text-red-300" />
-    //       ) : info.getValue() === 'Error' ? (
-    //         <MdOutlineError className="me-1 text-amber-500 dark:text-amber-300" />
-    //       ) : null}
-    //       <p className="text-sm font-bold text-navy-700 dark:text-white">
-    //         {info.getValue()}
-    //       </p>
-    //     </div>
-    //   ),
-    // }),
-    // columnHelper.accessor('date', {
-    //   id: 'date',
-    //   header: () => (
-    //     <p className="text-sm font-bold text-gray-600 dark:text-white">DATE</p>
-    //   ),
-    //   cell: (info) => (
-    //     <p className="text-sm font-bold text-navy-700 dark:text-white">
-    //       {info.getValue()}
-    //     </p>
-    //   ),
-    // }),
-    // columnHelper.accessor('progress', {
-    //   id: 'progress',
-    //   header: () => (
-    //     <p className="text-sm font-bold text-gray-600 dark:text-white">
-    //       PROGRESS
-    //     </p>
-    //   ),
-    //   cell: (info) => (
-    //     <div className="flex items-center">
-    //       <Progress width="w-[108px]" value={info.getValue()} />
-    //     </div>
-    //   ),
-    // }),
   ];
   const table = useReactTable({
     data: defaultData,
