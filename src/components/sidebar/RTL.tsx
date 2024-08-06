@@ -3,16 +3,16 @@
 import { HiX } from 'react-icons/hi';
 import Links from './components/Links';
 
-import SidebarCard from 'components/sidebar/components/SidebarCard';
+import SidebarCard from '@component/sidebar/components/SidebarCard';
 import {
   renderThumb,
   renderTrack,
   renderView,
-} from 'components/scrollbar/Scrollbar';
+} from '@component/scrollbar/Scrollbar';
 import { Scrollbars } from 'react-custom-scrollbars-2';
 import avatar4 from '/public/img/avatars/avatar4.png';
-import routes from 'routes';
-import Card from 'components/card';
+import routes from '@src/routes';
+import Card from '@component/card';
 import Image from 'next/image';
 
 function SidebarHorizon(props: { variant?: string; [x: string]: any }) {
@@ -34,7 +34,7 @@ function SidebarHorizon(props: { variant?: string; [x: string]: any }) {
       <Card
         extra={`mr-3 w-full h-[96.5vh] sm:ml-4 sm:my-4 m-7 !rounded-[20px]`}
       >
-        {/* @ts-expect-error */}
+        {/* */}
         <Scrollbars
           autoHide
           renderTrackVertical={renderTrack}

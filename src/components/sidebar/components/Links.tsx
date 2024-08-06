@@ -2,8 +2,8 @@
 import React from 'react';
 import { useCallback } from 'react';
 import { usePathname } from 'next/navigation';
-import NavLink from 'components/link/NavLink';
-import DashIcon from 'components/icons/DashIcon';
+import NavLink from '@component/link/NavLink';
+import DashIcon from '@component/icons/DashIcon';
 // chakra imports
 
 export const SidebarLinks = (props: { routes: RoutesType[] }): JSX.Element => {
@@ -23,13 +23,13 @@ export const SidebarLinks = (props: { routes: RoutesType[] }): JSX.Element => {
   const createLinks = (routes: RoutesType[]) => {
     return routes.map((route, index) => {
       if (
-        route.layout === '/admin' ||
+        route.layout === '/dashboard' ||
         route.layout === '/auth' ||
         route.layout === '/rtl'
       ) {
         return (
           <NavLink key={index} href={route.layout + '/' + route.path}>
-            <div className="relative mb-3 flex hover:cursor-pointer">
+            <div className="relative mb-8 flex hover:cursor-pointer">
               <li
                 className="my-[3px] flex cursor-pointer items-center px-8"
                 key={index}
@@ -37,7 +37,7 @@ export const SidebarLinks = (props: { routes: RoutesType[] }): JSX.Element => {
                 <span
                   className={`${
                     activeRoute(route.path) === true
-                      ? 'font-bold text-brand-500 dark:text-white'
+                      ? 'font-medium text-brand-500 dark:text-white'
                       : 'font-medium text-gray-600'
                   }`}
                 >
@@ -46,7 +46,7 @@ export const SidebarLinks = (props: { routes: RoutesType[] }): JSX.Element => {
                 <p
                   className={`leading-1 ml-4 flex ${
                     activeRoute(route.path) === true
-                      ? 'font-bold text-navy-700 dark:text-white'
+                      ? 'font-medium text-navy-700 dark:text-white'
                       : 'font-medium text-gray-600'
                   }`}
                 >

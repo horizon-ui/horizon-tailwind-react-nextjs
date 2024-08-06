@@ -1,4 +1,4 @@
-import Switch from "components/switch";
+import Switch from '@component/switch';
 
 const SwitchField = (props: {
   id: string;
