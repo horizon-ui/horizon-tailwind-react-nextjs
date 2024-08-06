@@ -3,9 +3,7 @@ import dynamic from 'next/dynamic';
 import Admin from '../[[...index]]';
 const AdminUser = dynamic(
   () =>
-    import('@src/components/admin/adminUsers/[[...index]]').then(
-      (mod) => mod.default,
-    ),
+    import('@src/components/admin/adminUsers/index').then((mod) => mod.default),
   {
     ssr: false,
   },

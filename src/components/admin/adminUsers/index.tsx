@@ -3,7 +3,7 @@
 import Admin from '../../../pages/dashboard/[[...index]]';
 import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
-import ActivityTable from './activityTable/[[...index]]';
+import ActivityTable from './activityTable';
 
 // Dynamically import Tabs and TabPane from antd
 const Tabs = dynamic(() => import('antd').then((mod) => mod.Tabs), {
@@ -11,7 +11,7 @@ const Tabs = dynamic(() => import('antd').then((mod) => mod.Tabs), {
 });
 
 const UserTable = dynamic(
-  () => import('./userTable/[[...index]]').then((mod) => mod.default),
+  () => import('./userTable').then((mod) => mod.default),
   { ssr: false },
 );
 

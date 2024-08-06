@@ -29,7 +29,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     refetch();
-  }, []);
+  }, [refetch]);
 
   const handleMapData = (data: DashboardResponse) => {
     setCardData(data.cardData);

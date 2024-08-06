@@ -1,7 +1,7 @@
 'use client';
 import { userActivityData } from '@src/variables/data-tables/tableDataDevelopment';
 import { Button, Input, Space, Table } from 'antd';
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import { MdSearch } from 'react-icons/md';
 import debounce from 'lodash.debounce';
 import 'antd/dist/reset.css'; // Import Ant Design styles

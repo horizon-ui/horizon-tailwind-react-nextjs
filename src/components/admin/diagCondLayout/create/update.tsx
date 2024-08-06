@@ -38,7 +38,6 @@ const EditDC = ({ handleShowDc, recordId }) => {
     const filteredDC = dcRecoilValue.find(
       (dc: DCDataInterface) => dc._id === recordId,
     );
-    console.log(filteredDC);
     if (filteredDC) {
       const updatedFormData = {
         name: filteredDC.name,
@@ -51,7 +50,7 @@ const EditDC = ({ handleShowDc, recordId }) => {
       errorAlert('Error updating record');
       // handleCancel();
     }
-  }, [recordId]);
+  }, [recordId, dcRecoilValue]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

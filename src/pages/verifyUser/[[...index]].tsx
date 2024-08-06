@@ -72,7 +72,7 @@ const VerifyUser: PageWithPrimaryLayout = () => {
 
   useEffect(() => {
     refetch();
-  }, []);
+  }, [refetch]);
 
   return (
     <div className="p-8">

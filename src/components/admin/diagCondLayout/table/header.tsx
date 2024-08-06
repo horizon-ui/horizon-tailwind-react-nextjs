@@ -23,7 +23,7 @@ const DcHeader = ({ showDc, handleShowDc }) => {
         }) || [],
       );
     }, 300),
-    [diagConditionsData],
+    [diagConditionsData, setDcRecoilValue],
   );
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {

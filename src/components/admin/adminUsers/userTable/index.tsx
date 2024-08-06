@@ -113,7 +113,6 @@ const UserTable = () => {
   // useEffect(() => {
   //   if (!isLoading && adminUserData.status == 200) {
   //     setAdminUser(adminUserData?.data);
-  //     console.log(adminUsers);
   //   }
   // }, [isLoading, adminUserData]);
 
