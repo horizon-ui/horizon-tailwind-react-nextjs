@@ -106,5 +106,5 @@ export interface DCDataInterface {
   name: string;
   description: string;
   aliases: [];
-  status: string;
+  status: boolean;
 }

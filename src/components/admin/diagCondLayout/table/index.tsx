@@ -10,16 +10,16 @@ import {
 import { DIAGNOSED_CONDITIONS_COLUMNS } from '../utils/column';
 import { useRecoilState } from 'recoil';
 import { diagConditionState } from '@src/utils/recoil/diagnosedConditions';
-import './dc.module.css';
-import { DCDataInterface, DCDataType } from '@src/api/utils/interface';
+import { DCDataInterface } from '@src/api/utils/interface';
 import { MdDelete, MdEdit } from 'react-icons/md';
 import { AxiosResponse } from 'axios';
-import { errorAlert, successAlert, warningAlert2 } from '@src/components/alert';
+import { errorAlert, warningAlert2 } from '@src/components/alert';
 
-const DcTable = () => {
+const DcTable = ({ handleEditDc }) => {
   const [pageSize, setPageSize] = useState(10);
   const invalidateQuery = useInvalidateQuery();
-
+  const [dcRecoilValue, setDcRecoilValue] =
+    useRecoilState<[]>(diagConditionState);
   const deleteDCMutation = useDeleteDC({
     onSuccess: (resp: AxiosResponse) => {
       if (resp && resp.status === 200) {
@@ -31,9 +31,6 @@ const DcTable = () => {
       errorAlert('DC deleting sucesfully');
     },
   });
-
-  const [dcRecoilValue, setDcRecoilValue] =
-    useRecoilState<[]>(diagConditionState);
   const {
     data: diagConditionsData,
     isLoading,
@@ -52,14 +49,9 @@ const DcTable = () => {
     }
   }, [isLoading, diagConditionsData, setDcRecoilValue]);
 
-  const dataSourceWithKeys =
-    dcRecoilValue?.length > 0 &&
-    dcRecoilValue.map((record: any, index) => ({
-      ...record,
-      key: record.key || record.id || index,
-    }));
-
-  const handleEdit = (recordId: string) => {};
+  const handleEdit = (recordId: string) => {
+    handleEditDc(true, recordId);
+  };
 
   const handleDCDelete = (recordId: string) => {
     if (recordId) {
@@ -75,7 +67,7 @@ const DcTable = () => {
         ...dc,
         render: (_, record: DCDataInterface) => (
           <Space size="middle">
-            <Button icon={<MdEdit />} onClick={() => handleEdit(record.key)}>
+            <Button icon={<MdEdit />} onClick={() => handleEdit(record._id)}>
               Edit
             </Button>
             <Button
@@ -90,6 +82,13 @@ const DcTable = () => {
     }
     return dc;
   });
+
+  const dataSourceWithKeys =
+    dcRecoilValue?.length > 0 &&
+    dcRecoilValue.map((record: any, index) => ({
+      ...record,
+      key: record.key || record.id || index,
+    }));
 
   return (
     <div className="my-6">

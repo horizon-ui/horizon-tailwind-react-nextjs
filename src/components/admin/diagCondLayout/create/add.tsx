@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { FormControl, FormLabel, Stack } from '@chakra-ui/react';
 import { Button, Input, Select, SelectProps, Switch } from 'antd';
-import { errorAlert, successAlert } from '@src/components/alert';
-import { useCreateDC } from '@src/utils/reactQuery';
+import { errorAlert, successAlert, warningAlert2 } from '@src/components/alert';
+import { useCreateDC, useInvalidateQuery } from '@src/utils/reactQuery';
 import { AxiosResponse } from 'axios';
 import { useRecoilValue } from 'recoil';
 import { diagConditionState } from '@src/utils/recoil/diagnosedConditions';
-import TextArea from 'antd/es/input/TextArea';
 import { DCDataInterface } from '@src/api/utils/interface';
+import TextArea from 'antd/es/input/TextArea';
 
 const AddDC = ({ handleShowDc }) => {
   const initialFormData = {
@@ -19,16 +19,21 @@ const AddDC = ({ handleShowDc }) => {
 
   const [formData, setFormData] = useState(initialFormData);
   const options: SelectProps['options'] = [];
+  const invalidateQuery = useInvalidateQuery();
   const dcRecoilValue = useRecoilValue<DCDataInterface[]>(diagConditionState);
+
   const createMutation = useCreateDC({
     onSuccess: (resp: AxiosResponse) => {
       if (resp && resp.status === 201) {
-        successAlert('DC created succesfully');
+        warningAlert2('DC created succesfully');
+        invalidateQuery('diagnosedConditions');
         handleCancel();
       }
     },
     onError: (err: Error) => {
-      errorAlert('Error creating DC');
+      if (err && err.message) {
+        errorAlert('Error creating DC');
+      }
     },
   });
 

@@ -6,6 +6,7 @@ import {
   getAdminUsersApi,
   getDiagnosedConditionsApi,
   getUserByPhoneApi,
+  updateDiagnosedConditionsApi,
 } from '@src/constants/api';
 import axios, { AxiosResponse } from 'axios';
 import {
@@ -84,6 +85,33 @@ export function useCreateDC<TData, TVariables>(
   return CreateMutation('post', createDiagnosedConditionsApi, props);
 }
 
+// Update call
+
+// Delete
+function UpdateMutation<TData, TVariables>(
+  method: 'put',
+  url: string,
+  { onSuccess, onError }: UseMutationProps<TData, TVariables>,
+) {
+  return useMutation(
+    (data: any) =>
+      axios[method](url + data?.recordId, data?.data, {
+        headers: { 'Content-Type': 'application/json' },
+      }),
+    {
+      onSuccess,
+      onError,
+    },
+  );
+}
+
+export function useUpdateDC<TData, TVariables>(
+  props: UseMutationProps<TData, TVariables>,
+) {
+  return UpdateMutation('put', updateDiagnosedConditionsApi, props);
+}
+
+// Delete
 function DeleteMutation<TData, TVariables>(
   method: 'delete',
   url: string,
@@ -95,7 +123,6 @@ function DeleteMutation<TData, TVariables>(
   });
 }
 
-// Delete
 export function useDeleteDC<TData, TVariables>(
   props: UseMutationProps<TData, TVariables>,
 ) {

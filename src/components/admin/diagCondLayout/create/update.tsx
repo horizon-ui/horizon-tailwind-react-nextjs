@@ -1,41 +1,57 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FormControl, FormLabel, Stack } from '@chakra-ui/react';
 import { Button, Input, Select, SelectProps, Switch } from 'antd';
-import { errorAlert, successAlert } from '@src/components/alert';
-import { useCreateDC, useInvalidateQuery } from '@src/utils/reactQuery';
+import { errorAlert, successAlert, warningAlert2 } from '@src/components/alert';
+import { useInvalidateQuery, useUpdateDC } from '@src/utils/reactQuery';
 import { AxiosResponse } from 'axios';
 import { useRecoilValue } from 'recoil';
 import { diagConditionState } from '@src/utils/recoil/diagnosedConditions';
-import { DCDataInterface } from '@src/api/utils/interface';
 import TextArea from 'antd/es/input/TextArea';
+import { DCDataInterface } from '@src/api/utils/interface';
 
-const AddDC = ({ handleShowDc }) => {
-  const initialFormData = {
+const EditDC = ({ handleShowDc, recordId }) => {
+  const initialFormData: DCDataInterface = {
     name: '',
     description: '',
     aliases: [],
     status: true,
   };
-
-  const [formData, setFormData] = useState(initialFormData);
+  const [formData, setFormData] = useState<DCDataInterface>(initialFormData);
   const options: SelectProps['options'] = [];
-  const invalidateQuery = useInvalidateQuery();
   const dcRecoilValue = useRecoilValue<DCDataInterface[]>(diagConditionState);
+  const invalidateQuery = useInvalidateQuery();
 
-  const createMutation = useCreateDC({
+  const updateMutation = useUpdateDC({
     onSuccess: (resp: AxiosResponse) => {
-      if (resp && resp.status === 201) {
-        successAlert('DC created succesfully');
-        handleCancel();
+      if (resp && resp.status === 200) {
+        warningAlert2('DC updated succesfully');
         invalidateQuery('diagnosedConditions');
+        handleCancel();
       }
     },
     onError: (err: Error) => {
-      if (err && err.message) {
-        errorAlert('Error creating DC');
-      }
+      errorAlert('Error updating DC');
     },
   });
+
+  useEffect(() => {
+    const filteredDC = dcRecoilValue.find(
+      (dc: DCDataInterface) => dc._id === recordId,
+    );
+    console.log(filteredDC);
+    if (filteredDC) {
+      const updatedFormData = {
+        name: filteredDC.name,
+        description: filteredDC.description,
+        aliases: filteredDC.aliases,
+        status: filteredDC.status,
+      };
+      setFormData(updatedFormData);
+    } else {
+      errorAlert('Error updating record');
+      // handleCancel();
+    }
+  }, [recordId]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -54,14 +70,14 @@ const AddDC = ({ handleShowDc }) => {
     }
 
     if (
-      dcRecoilValue?.find(
+      dcRecoilValue?.filter(
         (recoil: DCDataInterface) => recoil.name === formData.name,
-      )
+      ).length > 1
     ) {
       errorAlert('Duplicate DC');
     }
 
-    createMutation.mutate({ data: formData });
+    updateMutation.mutate({ data: formData, recordId: recordId });
 
     handleCancel();
   };
@@ -88,7 +104,7 @@ const AddDC = ({ handleShowDc }) => {
   return (
     <div className="my-10 max-w-full bg-white p-10">
       <section className="m-auto w-[50%]">
-        <p className="my-4 text-xl font-bold">Add Diagnosed Condition</p>
+        <p className="my-4 text-xl font-bold">Edit Diagnosed Condition</p>
         <form onSubmit={handleSubmit} className="space-y-4 ">
           <Stack spacing={4}>
             <FormControl id="name" className="my-2" isRequired>
@@ -135,7 +151,7 @@ const AddDC = ({ handleShowDc }) => {
             </FormControl>
           </Stack>
           <Button type="primary" htmlType="submit">
-            Submit
+            Update
           </Button>
           <Button type="default" className="ml-2" onClick={handleCancel}>
             Cancel
@@ -146,4 +162,4 @@ const AddDC = ({ handleShowDc }) => {
   );
 };
 
-export default AddDC;
+export default EditDC;
