@@ -13,16 +13,26 @@ import { errorAlert, warningAlert2 } from '@src/components/alert';
 import AddVaccine from './create/add';
 import { useState } from 'react';
 import { Switch } from 'antd';
+import { useActivityLogger } from '@src/components/logger';
 
 const VaccineTab = () => {
   const [showVaccine, setShowVaccine] = useState<boolean>(false);
   const { data: vaccineData, isLoading, refetch } = useGetVaccine();
   const invalidateQuery = useInvalidateQuery();
+  const logActivity = useActivityLogger();
 
   const deleteMutation = useDeleteVaccine({
     onSuccess: (resp: AxiosResponse) => {
-      warningAlert2('Deleted Vaccine succesfully');
       invalidateQuery('vaccineData');
+      refetch();
+      warningAlert2('Deleted Vaccine succesfully');
+      logActivity({
+        title: 'Deleted Vaccine',
+        description: resp?.data
+          ? `Deleted ${resp.data.name} from Vaccines`
+          : 'Deleted Vaccine',
+        action: 'deleted',
+      });
     },
     onError: (error: Error) => {
       errorAlert('Error deleting vaccine');

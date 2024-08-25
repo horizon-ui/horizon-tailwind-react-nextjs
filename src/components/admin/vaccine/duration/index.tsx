@@ -13,16 +13,26 @@ import { errorAlert, warningAlert2 } from '@src/components/alert';
 import { Switch } from 'antd';
 import { useState } from 'react';
 import AddDuration from './create/add';
+import { useActivityLogger } from '@src/components/logger';
 
 const DoseDurationTab = () => {
-  const { data: doseDurationData, isLoading } = useGetDoseDuration();
+  const { data: doseDurationData, isLoading, refetch } = useGetDoseDuration();
   const invalidateQuery = useInvalidateQuery();
   const [showDuration, setShowDuration] = useState<boolean>(false);
+  const logActivity = useActivityLogger();
 
   const deleteMutation = useDeleteDoseDuration({
     onSuccess: (resp: AxiosResponse) => {
-      warningAlert2('Deleted Dose succesfully');
       invalidateQuery('durationData');
+      refetch();
+      warningAlert2('Deleted Dose duration succesfully');
+      logActivity({
+        title: 'Deleted Dose Duration',
+        description: resp?.data
+          ? `Deleted ${resp.data.name} from Dose Durations`
+          : 'Deleted Dose Duration',
+        action: 'deleted',
+      });
     },
     onError: (error: Error) => {
       errorAlert('Error deleting dose');
@@ -32,6 +42,7 @@ const DoseDurationTab = () => {
   const handleEdit = (record: any) => {
     console.log(record);
   };
+
   const handleDelete = (record: any) => {
     if (record) {
       deleteMutation.mutate(record);
