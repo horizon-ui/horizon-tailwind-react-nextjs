@@ -25,12 +25,15 @@ export const deleteSamplesApi = '/api/report/sample/deleteSample/?id=';
 
 // Reports - Parameter
 export const getParamtersApi = '/api/report/param/readParam';
+export const createParamtersApi = '/api/report/param/createParam';
+export const updateParamtersApi = '/api/report//param/updateParam/?id=';
+export const deleteParamtersApi = '/api/report/param/deleteParam/?id=';
 
 // Reports
 export const getReportsApi = '/api/report/report/readReport';
-export const createReportApi = '/api/report/createReport';
-export const updateReportApi = '/api/report/updateReport/?id=';
-export const deleteReportApi = '/api/report/deleteReport/?id=';
+export const createReportApi = '/api/report/report/createReport';
+export const updateReportApi = '/api/report//report/updateReport/?id=';
+export const deleteReportApi = '/api/report/report/deleteReport/?id=';
 
 // Vaccine
 export const getVaccineApi = '/api/vaccine/readVaccines';

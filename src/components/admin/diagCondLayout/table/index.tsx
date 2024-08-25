@@ -41,7 +41,7 @@ const DcTable = ({ handleEditDc }) => {
       }
     },
     onError: (err: Error) => {
-      errorAlert('DC deleting sucesfully');
+      errorAlert('DC deleting failed');
     },
   });
 

@@ -28,11 +28,11 @@ const Dashboard = () => {
   const { data: adminDashboard, isLoading, refetch }: any = useGetDashboard();
 
   const handleMapData = (data: DashboardResponse) => {
-    setCardData(data.cardData);
-    setActivities(data.activities);
-    setUserCount(data.donutChart.users);
-    setAdminAssets(data.donutChart.adminData);
-    setOmeraldUsers(data.lineCharts.userCounts.omeraldUsers);
+    setCardData(data?.cardData);
+    setActivities(data?.activities);
+    setUserCount(data?.donutChart?.users);
+    setAdminAssets(data?.donutChart?.adminData);
+    setOmeraldUsers(data?.lineCharts?.userCounts?.omeraldUsers);
   };
 
   useEffect(() => {
@@ -79,7 +79,7 @@ const Dashboard = () => {
           </div>
 
           <div className="mt-5 grid grid-cols-1 gap-5 md:grid-cols-2">
-            {omeraldUsers.length > 0 && (
+            {omeraldUsers?.length > 0 && (
               <UserGrowthChart userData={omeraldUsers} />
             )}
             {<AdminItemsChart adminAssets={adminAssets} />}
@@ -93,7 +93,7 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-        {/* {isLoading && (
+        {isLoading && (
           <div className="fixed left-0 top-0 flex h-full w-full items-center justify-center bg-gray-500 bg-opacity-50">
             <Button
               isLoading
@@ -104,7 +104,7 @@ const Dashboard = () => {
               Button
             </Button>
           </div>
-        )} */}
+        )}
       </>
     </Admin>
   );

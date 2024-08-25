@@ -101,7 +101,9 @@ export const REPORTS_PARAM_COLUMNS = ({ handleEdit, handleDelete }) => {
       dataIndex: 'name',
       key: 'name',
       ellipsis: true,
+      width: 60,
       sorter: (a, b) => a.name.localeCompare(b.name),
+      render: (text) => <div className="max-w-[150px]">{text}</div>,
     },
     {
       title: 'Description',

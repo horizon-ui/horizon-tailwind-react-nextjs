@@ -7,7 +7,7 @@ const AdminItemsChart = ({ adminAssets }: any) => {
   const barChartDataWeeklyRevenue = [
     {
       name: 'Admin Assets',
-      data: Object.values(adminAssets) || [1, 0, 0, 0, 0, 0, 0],
+      data: Object.values(adminAssets || {}) || [1, 0, 0, 0, 0, 0, 0],
       color: '#3b3bf7',
     },
   ];

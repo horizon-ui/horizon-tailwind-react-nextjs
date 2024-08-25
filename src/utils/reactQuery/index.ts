@@ -8,6 +8,9 @@ import {
   deleteDiagnosedConditionsApi,
   deleteDoseApi,
   deleteDoseDurationApi,
+  deleteParamtersApi,
+  deleteReportApi,
+  deleteSamplesApi,
   deleteVaccineApi,
   getAdminActivitiessApi,
   getAdminDashbord,
@@ -265,6 +268,24 @@ export function useDeleteDoseDuration<TData, TVariables>(
   props: UseMutationProps<TData, TVariables>,
 ) {
   return DeleteMutation('delete', deleteDoseDurationApi, props);
+}
+
+export function useDeleteReport<TData, TVariables>(
+  props: UseMutationProps<TData, TVariables>,
+) {
+  return DeleteMutation('delete', deleteReportApi, props);
+}
+
+export function useDeleteParam<TData, TVariables>(
+  props: UseMutationProps<TData, TVariables>,
+) {
+  return DeleteMutation('delete', deleteParamtersApi, props);
+}
+
+export function useDeleteSample<TData, TVariables>(
+  props: UseMutationProps<TData, TVariables>,
+) {
+  return DeleteMutation('delete', deleteSamplesApi, props);
 }
 
 // Invalidate
