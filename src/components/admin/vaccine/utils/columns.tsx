@@ -57,7 +57,7 @@ export const VACCINE_DOSE_COLUMNS = ({ handleEdit, handleDelete }) => {
       key: 'doseDuration',
       sorter: (a, b) => a.duration.localeCompare(b.duration),
       render: (doseDuration) => {
-        return <p>{doseDuration?.duration + '' + doseDuration?.type}</p>;
+        return <p>{doseDuration?.duration + ' ' + doseDuration?.type}</p>;
       },
     },
     {
@@ -76,7 +76,7 @@ export const VACCINE_DOSE_COLUMNS = ({ handleEdit, handleDelete }) => {
         <>
           <span className="hidden sm:block">
             <Space size="middle">
-              <Button onClick={() => handleEdit(record._id)}>
+              <Button onClick={() => handleEdit(record)}>
                 <MdEdit />
                 Edit
               </Button>
@@ -89,7 +89,7 @@ export const VACCINE_DOSE_COLUMNS = ({ handleEdit, handleDelete }) => {
           <span className="block flex gap-4 sm:hidden">
             <MdEdit
               className="text-indigo-800"
-              onClick={() => handleDelete(record._id)}
+              onClick={() => handleEdit(record)}
             />
             <MdDelete
               className="text-red-500"

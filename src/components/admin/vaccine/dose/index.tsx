@@ -10,13 +10,21 @@ import { VACCINE_DOSE_COLUMNS } from '../utils/columns';
 import { DataWithKeys } from '../../reports/utils/columns';
 import { AxiosResponse } from 'axios';
 import { errorAlert, warningAlert2 } from '@src/components/alert';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useActivityLogger } from '@src/components/logger';
+import { Switch } from 'antd';
+import AddDose from './create/add';
+import UpdateDose from './create/update';
+import { useSetRecoilState } from 'recoil';
+import { doseState } from '@src/utils/recoil/vaccine';
 
 const DosesTab = () => {
   const { data: doseData, isLoading, refetch } = useGetDoses();
   const invalidateQuery = useInvalidateQuery();
   const logActivity = useActivityLogger();
+  const [showDose, setDose] = useState<boolean>(false);
+  const [editDose, setEditDose] = useState<boolean>(false);
+  const setDoseRecoil = useSetRecoilState(doseState);
 
   const deleteMutation = useDeleteDose({
     onSuccess: (resp: AxiosResponse) => {
@@ -37,13 +45,24 @@ const DosesTab = () => {
   });
 
   const handleEdit = (record: any) => {
-    console.log(record);
+    setDoseRecoil(record);
+    setEditDose(true);
+    setDose(true);
   };
 
   const handleDelete = (record: string) => {
     if (record) {
       deleteMutation.mutate(record);
     }
+  };
+
+  const handleShowDose = (value: boolean) => {
+    setDose(value);
+  };
+
+  const handleEditDose = (value: boolean) => {
+    setEditDose(value);
+    setDose(value);
   };
 
   useEffect(() => {
@@ -56,14 +75,37 @@ const DosesTab = () => {
 
   return (
     <div className="my-8">
-      <ReportsTable
-        columns={columns || []}
-        tableDataSource={
-          // @ts-ignore
-          dataSourceWithKeys?.length > 0 ? dataSourceWithKeys : []
-        }
-        isLoading={isLoading}
-      />
+      <section className="flex justify-end">
+        <Switch
+          onChange={(checked) => {
+            handleShowDose(checked);
+          }}
+          value={showDose}
+          checkedChildren={'Add'}
+          unCheckedChildren={'View'}
+        />
+      </section>
+
+      {!showDose ? (
+        <section>
+          <ReportsTable
+            columns={columns || []}
+            tableDataSource={
+              // @ts-ignore
+              dataSourceWithKeys?.length > 0 ? dataSourceWithKeys : []
+            }
+            isLoading={isLoading}
+          />
+        </section>
+      ) : (
+        <section>
+          {!editDose ? (
+            <AddDose handleShowDose={handleShowDose} />
+          ) : (
+            <UpdateDose handleEditDose={handleEditDose} />
+          )}
+        </section>
+      )}
     </div>
   );
 };
