@@ -1,7 +1,76 @@
-import mongoose, { Schema } from 'mongoose';
+import mongoose, { Schema, Document } from 'mongoose';
+
+// Gender Range Details Interface
+export interface GenderRangeDetails {
+  menopause: boolean;
+  pregnant: boolean;
+  trimester: 'first' | 'second' | 'third' | 'none';
+  prePuberty: boolean;
+}
+
+// Bio Reference Sub-Category Interface
+export interface BioRefSubCategory {
+  categoryType: string;
+  min: number;
+  max: number;
+  unit: string;
+  value: number;
+}
+
+// Component Interface
+export interface Component {
+  title: string;
+  content: string;
+  isDynamic: boolean;
+  images: string[];
+}
+
+// Parameters Interface
+export interface Parameter {
+  name: string;
+  subText?: string;
+  adminParamId?: string;
+  description?: string;
+  aliases?: string[];
+  units?: string;
+  bioRefRange?: {
+    basicRange: { min: number; max: number; unit: string }[];
+    advanceRange: {
+      ageRange: {
+        ageRangeType: 'pediatric' | 'senior' | 'adult' | 'senior citizen';
+        unit: string;
+        min: number;
+        max: number;
+      }[];
+      genderRange: {
+        genderRangeType: 'male' | 'female' | 'other' | 'others';
+        unit: string;
+        min: number;
+        max: number;
+        details: GenderRangeDetails;
+      }[];
+      customRange: BioRefSubCategory[];
+    };
+  };
+  remedy?: string[];
+  isActive?: boolean;
+  deletedAt?: Date | null;
+  diagnosedConditions?: object;
+}
+
+// ReportDocument Interface
+export interface ReportDocument {
+  testName: string;
+  sampleName: string;
+  parameters: Parameter[];
+  isActive: boolean;
+  components: Component[];
+  createdAt?: Date;
+  updatedAt?: Date;
+}
 
 // Gender Range Details Schema
-const genderRangeDetailsSchema = new Schema(
+const genderRangeDetailsSchema = new Schema<GenderRangeDetails>(
   {
     menopause: { type: Boolean, default: false },
     pregnant: { type: Boolean, default: false },
@@ -16,7 +85,7 @@ const genderRangeDetailsSchema = new Schema(
 );
 
 // Bio Reference Sub-Category Schema
-const bioRefSubCategorySchema = new Schema({
+const bioRefSubCategorySchema = new Schema<BioRefSubCategory>({
   categoryType: String,
   min: Number,
   max: Number,
@@ -25,7 +94,7 @@ const bioRefSubCategorySchema = new Schema({
 });
 
 // Component Schema
-const componentSchema = new Schema({
+const componentSchema = new Schema<Component>({
   title: { type: String, required: true },
   content: { type: String, required: true },
   isDynamic: { type: Boolean, default: false },
@@ -33,7 +102,7 @@ const componentSchema = new Schema({
 });
 
 // Parameters Schema
-const parametersSchema = new Schema(
+const parametersSchema = new Schema<Parameter>(
   {
     name: {
       type: String,
@@ -109,7 +178,7 @@ const parametersSchema = new Schema(
 );
 
 // Test Schema
-const ReportSchema = new Schema(
+const ReportSchema = new Schema<ReportDocument>(
   {
     testName: { type: String, required: true },
     sampleName: { type: String, required: true, default: '' },
@@ -127,4 +196,5 @@ ReportSchema.pre('findOneAndUpdate', function (next) {
   next();
 });
 
-export default mongoose.models.report || mongoose.model('report', ReportSchema);
+export default mongoose.models.report ||
+  mongoose.model<ReportDocument>('report', ReportSchema);

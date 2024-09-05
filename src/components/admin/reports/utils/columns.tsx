@@ -1,98 +1,222 @@
 import { DCDataInterface } from '@src/api/utils/interface';
 import { Button, Popover, Space, Tag } from 'antd';
 import { useState } from 'react';
+import { FaEdit, FaEye, FaTrash } from 'react-icons/fa';
 import { MdDelete, MdEdit } from 'react-icons/md';
 
-export const REPORTS_COLUMNS = ({ handleEdit, handleDelete }) => {
-  const columns = [
-    {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
-      ellipsis: true,
-      sorter: (a, b) => a.name.localeCompare(b.name),
+// export const REPORTS_COLUMNS = ({ handleEdit, handleDelete }) => {
+//   const columns = [
+//     {
+//       title: 'Name',
+//       dataIndex: 'name',
+//       key: 'name',
+//       ellipsis: true,
+//       sorter: (a, b) => a.name.localeCompare(b.name),
+//     },
+//     {
+//       title: 'Sample Type',
+//       dataIndex: 'sample',
+//       key: 'sample',
+//       render: (sample) => {
+//         return (
+//           <>
+//             <Tag>{sample?.name}</Tag>
+//           </>
+//         );
+//       },
+//     },
+//     {
+//       title: 'Diagnosed Conditions',
+//       dataIndex: 'diagnosedCondition',
+//       key: 'diagnosedConditions',
+//       render: (diagnosedCondition) => {
+//         return (
+//           <>
+//             <Tag>{diagnosedCondition?.name}</Tag>
+//           </>
+//         );
+//       },
+//     },
+//     {
+//       title: 'Parameter',
+//       dataIndex: 'parameter',
+//       key: 'parameter',
+//       render: (parameter) => {
+//         return <Tag color="green">{parameter?.name}</Tag>;
+//       },
+//     },
+//     {
+//       title: 'Report Active',
+//       dataIndex: 'isActive',
+//       key: 'isActive',
+//       render: (isActive) => {
+//         return (
+//           <>
+//             {isActive ? (
+//               <Tag color="green">Active</Tag>
+//             ) : (
+//               <Tag color="red">Inactive</Tag>
+//             )}
+//           </>
+//         );
+//       },
+//     },
+//     {
+//       title: 'Action',
+//       key: 'action',
+//       render: (_, record: DCDataInterface) => (
+//         <>
+//           <span className="hidden sm:block">
+//             <Space size="middle">
+//               <Button onClick={() => handleEdit(record._id)}>
+//                 <MdEdit />
+//                 Edit
+//               </Button>
+//               <Button onClick={() => handleDelete(record._id)}>
+//                 <MdDelete />
+//                 Delete
+//               </Button>
+//             </Space>
+//           </span>
+//           <span className="block flex gap-4 sm:hidden">
+//             <MdEdit
+//               className="text-indigo-800"
+//               onClick={() => handleDelete(record._id)}
+//             />
+//             <MdDelete
+//               className="text-red-500"
+//               onClick={() => handleDelete(record._id)}
+//             />
+//           </span>
+//         </>
+//       ),
+//     },
+//   ];
+//   return columns;
+// };
+
+export const REPORTS_COLUMNS = ({
+  handleEdit,
+  handleDelete,
+  handlePreview,
+}) => [
+  {
+    key: 'testName',
+    title: 'Test Name',
+    dataIndex: 'testName',
+    render: (text: any) => <a>{text}</a>,
+    sorter: (a: any, b: any) =>
+      a.sampleType?.testName?.length - b.sampleType?.testName?.length,
+  },
+  {
+    key: 'sampleName',
+    title: 'Sample Name',
+    dataIndex: 'sampleName',
+    render: (text: any) => <a>{text}</a>,
+    sorter: (a: any, b: any) =>
+      a.sampleType?.sampleName?.length - b.sampleType?.sampleName?.length,
+  },
+  {
+    key: 'parameter',
+    title: 'Parameters',
+    dataIndex: 'parameters',
+    render: (parameters: any, record: any) => (
+      <div
+        style={{
+          maxWidth: '100%',
+          display: 'grid',
+          gridTemplateColumns: 'repeat(3, 1fr)',
+          gap: '5px',
+          padding: '10px',
+          border: '1px solid #e8e8e8',
+          borderRadius: '8px',
+          backgroundColor: '#f9f9f9',
+        }}
+      >
+        {parameters?.map((param: any, index: any) => (
+          <a key={index} href="#">
+            <Popover content={getPopOver(param)} title="Parameter Aliases">
+              <Tag
+                style={{
+                  fontSize: '12px', // Making tags smaller
+                  padding: '2px 8px',
+                  whiteSpace: 'nowrap',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  maxWidth: '100px', // Limiting the width for smaller space
+                }}
+                color="green"
+                key={param}
+              >
+                {param?.name}
+              </Tag>
+            </Popover>
+          </a>
+        ))}
+      </div>
+    ),
+  },
+  {
+    key: 'components',
+    title: 'Components',
+    dataIndex: 'components',
+    render: (components: any, record: any) => (
+      <div
+        style={{
+          maxWidth: '20vw',
+          maxHeight: 'calc(3 * 20px + 2px)',
+          overflowY: 'auto',
+        }}
+      >
+        <ComponentsDisplay components={components} />
+      </div>
+    ),
+  },
+  {
+    key: 'isActive',
+    title: 'Status',
+    dataIndex: 'isActive',
+    sorter: (a: any, b: any) =>
+      a.sampleType?.keywords.length - b.sampleType?.keywords.length,
+    render: (text: any) => {
+      if (text) {
+        return <Tag color="green">Active</Tag>;
+      } else {
+        return <Tag color="red">Inactive</Tag>;
+      }
     },
-    {
-      title: 'Sample Type',
-      dataIndex: 'sample',
-      key: 'sample',
-      render: (sample) => {
-        return (
-          <>
-            <Tag>{sample?.name}</Tag>
-          </>
-        );
-      },
-    },
-    {
-      title: 'Diagnosed Conditions',
-      dataIndex: 'diagnosedCondition',
-      key: 'diagnosedConditions',
-      render: (diagnosedCondition) => {
-        return (
-          <>
-            <Tag>{diagnosedCondition?.name}</Tag>
-          </>
-        );
-      },
-    },
-    {
-      title: 'Parameter',
-      dataIndex: 'parameter',
-      key: 'parameter',
-      render: (parameter) => {
-        return <Tag color="green">{parameter?.name}</Tag>;
-      },
-    },
-    {
-      title: 'Report Active',
-      dataIndex: 'isActive',
-      key: 'isActive',
-      render: (isActive) => {
-        return (
-          <>
-            {isActive ? (
-              <Tag color="green">Active</Tag>
-            ) : (
-              <Tag color="red">Inactive</Tag>
-            )}
-          </>
-        );
-      },
-    },
-    {
-      title: 'Action',
-      key: 'action',
-      render: (_, record: DCDataInterface) => (
-        <>
-          <span className="hidden sm:block">
-            <Space size="middle">
-              <Button onClick={() => handleEdit(record._id)}>
-                <MdEdit />
-                Edit
-              </Button>
-              <Button onClick={() => handleDelete(record._id)}>
-                <MdDelete />
-                Delete
-              </Button>
-            </Space>
-          </span>
-          <span className="block flex gap-4 sm:hidden">
-            <MdEdit
-              className="text-indigo-800"
-              onClick={() => handleDelete(record._id)}
+  },
+  {
+    title: 'Action',
+    key: 'action',
+    render: (_, record) => {
+      return (
+        <Space size="middle">
+          <a
+            onClick={() => {
+              handlePreview(record);
+            }}
+            className="text-orange-700"
+          >
+            <FaEye className="w-4 text-green-900" />
+          </a>
+          <a href="#">
+            <FaEdit
+              className="text-red-gray"
+              onClick={() => handleEdit(record)}
             />
-            <MdDelete
+          </a>
+          <a href="#">
+            <FaTrash
               className="text-red-500"
-              onClick={() => handleDelete(record._id)}
+              onClick={() => handleDelete(record)}
             />
-          </span>
-        </>
-      ),
+          </a>
+        </Space>
+      );
     },
-  ];
-  return columns;
-};
+  },
+];
 
 export const REPORTS_PARAM_COLUMNS = ({ handleEdit, handleDelete }) => {
   const columns = [
@@ -555,6 +679,58 @@ export const getContent = (bioRefRange) => {
           </div>
         </div>
       )}
+    </div>
+  );
+};
+
+const ComponentsDisplay = ({ components }) => {
+  return (
+    <div>
+      {components?.map((param, index) => (
+        <a key={index} href="#">
+          <Popover content={getPopOvers(param)} title={param?.title}>
+            <Tag className="my-1" color="green" key={param._id}>
+              {param?.title || 'Untitled Component'}
+            </Tag>
+          </Popover>
+        </a>
+      ))}
+    </div>
+  );
+};
+
+const getPopOver = (param: any) => (
+  <div className="max-w-[25vw]">
+    <p>
+      <strong>Name</strong>: {param?.name}
+    </p>
+    <p
+    // style={{ width: "30vw", wordWrap: "break-word", whiteSpace: "pre-wrap" }}
+    // className="overflow-hidden whitespace-nowrap w-[30vw]"
+    >
+      <strong>Description</strong>: {param?.description}
+    </p>
+    <p>
+      <strong>Aliases</strong>: {param?.aliases?.join(', ')}
+    </p>
+    <p>
+      <strong>IsActive</strong>: {param?.isActive ? 'Yes' : 'No'}
+    </p>
+    <p>
+      <strong>BioRefRange</strong>:{getContent(param?.bioRefRange)}
+    </p>
+  </div>
+);
+
+const getPopOvers = (param) => {
+  return (
+    <div className="w-[60vw]">
+      <div
+        className="w-[60vw]"
+        dangerouslySetInnerHTML={{
+          __html: param.content || 'No content available',
+        }}
+      ></div>
     </div>
   );
 };

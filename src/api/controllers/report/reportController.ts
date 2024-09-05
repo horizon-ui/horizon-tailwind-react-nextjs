@@ -32,27 +32,21 @@ export const createReportController = async (
   res: NextApiResponse,
 ) => {
   try {
-    const {
-      name,
-      description,
-      isActive,
-      parameter,
-      sample,
-      diagnosedCondition,
-    } = _req.body;
-    if (!name) {
+    const { testName, sampleName, isActive, parameters, components } =
+      _req.body;
+    if (!testName) {
       throw validationError('invalid report name');
     }
     const reportObj: ReportDocument = {
-      name,
-      description,
+      testName,
+      sampleName,
+      parameters,
       isActive,
-      parameter,
-      sample,
-      diagnosedCondition,
+      components,
     };
 
     const reportResp = await createReportService(reportObj);
+    console.log(reportResp);
     if (!reportResp) {
       throw internalServerError('Error creating report');
     }

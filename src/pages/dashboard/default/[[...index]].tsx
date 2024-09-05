@@ -17,7 +17,6 @@ import AdminItemsChart from '@src/components/admin/adminUsers/dashboard/AdminIte
 import { useGetDashboard } from '@src/utils/reactQuery';
 import { DashboardResponse } from '@src/api/utils/interface';
 import { useEffect, useState } from 'react';
-import { Button } from '@chakra-ui/react';
 
 const Dashboard = () => {
   const [cardData, setCardData] = useState({});
@@ -82,7 +81,7 @@ const Dashboard = () => {
             {omeraldUsers?.length > 0 && (
               <UserGrowthChart userData={omeraldUsers} />
             )}
-            {<AdminItemsChart adminAssets={adminAssets} />}
+            <AdminItemsChart adminAssets={adminAssets} />
           </div>
 
           <div className="mt-5 grid grid-cols-1 gap-5 xl:grid-cols-2">
@@ -93,7 +92,7 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-        {isLoading && (
+        {/* {isLoading && (
           <div className="fixed left-0 top-0 flex h-full w-full items-center justify-center bg-gray-500 bg-opacity-50">
             <Button
               isLoading
@@ -104,7 +103,7 @@ const Dashboard = () => {
               Button
             </Button>
           </div>
-        )}
+        )} */}
       </>
     </Admin>
   );

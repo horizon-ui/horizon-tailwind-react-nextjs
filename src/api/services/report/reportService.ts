@@ -7,11 +7,7 @@ export const createReportService = async (
 };
 
 export const readReportService = async (): Promise<ReportDocument[]> => {
-  return await report
-    .find()
-    .populate('parameter')
-    .populate('sample')
-    .populate('diagnosedCondition');
+  return await report.find();
 };
 
 export const updateReportService = async (
