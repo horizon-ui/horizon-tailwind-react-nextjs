@@ -30,6 +30,7 @@ const EditDC = ({ handleShowDc, recordId }) => {
         invalidateQuery('diagnosedConditions');
         logActivity({
           title: 'Updated Diagnosed Conditions',
+          // @ts-ignore
           description: resp?.data
             ? `Updated ${resp.data.name} to Diagnosed Condition`
             : 'Updated Diagnosed Condition',

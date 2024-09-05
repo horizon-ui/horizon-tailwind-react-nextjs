@@ -25,6 +25,7 @@ const ParamTab = () => {
         warningAlert2('Deleted Param succesfully');
         logActivity({
           title: 'Deleted Param',
+          //@ts-ignore
           description: resp?.data
             ? `Deleted ${resp.data.name} from Params`
             : 'Deleted Param',

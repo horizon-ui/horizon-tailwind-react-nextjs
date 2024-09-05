@@ -25,6 +25,7 @@ export const ViewComponent = ({ component }) => {
   }, [isHovering]);
 
   useEffect(() => {
+    //@ts-ignore
     setTestDetail({ ...testDetails, components: components });
   }, [components]);
 

@@ -34,6 +34,7 @@ const RenderRanges = ({ data, onRemove }) => {
             key={index}
             actions={[
               <FaTrash
+                key={item?.name || index}
                 onClick={() => onRemove('basicRange', index)}
                 style={{ cursor: 'pointer' }}
               />,
@@ -65,9 +66,10 @@ const RenderRanges = ({ data, onRemove }) => {
             dataSource={data?.advanceRange?.ageRange}
             renderItem={(item, index) => (
               <List.Item
-                key={index}
+                key={item?.name || index}
                 actions={[
                   <FaTrash
+                    key={item?.name || index}
                     onClick={() => onRemove('ageRange', index)}
                     style={{ cursor: 'pointer' }}
                   />,
@@ -98,9 +100,10 @@ const RenderRanges = ({ data, onRemove }) => {
             dataSource={data.advanceRange.genderRange}
             renderItem={(item, index) => (
               <List.Item
-                key={index}
+                key={item?.name || index}
                 actions={[
                   <FaTrash
+                    key={item?.name || index}
                     onClick={() => onRemove('genderRange', index)}
                     style={{ cursor: 'pointer' }}
                   />,
@@ -130,9 +133,10 @@ const RenderRanges = ({ data, onRemove }) => {
             dataSource={data.advanceRange.customRange}
             renderItem={(item, index) => (
               <List.Item
-                key={index}
+                key={item?.name || index}
                 actions={[
                   <FaTrash
+                    key={item?.name || index}
                     onClick={() => onRemove('customRange', index)}
                     style={{ cursor: 'pointer' }}
                   />,

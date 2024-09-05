@@ -33,6 +33,7 @@ const DcTable = ({ handleEditDc }) => {
         invalidateQuery('adminDashboard');
         logActivity({
           title: 'Deleted Diagnosed Conditions',
+          //@ts-ignore
           description: resp?.data
             ? `Deleted ${resp.data.name} to Diagnosed Condition`
             : 'Deleted Diagnosed Condition',

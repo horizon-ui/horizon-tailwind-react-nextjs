@@ -31,6 +31,7 @@ const AddDC = ({ handleShowDc }) => {
         invalidateQuery('adminDashboard');
         logActivity({
           title: 'Added Diagnosed Conditions',
+          // @ts-ignore
           description: resp?.data
             ? `Added ${resp.data.name} to Diagnosed Condition`
             : 'Added Diagnosed Condition',

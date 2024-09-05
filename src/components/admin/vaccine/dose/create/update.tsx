@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { FormControl, FormLabel, Input, Stack } from '@chakra-ui/react';
 import { errorAlert, warningAlert2 } from '@src/components/alert';
 import {

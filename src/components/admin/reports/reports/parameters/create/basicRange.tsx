@@ -8,7 +8,7 @@ const BasicRangeInput = ({ form }) => {
       {(fields, { add, remove }) => (
         <>
           {fields.map(({ key, name, fieldKey, ...restField }) => (
-            <section className="flex">
+            <section className="flex" key={key}>
               <Form.Item
                 {...restField}
                 name={[name, 'unit']}

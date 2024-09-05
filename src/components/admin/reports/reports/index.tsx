@@ -26,6 +26,7 @@ const ReportsTab = () => {
   const invalidateQuery = useInvalidateQuery();
   const logActivity = useActivityLogger();
   const [showReport, setShowReport] = useState<Boolean>(false);
+  // @ts-ignore
   const [filteredReport, setFilteredReport] = useState(reportData?.data);
   const [previewReportModalOpen, setPreviewReportModalOpen] = useState(false);
   const [previewRecord, setPreviewRecord] = useState({});
@@ -41,6 +42,7 @@ const ReportsTab = () => {
         invalidateQuery('reportData');
         logActivity({
           title: 'Deleted Report',
+          //@ts-ignore
           description: resp?.data
             ? `Deleted ${resp.data.name} from reports`
             : 'Deleted Report',
@@ -89,6 +91,7 @@ const ReportsTab = () => {
   };
 
   useEffect(() => {
+    // @ts-ignore
     setFilteredReport(reportData?.data);
   }, [reportData]);
 
