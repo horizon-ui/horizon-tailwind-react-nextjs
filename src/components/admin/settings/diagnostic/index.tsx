@@ -68,7 +68,6 @@ const DiagnosticTab = () => {
 
   const handleChange = (key) => {
     setSelectedTab(key);
-    console.log(editorData);
   };
 
   const handleSave = () => {

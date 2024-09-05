@@ -68,7 +68,6 @@ const UserTab = () => {
 
   const handleChange = (key) => {
     setSelectedTab(key);
-    console.log(editorData);
   };
 
   const handleSave = () => {

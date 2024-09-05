@@ -82,7 +82,6 @@ const UpdateDose = ({ handleEditDose }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
     if (formData) {
       updateDose.mutate({ data: formData, recordId: dose?._id });
     }

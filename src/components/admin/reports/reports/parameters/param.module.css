@@ -1,0 +1,122 @@
+/* param.module.css */
+
+.componentGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.componentCard {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 16px;
+  position: relative;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+  cursor: pointer;
+}
+
+.componentCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.componentTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dynamicLabel {
+  background-color: #ff4d4f;
+  color: white;
+  padding: 0 8px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+}
+
+.iconButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #595959;
+  transition: color 0.3s;
+}
+
+.iconButton:hover {
+  color: #1890ff;
+}
+
+.componentActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.hoverBox {
+  width: 100%;
+  background-color: #fff;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  z-index: 1000;
+  max-height: 30vh;
+  overflow-y: auto;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(100%);
+  transition:
+    opacity 0.3s,
+    transform 0.3s,
+    visibility 0s linear 0.3s;
+}
+
+.hoverBox.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition:
+    opacity 0.3s,
+    transform 0.3s;
+}
+
+.hoverBox.hide {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(100%);
+  transition:
+    opacity 0.3s,
+    transform 0.3s,
+    visibility 0s linear 3s;
+}
+
+.hoverBox table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 16px;
+  background-color: #f9f9f9;
+}
+
+.hoverBox table th,
+.hoverBox table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.hoverBox table th {
+  background-color: #f1f1f1;
+  font-weight: bold;
+}
+
+.hoverBox table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.hoverBox table tr:hover {
+  background-color: #ddd;
+}

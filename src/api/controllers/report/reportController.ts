@@ -46,7 +46,7 @@ export const createReportController = async (
     };
 
     const reportResp = await createReportService(reportObj);
-    console.log(reportResp);
+
     if (!reportResp) {
       throw internalServerError('Error creating report');
     }

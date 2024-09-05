@@ -43,9 +43,7 @@ const DoseDurationTab = () => {
     },
   });
 
-  const handleEdit = (record: any) => {
-    console.log(record);
-  };
+  const handleEdit = (record: any) => {};
 
   const handleDelete = (record: any) => {
     if (record) {

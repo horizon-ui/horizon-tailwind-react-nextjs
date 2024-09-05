@@ -4,7 +4,6 @@ import {
   useGetReports,
   useInvalidateQuery,
 } from '@src/utils/reactQuery';
-import ReportsTable from '../utils/table';
 import { DataWithKeys, REPORTS_COLUMNS } from '../utils/columns';
 import { useEffect, useState } from 'react';
 import { errorAlert, warningAlert2 } from '@src/components/alert';
@@ -13,6 +12,14 @@ import { useActivityLogger } from '@src/components/logger';
 import { Switch } from 'antd';
 import SearchHeader from '../../adminUsers/userTable/header/search';
 import PreviewComponent from './view';
+import { AddTest } from './create';
+import ReportsTable from '../utils/table';
+import { useSetRecoilState } from 'recoil';
+import {
+  editTestIdState,
+  editTestState,
+  testDetailsState,
+} from '@src/utils/recoil/reports';
 
 const ReportsTab = () => {
   const { data: reportData, isLoading, refetch } = useGetReports();
@@ -22,6 +29,10 @@ const ReportsTab = () => {
   const [filteredReport, setFilteredReport] = useState(reportData?.data);
   const [previewReportModalOpen, setPreviewReportModalOpen] = useState(false);
   const [previewRecord, setPreviewRecord] = useState({});
+
+  const setTestDetail = useSetRecoilState(testDetailsState);
+  const setTestId = useSetRecoilState(editTestIdState);
+  const setEditTestState = useSetRecoilState(editTestState);
 
   const deleteReport = useDeleteReport({
     onSuccess: (resp: AxiosResponse) => {
@@ -43,7 +54,16 @@ const ReportsTab = () => {
   });
 
   const handleEdit = (record: any) => {
-    console.log(record);
+    if (record) {
+      setTestDetail(record);
+      setTestId(record?._id);
+      setShowReport(true);
+      setEditTestState(true);
+    }
+  };
+
+  const handleShowTest = (value: any) => {
+    setShowReport(value);
   };
 
   const handleDelete = (record: any) => {
@@ -83,14 +103,22 @@ const ReportsTab = () => {
         <div className="bg-black fixed inset-0 z-40 bg-opacity-50"></div>
       )}
 
-      <section className="relative z-10 flex justify-between">
-        <SearchHeader
-          //@ts-ignore
-          listData={reportData?.data || []}
-          filterCriteria={filterReport}
-          setFilteredList={setFilteredReport}
-          placeholderText="Search by name"
-        />
+      <section
+        className={
+          !showReport
+            ? 'relative z-10 flex justify-between'
+            : 'relative z-10 flex justify-end'
+        }
+      >
+        {!showReport && (
+          <SearchHeader
+            //@ts-ignore
+            listData={reportData?.data || []}
+            filterCriteria={filterReport}
+            setFilteredList={setFilteredReport}
+            placeholderText="Search by name"
+          />
+        )}
         <Switch
           onChange={(checked) => {
             setShowReport(checked);
@@ -102,7 +130,9 @@ const ReportsTab = () => {
       </section>
 
       {showReport ? (
-        <section>{/* <AddVaccine handleShowDc={handleShowDc} /> */}</section>
+        <section className="m-4 bg-white p-4">
+          <AddTest handleShowTest={handleShowTest} />
+        </section>
       ) : (
         <section>
           <ReportsTable

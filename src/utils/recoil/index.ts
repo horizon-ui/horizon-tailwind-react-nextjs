@@ -1,3 +1,6 @@
+import { useRecoilValue } from 'recoil';
+import { editTestIdState, editTestState, testDetailsState } from './reports';
+
 const { atom } = require('recoil');
 
 export const userListState = atom({
@@ -10,3 +13,7 @@ export const userListState = atom({
     },
   ],
 });
+
+export const useEditTestValues = () => useRecoilValue(editTestState);
+export const useTestDetailValue = () => useRecoilValue(testDetailsState);
+export const useEditTestIdValues = () => useRecoilValue(editTestIdState);

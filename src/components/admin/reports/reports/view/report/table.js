@@ -1,8 +1,6 @@
 import React from 'react';
 
 const LabReportTable = ({ report, isTest }) => {
-  console.log('LabReportTable', report);
-
   // Function to determine if value is out of range
   const isOutOfRange = (value, min, max) => {
     const numericValue = Number(value);
@@ -19,14 +17,14 @@ const LabReportTable = ({ report, isTest }) => {
         key={`${rangeType}-${range.min}-${range.max}`}
         className={isFirstSubRow ? '' : 'border-t-0'}
       >
-        <td className="p-2 text-md"></td> {/* Empty cell for alignment */}
-        <td className={`p-2 text-md ${outOfRangeStyle}`}>
+        <td className="text-md p-2"></td> {/* Empty cell for alignment */}
+        <td className={`text-md p-2 ${outOfRangeStyle}`}>
           {range?.value || 'N/A'}
         </td>
-        <td className="p-2 text-md">
+        <td className="text-md p-2">
           {range?.min} - {range?.max}
         </td>
-        <td className="p-2 text-md">{range?.unit || 'N/A'}</td>
+        <td className="text-md p-2">{range?.unit || 'N/A'}</td>
       </tr>
     );
   };
@@ -36,10 +34,10 @@ const LabReportTable = ({ report, isTest }) => {
       <table className="min-w-full border-collapse text-sm">
         <thead>
           <tr className="border-b">
-            <th className="text-left p-2">Investigation</th>
-            <th className="text-left p-2">Result</th>
-            <th className="text-left p-2">Reference Value</th>
-            <th className="text-left p-2">Unit</th>
+            <th className="p-2 text-left">Investigation</th>
+            <th className="p-2 text-left">Result</th>
+            <th className="p-2 text-left">Reference Value</th>
+            <th className="p-2 text-left">Unit</th>
           </tr>
         </thead>
         <tbody>
@@ -50,7 +48,7 @@ const LabReportTable = ({ report, isTest }) => {
             <React.Fragment key={paramIndex}>
               {/* Parameter Name Row */}
               <tr className="border-b text-left">
-                <td className="p-2 font-semibold text-md">{param?.name}</td>
+                <td className="text-md p-2 font-semibold">{param?.name}</td>
                 <td colSpan="3"></td> {/* Empty cells to align sub-rows */}
               </tr>
 
@@ -85,9 +83,9 @@ const LabReportTable = ({ report, isTest }) => {
       {/* Display additional components below the table */}
       {report.reportData?.parsedData.components?.length > 0 && (
         <div className="mt-6">
-          <h2 className="text-xl font-bold mb-3">Additional Components</h2>
+          <h2 className="mb-3 text-xl font-bold">Additional Components</h2>
           {report.reportData.parsedData.components.map((component, index) => (
-            <div key={index} className="border-t pt-4 mt-4">
+            <div key={index} className="mt-4 border-t pt-4">
               <h3 className="text-lg font-bold">{component.title}</h3>
               <div
                 className="ck-content"

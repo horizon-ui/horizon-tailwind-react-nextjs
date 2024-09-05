@@ -32,7 +32,7 @@ export const deleteParamtersApi = '/api/report/param/deleteParam/?id=';
 // Reports
 export const getReportsApi = '/api/report/report/readReport';
 export const createReportApi = '/api/report/report/createReport';
-export const updateReportApi = '/api/report//report/updateReport/?id=';
+export const updateReportApi = '/api/report/report/updateReport/?id=';
 export const deleteReportApi = '/api/report/report/deleteReport/?id=';
 
 // Vaccine
@@ -70,3 +70,9 @@ export const BASE_DC_REPORTS =
   process.env.NEXT_PUBLIC_BASE_DC_URL + '/reports/getReports';
 export const BASE_OMERALD_URL =
   process.env.NEXT_PUBLIC_BASE_OMERALD_URL + '/api/profile/getAllProfiles';
+
+export const diagBackendApiPath = process.env.NEXT_PUBLIC_BASE_DC_URL;
+
+export const componentImages =
+  diagBackendApiPath + 's3/diagnostic/componentImages';
+export const paramSearch = diagBackendApiPath + 'tests/searchTestParams/';

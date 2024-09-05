@@ -3,6 +3,7 @@ import {
   createDiagnosedConditionsApi,
   createDoseApi,
   createDoseDurationApi,
+  createReportApi,
   createUserApi,
   createVaccineApi,
   deleteDiagnosedConditionsApi,
@@ -29,6 +30,7 @@ import {
   updateDiagSettings,
   updateDoseApi,
   updateDoseDurationApi,
+  updateReportApi,
   updateUserApi,
   updateUserSettings,
   updateVaccineApi,
@@ -172,6 +174,12 @@ export function useCreateActivities<TData, TVariables>(
   return CreateMutation('post', createAdminActivitiessApi, props);
 }
 
+export function useCreateReport<TData, TVariables>(
+  props: UseMutationProps<TData, TVariables>,
+) {
+  return CreateMutation('post', createReportApi, props);
+}
+
 // Update call
 
 // Delete
@@ -232,6 +240,12 @@ export function useUpdateDiagSetting<TData, TVariables>(
   props: UseMutationProps<TData, TVariables>,
 ) {
   return UpdateMutation('put', updateDiagSettings, props);
+}
+
+export function useUpdateReport<TData, TVariables>(
+  props: UseMutationProps<TData, TVariables>,
+) {
+  return UpdateMutation('put', updateReportApi, props);
 }
 
 // Delete

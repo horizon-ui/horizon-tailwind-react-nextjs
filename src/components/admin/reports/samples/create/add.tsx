@@ -57,8 +57,6 @@ const AddSample = ({ handleShowSample }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Your form submit logic here
-    console.log(formData);
   };
 
   const handleCancel = () => {

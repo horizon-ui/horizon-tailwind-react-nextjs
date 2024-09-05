@@ -79,7 +79,6 @@ const AddDose = ({ handleShowDose }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
     if (formData) {
       createDose.mutate({ data: formData });
     }

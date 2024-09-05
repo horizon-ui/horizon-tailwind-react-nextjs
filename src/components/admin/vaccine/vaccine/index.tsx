@@ -44,9 +44,7 @@ const VaccineTab = () => {
     },
   });
 
-  const handleEdit = (record: any) => {
-    console.log(record);
-  };
+  const handleEdit = (record: any) => {};
 
   const handleDelete = (record: string) => {
     if (record) {

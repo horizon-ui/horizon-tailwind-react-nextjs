@@ -734,3 +734,159 @@ const getPopOvers = (param) => {
     </div>
   );
 };
+
+export const PARAMETER_COLUMNS = ({ handleEdit, handleDelete }) => [
+  {
+    title: 'Parameter',
+    dataIndex: 'name',
+    key: 'name',
+    ellipsis: true,
+    sorter: (a, b) => a.name.localeCompare(b.name),
+    render: (text) => (
+      <div
+        style={{
+          maxWidth: 100,
+          whiteSpace: 'nowrap',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+        }}
+        title={text}
+      >
+        {text}
+      </div>
+    ),
+  },
+  {
+    title: 'Description',
+    dataIndex: 'description',
+    key: 'description',
+    render: (text) => (
+      <div
+        style={{
+          maxWidth: 100,
+          whiteSpace: 'nowrap',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+        }}
+        title={text}
+      >
+        {text}
+      </div>
+    ),
+  },
+  {
+    title: 'Remedy',
+    dataIndex: 'remedy',
+    key: 'remedy',
+    render: (text) => (
+      <div
+        style={{
+          maxWidth: 100,
+          whiteSpace: 'nowrap',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+        }}
+        title={text}
+      >
+        {text}
+      </div>
+    ),
+  },
+  // {
+  //   title: "Unit",
+  //   dataIndex: "units",
+  //   key: "units",
+  //   width: 100,
+  //   render: (_, record) => (
+  //     <Popover title="Units" trigger="hover">
+  //       <div >
+  //         <ParameterUnitsColumn data={record} />
+  //       </div>
+  //     </Popover>
+  //   ),
+  // },
+  {
+    title: 'Alias',
+    dataIndex: 'aliases',
+    key: 'aliases',
+    render: (aliases = []) => {
+      const displayAliases = aliases.slice(0, 3);
+      const moreDots = aliases.length > 3;
+
+      return (
+        <Popover content={aliases.join(', ')} title="Aliases" trigger="hover">
+          <Space size={[0, 1]} wrap>
+            {displayAliases.map((alias) => (
+              <Tag color="geekblue" key={alias}>
+                {alias}
+              </Tag>
+            ))}
+            {moreDots && <Tag color="geekblue">...</Tag>}
+          </Space>
+        </Popover>
+      );
+    },
+  },
+  {
+    title: 'Bio Ref',
+    dataIndex: 'bioRefRange',
+    key: 'bioRefRange',
+    width: 100,
+    render: (bioRefRange = []) => {
+      // const displayBioRefRange = bioRefRange?.length>0 && bioRefRange?.slice(0, 3);
+      return (
+        <Popover
+          content={getContent(bioRefRange)}
+          title="Bio Ref Range Details"
+          trigger="hover"
+        >
+          <div
+            style={{
+              maxWidth: 130,
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+            }}
+          >
+            <Tag color="blue">Reference value</Tag>
+          </div>
+        </Popover>
+      );
+    },
+  },
+  {
+    title: 'Status',
+    dataIndex: 'isActive',
+    key: 'isActive',
+    filters: [
+      { text: 'Active', value: true },
+      { text: 'Inactive', value: false },
+    ],
+    onFilter: (value, record) => record.isActive === value,
+    render: (isActive) => (
+      <Tag color={isActive ? 'green' : 'red'}>
+        {isActive ? 'Active' : 'Inactive'}
+      </Tag>
+    ),
+  },
+  {
+    title: 'Action',
+    key: 'action',
+    render: (_, record) => (
+      <Space size="middle">
+        <a>
+          <FaEdit
+            className="text-red-gray"
+            onClick={() => handleEdit(record)}
+          />
+        </a>
+        <a>
+          <FaTrash
+            className="text-red-500"
+            onClick={() => handleDelete(record)}
+          />
+        </a>
+      </Space>
+    ),
+  },
+];
