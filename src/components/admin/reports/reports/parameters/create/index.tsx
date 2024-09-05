@@ -10,7 +10,7 @@ import {
   testDetailsState,
 } from '@src/utils/recoil/reports';
 import { errorAlert2 } from '@src/components/alert';
-import { paramSearch } from '@src/constants/api';
+import { searchParamApi } from '@src/constants/api';
 
 const AddParameters = ({ edit }) => {
   const [isModalVisible, setIsModalVisible] = useState(edit || false);
@@ -127,7 +127,9 @@ const ParamForm = ({ form, onParamSelect, isRangeTypeSectionVisible }) => {
 
   const fetchSearchResults = async (value) => {
     try {
-      const response = await axios.get(paramSearch, { params: { q: value } });
+      const response = await axios.get(searchParamApi, {
+        params: { q: value },
+      });
       const searchResults = response.data.map((result) => ({
         value: result.parameters[0].name,
         label: result.parameters[0].name,

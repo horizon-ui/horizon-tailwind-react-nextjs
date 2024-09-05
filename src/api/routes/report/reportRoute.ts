@@ -2,6 +2,7 @@ import {
   createReportController,
   deleteReportController,
   readAllReportController,
+  searchTestParams,
   updateReportController,
 } from '@src/api/controllers/report/reportController';
 import { apiHandlerWrapper } from '@src/api/utils/apiHandler';
@@ -51,7 +52,16 @@ const handleDeleteReport = async (
   }
 };
 
+const handleSearchParam = async (req: NextApiRequest, res: NextApiResponse) => {
+  if (req.method === 'GET') {
+    await searchTestParams(req, res);
+  } else {
+    res.status(405).json({ error: 'Method Not Allowed' });
+  }
+};
+
 export const readAllReportHandler = apiHandlerWrapper(handleReadAllReports);
 export const createReportHandler = apiHandlerWrapper(handleCreateAllReport);
 export const updateReportHandler = apiHandlerWrapper(handleUpdateReport);
 export const deleteReportHandler = apiHandlerWrapper(handleDeleteReport);
+export const searchParamHandler = apiHandlerWrapper(handleSearchParam);

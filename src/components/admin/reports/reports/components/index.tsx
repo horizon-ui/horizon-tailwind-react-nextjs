@@ -4,6 +4,7 @@ import { Modal, Form, Input, Switch, Upload, Button } from 'antd';
 import dynamic from 'next/dynamic';
 import { FaUpload } from 'react-icons/fa';
 import { componentImages } from '@src/constants/api';
+import { errorAlert, errorAlert2 } from '@src/components/alert';
 
 const CKEditorComponent = dynamic(() => import('./ckeditor'), {
   ssr: false,
@@ -78,8 +79,18 @@ const ComponentForm = ({ visible, onCreate, onCancel, initialValues }) => {
         form
           .validateFields()
           .then((values) => {
-            form.resetFields();
-            onCreate({ ...values, isDynamic, images: imageUrls });
+            console.log(values);
+            if (
+              !values.content ||
+              values.content == null ||
+              values.content == 'null'
+            ) {
+              errorAlert2('Content cannot be empty');
+              return;
+            } else {
+              form.resetFields();
+              onCreate({ ...values, isDynamic, images: imageUrls });
+            }
           })
           .catch((info) => {});
       }}

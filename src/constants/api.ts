@@ -34,6 +34,7 @@ export const getReportsApi = '/api/report/report/readReport';
 export const createReportApi = '/api/report/report/createReport';
 export const updateReportApi = '/api/report/report/updateReport/?id=';
 export const deleteReportApi = '/api/report/report/deleteReport/?id=';
+export const searchParamApi = '/api/report/report/searchParam/?q=';
 
 // Vaccine
 export const getVaccineApi = '/api/vaccine/readVaccines';
@@ -75,4 +76,3 @@ export const diagBackendApiPath = process.env.NEXT_PUBLIC_BASE_DC_URL;
 
 export const componentImages =
   diagBackendApiPath + 's3/diagnostic/componentImages';
-export const paramSearch = diagBackendApiPath + 'tests/searchTestParams/';

@@ -48,9 +48,9 @@ const CustomTestDetails: React.FC<any> = ({ handleNext }) => {
         parameters: testDetail?.parameters,
       });
     } else {
-      setTestDetail({});
+      // setTestDetail({});
     }
-  }, [editTestState, setTestDetail, testDetail]);
+  }, [editTestState, setTestDetail, testDetail]); // testDetail is part of the dependencies
 
   const handleChange = (
     event:

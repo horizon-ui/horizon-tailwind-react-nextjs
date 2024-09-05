@@ -23,6 +23,19 @@ export const deleteReportService = async (
   return await report.findByIdAndDelete(id);
 };
 
+export const searchReportParamService = async (
+  keyword,
+): Promise<ReportDocument[]> => {
+  return await report.find(
+    {
+      'parameters.name': { $regex: keyword, $options: 'i' }, // Case-insensitive search
+    },
+    {
+      'parameters.$': 1, // Return only matching parameter
+    },
+  );
+};
+
 export const getReportCountService = async (): Promise<number> => {
   try {
     const count = await report.countDocuments();

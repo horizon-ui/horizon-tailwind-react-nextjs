@@ -111,7 +111,7 @@ export default function TestSummary({ handlePrevious, handleShowTest }) {
       </Button>
       {isLoading && (
         <div className="fixed left-0 top-0 flex h-full w-full items-center justify-center bg-gray-500 bg-opacity-50">
-          <Button type="dashed">Button</Button>
+          <Button type="dashed">Loading..</Button>
         </div>
       )}
     </div>

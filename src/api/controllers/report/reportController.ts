@@ -3,6 +3,7 @@ import {
   createReportService,
   deleteReportService,
   readReportService,
+  searchReportParamService,
   updateReportService,
 } from '@src/api/services/report/reportService';
 import {
@@ -96,5 +97,24 @@ export const deleteReportController = async (
     res.status(200).json(report);
   } catch (error) {
     throw internalServerError('Error deleting vacccine');
+  }
+};
+
+export const searchTestParams = async (req, res) => {
+  try {
+    const keyword = req.query.q;
+    if (!keyword) {
+      return res.status(400).json({ error: 'Keyword is required' });
+    }
+
+    const report = await searchReportParamService(keyword);
+
+    if (!report) {
+      internalServerError('Error deleting vacccine');
+    }
+    res.status(200).json(report);
+  } catch (error) {
+    console.error('Error searching parameters:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 };
