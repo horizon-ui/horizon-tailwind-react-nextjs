@@ -17,7 +17,7 @@ const routes = [
     icon: <MdHome className="h-6 w-6" />,
   },
   {
-    name: 'Diganosed Conditions',
+    name: 'Diagnosed Conditions',
     layout: '/dashboard',
     path: 'diagnosedConditions',
     icon: <MdHealing className="h-6 w-6" />,

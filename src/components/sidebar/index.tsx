@@ -7,22 +7,9 @@ import { IRoute } from '@src/types/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { PRODUCT_NAME } from '@src/constants/meta';
-import { useEffect } from 'react';
-import { useRouter } from 'next/router';
 
 function SidebarHorizon(props: { routes: IRoute[]; [x: string]: any }) {
   const { routes, open, setOpen } = props;
-  const router = useRouter();
-
-  useEffect(() => {
-    // Prefetch important pages
-    router.prefetch('/dashboard/default');
-    router.prefetch('/dashboard/diagnosedConditions');
-    router.prefetch('/dashboard/reports');
-    router.prefetch('/dashboard/vaccine');
-    router.prefetch('/dashboard/settings');
-    router.prefetch('/dashboard/adminUsers');
-  }, [router]);
 
   return (
     <div

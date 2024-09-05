@@ -2,7 +2,9 @@
 
 import {
   useDeleteDose,
+  useGetDoseDuration,
   useGetDoses,
+  useGetVaccine,
   useInvalidateQuery,
 } from '@src/utils/reactQuery';
 import ReportsTable from '../../reports/utils/table';
@@ -17,9 +19,12 @@ import AddDose from './create/add';
 import UpdateDose from './create/update';
 import { useSetRecoilState } from 'recoil';
 import { doseState } from '@src/utils/recoil/vaccine';
+import { VaccineDoseTable } from './table';
 
 const DosesTab = () => {
   const { data: doseData, isLoading, refetch } = useGetDoses();
+  const { data: doseDurationData } = useGetDoseDuration();
+  const { data: vaccineData } = useGetVaccine();
   const invalidateQuery = useInvalidateQuery();
   const logActivity = useActivityLogger();
   const [showDose, setDose] = useState<boolean>(false);
@@ -75,7 +80,12 @@ const DosesTab = () => {
 
   return (
     <div className="my-8">
-      <section className="flex justify-end">
+      <section className="flex justify-between">
+        <VaccineDoseTable
+          doseData={dataSourceWithKeys}
+          durationList={doseDurationData?.data}
+          vaccineList={vaccineData?.data}
+        />
         <Switch
           onChange={(checked) => {
             handleShowDose(checked);

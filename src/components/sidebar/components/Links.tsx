@@ -1,19 +1,30 @@
 /* eslint-disable */
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useCallback } from 'react';
 import { usePathname } from 'next/navigation';
 import DashIcon from '@component/icons/DashIcon';
 
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 export const SidebarLinks = (props: { routes: RoutesType[] }): JSX.Element => {
   const pathname = usePathname();
+  const router = useRouter();
   const { routes } = props;
 
   const activeRoute = useCallback(
     (routeName: string) => pathname?.includes(routeName),
     [pathname],
   );
+
+  useEffect(() => {
+    router.prefetch('/dashboard/default');
+    router.prefetch('/dashboard/diagnosedConditions');
+    router.prefetch('/dashboard/reports');
+    router.prefetch('/dashboard/vaccine');
+    router.prefetch('/dashboard/settings');
+    router.prefetch('/dashboard/adminUsers');
+  }, [router]);
 
   const createLinks = useMemo(() => {
     return routes.map((route) => (
