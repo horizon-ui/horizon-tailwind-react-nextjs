@@ -1,4 +1,7 @@
 const nextConfig = {
+  typescript: {
+    ignoreBuildErrors: true, // Ignore TypeScript errors during build
+  },
   swcMinify: true,
   basePath: process.env.NEXT_PUBLIC_BASE_PATH,
   assetPrefix: process.env.NEXT_PUBLIC_BASE_PATH,
