@@ -3,14 +3,27 @@
 import { HiX } from 'react-icons/hi';
 import Links from './components/Links';
 
-import SidebarCard from '@component/sidebar/components/SidebarCard';
 import { IRoute } from '@src/types/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { PRODUCT_NAME } from '@src/constants/meta';
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 function SidebarHorizon(props: { routes: IRoute[]; [x: string]: any }) {
   const { routes, open, setOpen } = props;
+  const router = useRouter();
+
+  useEffect(() => {
+    // Prefetch important pages
+    router.prefetch('/dashboard/default');
+    router.prefetch('/dashboard/diagnosedConditions');
+    router.prefetch('/dashboard/reports');
+    router.prefetch('/dashboard/vaccine');
+    router.prefetch('/dashboard/settings');
+    router.prefetch('/dashboard/adminUsers');
+  }, [router]);
+
   return (
     <div
       className={`sm:none duration-175 linear fixed !z-50 flex min-h-full flex-col bg-white pb-10 shadow-2xl shadow-white/5 transition-all dark:!bg-navy-800 dark:text-white md:!z-50 lg:!z-50 xl:!z-0 ${
