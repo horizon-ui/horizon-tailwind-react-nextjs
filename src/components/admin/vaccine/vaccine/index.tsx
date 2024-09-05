@@ -11,15 +11,20 @@ import { DataWithKeys } from '../../reports/utils/columns';
 import { AxiosResponse } from 'axios';
 import { errorAlert, warningAlert2 } from '@src/components/alert';
 import AddVaccine from './create/add';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Switch } from 'antd';
 import { useActivityLogger } from '@src/components/logger';
+import SearchHeader from '../../adminUsers/userTable/header/search';
 
 const VaccineTab = () => {
   const [showVaccine, setShowVaccine] = useState<boolean>(false);
   const { data: vaccineData, isLoading, refetch } = useGetVaccine();
   const invalidateQuery = useInvalidateQuery();
   const logActivity = useActivityLogger();
+  const [filteredVaccine, setFilteredVaccine] = useState(
+    //@ts-ignore
+    vaccineData?.data || [],
+  );
 
   const deleteMutation = useDeleteVaccine({
     onSuccess: (resp: AxiosResponse) => {
@@ -54,16 +59,35 @@ const VaccineTab = () => {
   // }, [refetch]);
 
   //@ts-ignore
-  const dataSourceWithKeys = DataWithKeys(vaccineData?.data);
+  const dataSourceWithKeys = DataWithKeys(filteredVaccine);
   const columns = VACCINE_COLUMNS({ handleEdit, handleDelete });
 
   const handleShowDc = (value: boolean) => {
     setShowVaccine(value);
   };
 
+  const filterVaccine = (vaccine, searchTerm) => {
+    return vaccine.name?.toLowerCase().includes(searchTerm.toLowerCase());
+  };
+
+  useEffect(() => {
+    //@ts-ignore
+    if (vaccineData?.data) {
+      //@ts-ignore
+      setFilteredVaccine(vaccineData.data);
+    }
+  }, [vaccineData]);
+
   return (
     <div className="my-8">
-      <section className="flex justify-end">
+      <section className="flex justify-between">
+        <SearchHeader
+          //@ts-ignore
+          listData={vaccineData?.data || []}
+          filterCriteria={filterVaccine}
+          setFilteredList={setFilteredVaccine}
+          placeholderText="Search by name"
+        />
         <Switch
           onChange={(checked) => {
             handleShowDc(checked);

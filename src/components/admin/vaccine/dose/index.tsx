@@ -20,6 +20,7 @@ import UpdateDose from './create/update';
 import { useSetRecoilState } from 'recoil';
 import { doseState } from '@src/utils/recoil/vaccine';
 import { VaccineDoseTable } from './table';
+import SearchHeader from '../../adminUsers/userTable/header/search';
 
 const DosesTab = () => {
   const { data: doseData, isLoading, refetch } = useGetDoses();
@@ -30,6 +31,8 @@ const DosesTab = () => {
   const [showDose, setDose] = useState<boolean>(false);
   const [editDose, setEditDose] = useState<boolean>(false);
   const setDoseRecoil = useSetRecoilState(doseState);
+  //@ts-ignore
+  const [filterdDose, setFilteredDose] = useState(doseData?.data || []);
 
   const deleteMutation = useDeleteDose({
     onSuccess: (resp: AxiosResponse) => {
@@ -75,25 +78,48 @@ const DosesTab = () => {
   }, [refetch]);
 
   //@ts-ignore
-  const dataSourceWithKeys = DataWithKeys(doseData?.data);
+  const dataSourceWithKeys = DataWithKeys(filterdDose);
   const columns = VACCINE_DOSE_COLUMNS({ handleEdit, handleDelete });
+
+  const filteredDose = (vaccine, searchTerm) => {
+    return vaccine.name?.toLowerCase().includes(searchTerm.toLowerCase());
+  };
+
+  useEffect(() => {
+    //@ts-ignore
+    if (doseData?.data) {
+      //@ts-ignore
+      setFilteredDose(doseData.data);
+    }
+  }, [doseData]);
 
   return (
     <div className="my-8">
       <section className="flex justify-between">
-        <VaccineDoseTable
-          doseData={dataSourceWithKeys}
-          durationList={doseDurationData?.data}
-          vaccineList={vaccineData?.data}
+        <SearchHeader
+          //@ts-ignore
+          listData={doseData?.data || []}
+          filterCriteria={filteredDose}
+          setFilteredList={setFilteredDose}
+          placeholderText="Search by name"
         />
-        <Switch
-          onChange={(checked) => {
-            handleShowDose(checked);
-          }}
-          value={showDose}
-          checkedChildren={'Add'}
-          unCheckedChildren={'View'}
-        />
+        <span className="flex gap-2">
+          <VaccineDoseTable
+            doseData={dataSourceWithKeys}
+            //@ts-ignore
+            durationList={doseDurationData?.data}
+            //@ts-ignore
+            vaccineList={vaccineData?.data}
+          />
+          <Switch
+            onChange={(checked) => {
+              handleShowDose(checked);
+            }}
+            value={showDose}
+            checkedChildren={'Add'}
+            unCheckedChildren={'View'}
+          />
+        </span>
       </section>
 
       {!showDose ? (
