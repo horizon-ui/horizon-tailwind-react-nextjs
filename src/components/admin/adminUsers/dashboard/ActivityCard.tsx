@@ -15,6 +15,7 @@ import {
 } from '@tanstack/react-table';
 import Link from 'next/link';
 import { ADMIN_ACTIVITY_RESP } from '@src/variables/data-tables/tableDataDevelopment';
+import { useGetActivities } from '@src/utils/reactQuery';
 
 type activityObj = {
   description: string;
@@ -34,11 +35,10 @@ export const formatDate = (timestamp) => {
 };
 
 // const columns = columnsDataCheck;
-export default function ActivityTable(props: { tableData: any }) {
-  const { tableData } = props;
-
+export default function ActivityTable() {
+  const { data: activities } = useGetActivities();
   const [sorting, setSorting] = React.useState<SortingState>([]);
-  let defaultData = tableData;
+  let defaultData = activities?.data || [];
   const columns = [
     //@ts-ignore
     columnHelper.accessor('title', {

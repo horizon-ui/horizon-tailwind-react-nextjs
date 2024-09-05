@@ -4,16 +4,16 @@ import { getReportCountService } from '../services/report/reportService';
 import { getVaccineService } from '../services/vaccine/vaccineService';
 import { getDcCountService } from '../services/diagnosedConditionService';
 import { fetchDiagnosedData } from '../services/commonService';
-import {
-  BASE_DC_REPORTS,
-  BASE_DC_URL,
-  BASE_OMERALD_URL,
-} from '@src/constants/api';
 import { getAdminCountService } from '../services/userService';
 import { getDoseCountService } from '../services/vaccine/doseService';
 import { getDurationCountService } from '../services/vaccine/durationService';
 import { getParameterCountService } from '../services/report/parameterService';
 import { getSampleCountService } from '../services/report/sampleService';
+import {
+  BASE_DC_URL,
+  BASE_OMERALD_URL,
+  BASE_DC_REPORTS,
+} from '@src/constants/api';
 
 /**
  * Controller function to handle fetching dashboard data
@@ -21,66 +21,62 @@ import { getSampleCountService } from '../services/report/sampleService';
  * @param res Next.js API response object
  */
 export const readDashboardController = async (
-  _req: NextApiRequest,
+  req: NextApiRequest,
   res: NextApiResponse,
 ) => {
   try {
-    // Parallelizing data fetching for faster response times
-    const [
-      reportCount,
+    // Fetch essential data first
+    const [reportCount, vaccineCount, adminCount, diagnosedConditionCount] =
+      await Promise.all([
+        getReportCountService(),
+        getVaccineService(),
+        getAdminCountService(),
+        getDcCountService(),
+      ]);
+
+    // Send partial data to the client first
+    const cardData = {
       vaccineCount,
+      reportCount,
+      diagnosedConditionCount,
       adminCount,
+    };
+
+    // Immediately send initial data to client
+    res.status(200).json({ cardData });
+
+    // Now fetch the remaining data asynchronously
+    const [
       doseCount,
       parameterCount,
       durationCount,
       sampleCount,
-      diagnosedConditionCount,
       activities,
       dcData,
       omeraldData,
       dcReports,
     ] = await Promise.all([
-      getReportCountService(),
-      getVaccineService(),
-      getAdminCountService(),
       getDoseCountService(),
       getParameterCountService(),
       getDurationCountService(),
       getSampleCountService(),
-      getDcCountService(),
       getAllActivity(),
       fetchDiagnosedData(BASE_DC_URL),
       fetchDiagnosedData(BASE_OMERALD_URL),
       fetchDiagnosedData(BASE_DC_REPORTS),
     ]);
 
-    // Aggregating data more efficiently
-    const dc = dcData?.find((dc) => dc != null);
-
+    // Aggregating additional data for the full response
     const totalTests =
-      dc?.branches?.reduce(
-        (total, branch) => total + (branch.tests?.length || 0),
+      dcData?.reduce(
+        (total, dc) =>
+          total +
+          dc.branches.reduce(
+            (sum, branch) => sum + (branch.tests?.length || 0),
+            0,
+          ),
         0,
       ) || 0;
-
-    const cardData = {
-      dcUsers: dcData?.length || 0,
-      userCount: omeraldData?.length || 0,
-      vaccineCount,
-      reportCount,
-      diagnosedConditionCount,
-    };
-
-    const lineCharts = {
-      userCounts: {
-        dcUsers: getCountByMonth(dcData),
-        omeraldUsers: getCountByMonth(omeraldData),
-      },
-      dcAssetCount: {
-        dcReports: getCountByMonth(dcReports),
-        dcTests: getCountByMonth([{ createdDate: new Date() }]), // This is a placeholder for better optimization
-      },
-    };
 
     const donutChart = {
       users: {
@@ -103,14 +99,19 @@ export const readDashboardController = async (
       },
     };
 
-    const aggregatedResponse = {
-      cardData,
-      activities,
-      lineCharts,
-      donutChart,
+    const lineCharts = {
+      userCounts: {
+        dcUsers: getCountByMonth(dcData),
+        omeraldUsers: getCountByMonth(omeraldData),
+      },
+      dcAssetCount: {
+        dcReports: getCountByMonth(dcReports),
+        dcTests: getCountByMonth([{ createdDate: new Date() }]),
+      },
     };
 
-    res.status(200).json(aggregatedResponse);
+    // Send the remaining data as a separate response
+    res.status(200).json({ activities, lineCharts, donutChart });
   } catch (error) {
     console.error('Error creating dashboard data:', error);
     res.status(500).json({ error: 'Failed to fetch data: ' + error.message });
