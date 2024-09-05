@@ -25,7 +25,7 @@ const ReportsTab = () => {
   const { data: reportData, isLoading, refetch } = useGetReports();
   const invalidateQuery = useInvalidateQuery();
   const logActivity = useActivityLogger();
-  const [showReport, setShowReport] = useState<Boolean>(false);
+  const [showReport, setShowReport] = useState<boolean>(false);
   // @ts-ignore
   const [filteredReport, setFilteredReport] = useState(reportData?.data);
   const [previewReportModalOpen, setPreviewReportModalOpen] = useState(false);

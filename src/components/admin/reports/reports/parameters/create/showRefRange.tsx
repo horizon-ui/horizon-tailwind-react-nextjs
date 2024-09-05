@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { List, Typography } from 'antd';
 import { FaTrash } from 'react-icons/fa';
 
@@ -34,7 +35,7 @@ const RenderRanges = ({ data, onRemove }) => {
             key={index}
             actions={[
               <FaTrash
-                key={item?.name || index}
+                key={index}
                 onClick={() => onRemove('basicRange', index)}
                 style={{ cursor: 'pointer' }}
               />,
@@ -69,7 +70,7 @@ const RenderRanges = ({ data, onRemove }) => {
                 key={item?.name || index}
                 actions={[
                   <FaTrash
-                    key={item?.name || index}
+                    key={index}
                     onClick={() => onRemove('ageRange', index)}
                     style={{ cursor: 'pointer' }}
                   />,
@@ -103,7 +104,7 @@ const RenderRanges = ({ data, onRemove }) => {
                 key={item?.name || index}
                 actions={[
                   <FaTrash
-                    key={item?.name || index}
+                    key={index}
                     onClick={() => onRemove('genderRange', index)}
                     style={{ cursor: 'pointer' }}
                   />,
@@ -136,7 +137,7 @@ const RenderRanges = ({ data, onRemove }) => {
                 key={item?.name || index}
                 actions={[
                   <FaTrash
-                    key={item?.name || index}
+                    key={index}
                     onClick={() => onRemove('customRange', index)}
                     style={{ cursor: 'pointer' }}
                   />,

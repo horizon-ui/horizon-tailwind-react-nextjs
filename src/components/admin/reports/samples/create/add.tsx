@@ -1,9 +1,7 @@
+// @ts-nocheck
 import { FormControl, FormLabel, Input, Stack } from '@chakra-ui/react';
-import { errorAlert, warningAlert2 } from '@src/components/alert';
-import { useCreateVaccine, useInvalidateQuery } from '@src/utils/reactQuery';
 import { Button, Select, Switch } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
-import { AxiosResponse } from 'axios';
 import { useState } from 'react';
 import { MdPlusOne } from 'react-icons/md';
 

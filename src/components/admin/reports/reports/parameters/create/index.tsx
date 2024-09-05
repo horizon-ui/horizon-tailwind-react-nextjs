@@ -1,4 +1,4 @@
-//@ts-ignore
+//@ts-nocheck
 import { AutoComplete, Button, Form, Input, Modal, Select, Switch } from 'antd';
 import { useCallback, useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';

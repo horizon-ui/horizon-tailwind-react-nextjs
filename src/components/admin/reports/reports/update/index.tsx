@@ -2,9 +2,10 @@ import { Steps } from 'antd';
 import { useState } from 'react';
 import { ParameterComp } from '../parameters';
 import TestSummary from '../summary';
-import TestDetailTab from '../create/create/testDetail';
-import { testDetailsState } from '@components/common/recoil/testDetails';
+
 import { useRecoilState } from 'recoil';
+import { testDetailsState } from '@src/utils/recoil/reports';
+import TestDetailTab from '../create/testDetail';
 
 export const UpdateTest = ({ handleShowTest }) => {
   const [currentStep, setStep] = useState(0);

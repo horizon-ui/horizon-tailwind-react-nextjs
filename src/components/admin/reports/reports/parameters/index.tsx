@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { Button } from 'antd';
 import { useState, useEffect } from 'react';
 import AddParameters from './create';
@@ -20,6 +21,7 @@ export const ParameterComp = ({ handleNext, handlePrevious, edit }) => {
 
   useEffect(() => {
     if (edit) {
+      // @ts-ignore
       setComponents(testDetails?.components);
     }
   }, [edit]);

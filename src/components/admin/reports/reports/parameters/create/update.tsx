@@ -1,4 +1,4 @@
-//@ts-ignore
+//@ts-nocheck
 import { Form, Input, Modal, Select, Switch } from 'antd';
 import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';

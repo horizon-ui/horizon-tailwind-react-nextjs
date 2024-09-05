@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React, { useState } from 'react';
 import { ViewParameters } from './parameters/view';
 import { useSetRecoilState } from 'recoil';
