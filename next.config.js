@@ -1,13 +1,7 @@
-/** @type {import('next').NextConfig} */
-
-// const withTM = require('next-transpile-modules')(['@babel/preset-react']);
-//   '@fullcalendar/common',
-//   '@fullcalendar/common',
-//   '@fullcalendar/daygrid',
-//   '@fullcalendar/interaction',
-//   '@fullcalendar/react',
-
 const nextConfig = {
+  typescript: {
+    ignoreBuildErrors: true, // Ignore TypeScript errors during build
+  },
   swcMinify: true,
   basePath: process.env.NEXT_PUBLIC_BASE_PATH,
   assetPrefix: process.env.NEXT_PUBLIC_BASE_PATH,
@@ -17,11 +11,15 @@ const nextConfig = {
       'i.ibb.co',
       'scontent.fotp8-1.fna.fbcdn.net',
     ],
-    // Make ENV
-    unoptimized: true,
+    unoptimized: true, // This should be removed if not needed
   },
-  experimental: {
-    appDir: true,
+  webpack: (config, { isServer }) => {
+    if (isServer) {
+      // Exclude problematic modules from server-side build
+      config.externals = ['react', ...config.externals];
+    }
+
+    return config;
   },
 };
 

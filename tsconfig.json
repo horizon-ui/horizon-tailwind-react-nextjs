@@ -19,9 +19,16 @@
     "noImplicitThis": true,
     "strictNullChecks": false,
     "downlevelIteration": true,
-    "baseUrl": "src",
+    "baseUrl": ".",
     "paths": {
-      "@/public/*": ["./src/assets/public/*"]
+      "@src/*": ["src/*"],
+      "@component/*": ["src/components/*"],
+      "@constants/*": ["src/constants/*"],
+      "@layouts/*": ["src/layouts/*"],
+      "@utils/*": ["src/utils/*"],
+      "@styles/*": ["src/styles/*"],
+      "@variables/*": ["src/variables/*"],
+      "@public/*": ["public/*"]
     },
     "incremental": true,
     "plugins": [

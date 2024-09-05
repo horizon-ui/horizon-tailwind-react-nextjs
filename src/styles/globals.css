@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+.gradient-body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
+body {
+  margin: 0;
+  line-height: inherit;
+}
+
+.cl-internal-180wb59,
+.cl-internal-11ttlho {
+  display: none;
+}
+
+/* styles.css */
+.custom-table .ant-table {
+  background-color: white;
+}
+
+.custom-table .ant-table-thead > tr > th {
+  background-color: white; /* Header background color */
+}
+
+.custom-table .ant-table-tbody > tr > td {
+  background-color: white; /* Body cells background color */
+}
+
+.editor-container .ck-editor__editable_inline {
+  min-height: 400px; /* Adjust the height as needed */
+}
